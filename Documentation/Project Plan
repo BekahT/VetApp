@@ -1,0 +1,16 @@
+Requirements:
+User can create/edit/delete client entries
+	- Clients table: id, first_name, last_name, phone, email
+User can create/edit/delete pet entries
+	- Pets table: id, name, type, gender, age, client_id (fk to Clients)
+User can create/edit/delete appointments
+	- Appointments table: id, date/time, client_id (fk to Clients), pet_id (fk to Pets), reason
+
+Constraints:
+- Clients can have multiple pets but pets can only have one owner.
+- Validate phone and email in Clients table to match regex or display error
+- In Pets table: type should be an enum of Species; gender can only be F, M, FS, or MN; age must be greater than 0
+- Appointments cannot be made in the past. (Should we say only one appointment per hour or so and compare to existing appointments in the db or should we assume multiple doctors seeing patients?)
+
+Stretch goals?
+User can create/edit/download (not delete) medical records for pets 
