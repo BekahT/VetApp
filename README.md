@@ -19,7 +19,7 @@
   - Responsible for: User experience objectives, testing, and training manual
   
 # Application:
-The application is a JavaFX desktop application to be used in a vetrenarian's office for tracking clients, pets, and appointments.
+The application is a JavaFX desktop application to be used in a veterinarian's office for tracking clients, pets, and appointments.
   
 ## Phase I Functionality
 - Database connection
