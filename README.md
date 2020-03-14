@@ -18,29 +18,29 @@
 - User Experience / Training Manager: Mia Bae
   - Responsible for: User experience objectives, testing, and training manual
   
-  # Application:
-  The application is a JavaFX desktop application to be used in a vetrenarian's office for tracking clients, pets, and appointments.
+# Application:
+The application is a JavaFX desktop application to be used in a vetrenarian's office for tracking clients, pets, and appointments.
   
-  ## Phase I Functionality
-  - Database connection
-  - Login / Logout
-  - Add clients
-  - Edit clients
-  - Delete clients
-  - Add pets 
-  - Edit pets
-  - Delete pets
+## Phase I Functionality
+- Database connection
+- Login / Logout
+- Add clients
+- Edit clients
+- Delete clients
+- Add pets 
+- Edit pets
+- Delete pets
   
-  ## Phase II Functionality
-  - Create appointment
-  - View appointment
-  - Edit/Reschedule appointment
-  - Delete/cancel appointment
+## Phase II Functionality
+- Create appointment
+- View appointment
+- Edit/Reschedule appointment
+- Delete/cancel appointment
   
-  ## Phase III Functionality
-  - Add pet record
-  - Search for pet record
-  - View pet record
-  - Download pet record
-  - Edit pet record
-  - Delete pet record
+## Phase III Functionality
+- Add pet record
+- Search for pet record
+- View pet record
+- Download pet record
+- Edit pet record
+- Delete pet record
