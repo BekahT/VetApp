@@ -25,22 +25,25 @@ The application is a JavaFX desktop application to be used in a vetrenarian's of
 - Database connection
 - Login / Logout
 - Add clients
-- Edit clients
-- Delete clients
-- Add pets 
-- Edit pets
-- Delete pets
+- *Stretch* Edit clients
+- *Stretch* Delete clients
   
 ## Phase II Functionality
-- Create appointment
-- View appointment
-- Edit/Reschedule appointment
-- Delete/cancel appointment
+- Add pets 
+- Associate pets with clients
+- *Stretch* Edit pets
+- *Stretch* Delete pets
   
 ## Phase III Functionality
+- Create appointment
+- View appointment
+- *Stretch* Edit/Reschedule appointment
+- *Stretch* Delete/cancel appointment
+
+## Phase IV (Final) Functionality
 - Add pet record
-- Search for pet record
 - View pet record
-- Download pet record
 - Edit pet record
 - Delete pet record
+- *Stretch* Search for pet record
+- *Stretch* Download pet record
