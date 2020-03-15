@@ -5,13 +5,14 @@
 - Mia Bae
 - Nour Debait
 - Crystal Cleaveland
+- Brian Rease
 
 # Project Roles:
 - Project Manager: Rebekah Qu
   - Responsible for: Project charter, project plan, schedules, peer reviews
 - Test Director: Crystal Cleaveland
   - Responsible for: Test plan, test scripts/steps, acceptance testing, defect handling
-- Software Designer / Engineer: Nour Debiat (primary), other members (secondary)
+- Software Designer / Engineer: Nour Debiat and Brian Rease
   - Responsible for: Preliminary and design details, software architecture, and components
 - Requirements Manager / Technical Writer: Rebekah Qu
   - Responsible for: High level and detailed requirements, RVTM
