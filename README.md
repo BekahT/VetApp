@@ -41,9 +41,9 @@ The application is a JavaFX desktop application to be used in a veterinarian's o
 - Edit/Reschedule appointment
 - Delete/cancel appointment
 
-## Phase IV (Final) Functionality
-- *Stretch* Add pet record
-- *Stretch* View pet record
-- *Stretch* Edit pet record
-- *Stretch* Search for pet record
-- *Stretch* Download pet record
+## Stretch Functionality
+- Add pet record
+- View pet record
+- Edit pet record
+- Search for pet record
+- Download pet record
