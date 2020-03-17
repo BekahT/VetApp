@@ -3,7 +3,7 @@
 # Project Members:
 - Rebekah Qu
 - Mia Bae
-- Nour Debait
+- Nour Debiat
 - Crystal Cleaveland
 - Brian Rease
 
