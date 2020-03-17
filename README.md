@@ -20,7 +20,7 @@
   - Responsible for: User experience objectives, testing, and training manual
   
 # Application:
-The application is a JavaFX desktop application to be used in a veterinarian's office for managing clients, pets, and appointments. Our team's stretch goal is to add functionality for pet records. 
+The application is a Java desktop application to be used in a veterinarian's office for managing clients, pets, and appointments. Our team's stretch goal is to include functionality for pet records. 
   
 ## Phase I Functionality
 - Database connection
