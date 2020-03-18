@@ -47,5 +47,6 @@ The application is a Java desktop application to be used in a veterinarian's off
 - Associate pet record with pet
 - View pet record
 - Edit pet record
+- Delete pet record.
 - Search for pet record
 - Download pet record
