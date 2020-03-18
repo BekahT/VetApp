@@ -1,4 +1,4 @@
-# VetApp
+# Vet Portal
 
 # Project Members:
 - Rebekah Qu
