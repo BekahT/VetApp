@@ -37,6 +37,8 @@ The application is a Java desktop application to be used in a veterinarian's off
   
 ## Phase III Functionality
 - Create appointment
+- Associate client with appointment
+- Associate pet with appointment
 - View appointment
 - Edit/Reschedule appointment
 - Delete/cancel appointment
