@@ -17,7 +17,7 @@
 - Requirements Manager / Technical Writer: Rebekah Qu
   - Responsible for: High level and detailed requirements, RVTM
 - User Experience / Training Manager: Mia Bae
-  - Responsible for: User experience objectives, testing, and training manual
+  - Responsible for: User experience objectives, user guide/training manual
   
 # Application:
 The application is a Java desktop application to be used in a veterinarian's office for managing clients, pets, and appointments. Our team's stretch goal is to include functionality for pet records. 
