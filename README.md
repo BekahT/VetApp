@@ -30,7 +30,7 @@ The application is a Java application to be used in a veterinarian's office for 
 - Add clients
 - Edit clients
 - Delete clients
-- *stretch* Search for clients
+- View clients
 - *stretch* Log client addition, edit, and delete
 - *stretch* 2-Factor Authentication
   
@@ -39,7 +39,9 @@ The application is a Java application to be used in a veterinarian's office for 
 - Associate pets with clients
 - Edit pets
 - Delete pets
-- *stretch* Search for pets
+- View pets
+- Search for clients
+- Search for pets
 - *stretch* Log pet addition, edit, and delete
   
 ## Phase III Functionality
@@ -48,7 +50,7 @@ The application is a Java application to be used in a veterinarian's office for 
 - View appointment
 - Edit/Reschedule appointment
 - Delete/cancel appointment
-- *stretch* Search for appointments
+- Search for appointments
 - *stretch* Log appointment creation, edit, and delete
 
 ## Stretch Functionality
@@ -56,6 +58,6 @@ The application is a Java application to be used in a veterinarian's office for 
 - Associate pet record with pet
 - View pet record
 - Edit pet record
-- Delete pet record.
+- Delete pet record
 - Search for pet record
 - Download pet record
