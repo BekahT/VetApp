@@ -24,16 +24,23 @@ The application is a Java application to be used in a veterinarian's office for 
   
 ## Phase I Functionality
 - Database connection
-- Login / Logout
+- Login
+- Logout
+- Log sucessful and failed logins
 - Add clients
 - Edit clients
 - Delete clients
+- *stretch* Search for clients
+- *stretch* Log client addition, edit, and delete
+- *stretch* 2-Factor Authentication
   
 ## Phase II Functionality
 - Add pets 
 - Associate pets with clients
 - Edit pets
 - Delete pets
+- *stretch* Search for pets
+- *stretch* Log pet addition, edit, and delete
   
 ## Phase III Functionality
 - Create appointment
@@ -41,6 +48,8 @@ The application is a Java application to be used in a veterinarian's office for 
 - View appointment
 - Edit/Reschedule appointment
 - Delete/cancel appointment
+- *stretch* Search for appointments
+- *stretch* Log appointment creation, edit, and delete
 
 ## Stretch Functionality
 - Add pet record
