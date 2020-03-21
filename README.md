@@ -26,11 +26,11 @@ The application is a Java application to be used in a veterinarian's office for 
 - Database connection
 - Login
 - Logout
-- Log sucessful and failed logins
 - Add clients
 - Edit clients
 - Delete clients
 - View clients
+- *stretch* Log sucessful and failed logins
 - *stretch* Log client addition, edit, and delete
 - *stretch* 2-Factor Authentication
   
