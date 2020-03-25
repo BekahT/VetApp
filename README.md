@@ -9,7 +9,7 @@
 
 # Project Roles:
 - Project Manager: Rebekah Qu
-  - Responsible for: Project charter, project plan, schedules, peer reviews
+  - Responsible for: Project plan, schedule, weekly meetings
 - Test Director: Crystal Cleaveland
   - Responsible for: Test plan, test scripts/steps, acceptance testing, defect handling
 - Software Designer / Engineer: Nour Debiat and Brian Rease
@@ -20,7 +20,7 @@
   - Responsible for: User experience objectives, user guide/training manual
   
 # Application:
-The application is a Java application to be used in a veterinarian's office for managing clients, pets, and appointments. Our team's stretch goal is to include functionality for pet records. 
+The application is a Java desktop application to be used in a veterinarian's office for managing clients, pets, and appointments.
   
 ## Phase I Functionality
 - Database connection
@@ -33,6 +33,7 @@ The application is a Java application to be used in a veterinarian's office for 
 - *stretch* Log sucessful and failed logins
 - *stretch* Log client addition, edit, and delete
 - *stretch* 2-Factor Authentication
+- *stretch* Account lockout
   
 ## Phase II Functionality
 - Add pets 
