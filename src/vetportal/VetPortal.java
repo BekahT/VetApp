@@ -21,20 +21,53 @@ public class VetPortal extends JFrame {
 
     //constructor:
     public VetPortal() {
-        super("Vet Clinic");
+        super("Vet Portal");
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout(10, 10));
-        setSize(1600, 700);
+        setSize(700, 700);
 
         //TODO: create follow on Swing components and add them to the frame:
 
     } //end of constructor
 
     public static void main(String[] args) {
-        VetPortal window = new VetPortal();
-        window.setVisible(true);
+        VetPortal vetPortal = new VetPortal();
+        vetPortal.setVisible(true);
+
+        vetPortal.authenticateUser();
     } //end of main()
+
+    /*
+    This method is used to authenticate a user by pulling a username and password
+    from a Java Swing GUI; specifically, a JTextfield and JPasswordfield
+     */
+    private void authenticateUser() {
+        //TODO: change the implementation from hardcoding the username and password to
+        //  pulling the information from the GUI
+        String username = "bob";
+        String password = "password";
+
+        if ((username.equals("")) || (password.equals(""))) { //Verify the username or password are not empty
+            System.out.println("Username or password can not be empty!");
+            return;
+        }
+
+        Database myDatabase = new Database();
+        if (!myDatabase.open()) { //Attempt to open a connection with the database
+            System.out.println("Can't connect to the database!");
+            return;
+        }
+
+        if (!myDatabase.authenticate(username, password)) { //Attempt actual authentication
+            //TODO: change implementation; make error display on GUI
+            System.out.println("Invalid username or password!");
+        } else {
+            //TODO: change implementation; allow user to access internal Vet Portal - (i.e: load new page)
+            System.out.println("Authentication successful!");
+        }
+        myDatabase.close();
+    } //end of authenticateUser()
 
     //TODO: add follow on methods
 

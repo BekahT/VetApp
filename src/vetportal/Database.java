@@ -8,6 +8,7 @@
 
 package vetportal;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import java.sql.*;
 
 public class Database {
@@ -43,6 +44,7 @@ public class Database {
     public static final String COLUMN_APPOINTMENT_REASON = "reason";
 
     private Connection conn;
+    private Statement statement;
 
     //This method attempts to open a connection with the database
     public boolean open() {
@@ -66,5 +68,28 @@ public class Database {
         }
     } //end of close()
 
+    /*
+    This method uses the Apache commons codec to hash a given 'password' String with sha256.
+    The hash is then compared to a password hash in the sqlite database
+     */
+    public boolean authenticate(String username, String password) {
+        try {
+            String passwordHash = DigestUtils.sha256Hex(password);
+
+            statement = conn.createStatement();
+            ResultSet authResult = statement.executeQuery("SELECT " + COLUMN_USER_PASSWORD +
+                                                                " FROM " + TABLE_USERS + " WHERE "
+                                                            + COLUMN_USER_NAME + "='" + username + "'");
+
+            if (passwordHash.equals(authResult.getString(COLUMN_USER_PASSWORD))) {
+                return true;
+            }
+            statement.close();
+            return false;
+        } catch (SQLException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+            return false;
+        }
+    } //end of authenticate()
 
 } //end of Database
