@@ -8,6 +8,7 @@
 
 package vetportal;
 
+import org.sqlite.SQLiteConfig;
 import java.sql.*;
 
 public class Database {
@@ -47,7 +48,9 @@ public class Database {
     //This method attempts to open a connection with the database
     public boolean open() {
         try {
-            conn = DriverManager.getConnection(CONNECTION_STRING);
+            SQLiteConfig config = new SQLiteConfig();
+	    config.enforceForeignKeys(true);
+	    conn = DriverManager.getConnection(CONNECTION_STRING, config.toProperties());
             return true;
         } catch (SQLException eS) {
             System.out.println("SQLException: " + eS.getMessage());
