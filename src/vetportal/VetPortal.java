@@ -13,9 +13,18 @@ package vetportal;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.regex.Pattern;
 
 public class VetPortal extends JFrame {
     private static final long serialVersionUID = 123L;
+
+    private Database vetDatabase;
+
+    private String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
+                                "[a-zA-Z0-9_+&*-]+)*@" +
+                                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                                "A-Z]{2,7}$";
+    private Pattern emailPattern = Pattern.compile(emailRegex);
 
     //TODO: create all the objects for the main GUI:
 
@@ -36,6 +45,56 @@ public class VetPortal extends JFrame {
         window.setVisible(true);
     } //end of main()
 
+    private boolean isAlphabetic(String stringToCheck) {
+        return stringToCheck.chars().allMatch(Character::isAlphabetic);
+    }
+
+    private boolean isValidEmail(String email) {
+        return emailPattern.matcher(email).matches();
+    }
+
     //TODO: add follow on methods
+    private void createClient() {
+        String firstName = "Elton";
+        String lastName = "John";
+        String phoneNumber = "543-123-5698";
+        String email = "elton.john@yahoo.com";
+
+        if ((firstName.equals(null)) || (lastName.equals(null)
+                || (phoneNumber.equals(null)) || (email.equals(null)))) { //Verify if any fields are empty
+            System.out.println("All fields are required!");
+            return;
+        }
+
+        if (!(isAlphabetic(firstName) && isAlphabetic(lastName))) { //Verify the first and last name are alphabetic
+            String nameErrorMessage = "First and last name must be alphabetic!";
+            JOptionPane.showMessageDialog(null, nameErrorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!isValidEmail(email)) { //Verify valid email address
+            String emailErrorMessage = "Invalid email address!";
+            JOptionPane.showMessageDialog(null, emailErrorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        //TODO: Possibly add error checking to see if phoneNumber is valid??
+
+
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) { //Attempt to open a connection with the database
+            System.out.println("Can't connect to the database!");
+            return;
+        }
+
+        if (!vetDatabase.insertClient(firstName, lastName, phoneNumber, email)) { //Attempt actual INSERT
+            String errorMessage = vetDatabase.getErrorMessage();
+            JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            System.out.println("Creating client was successful!");
+        }
+        vetDatabase.close();
+    } //end of createClient()
+
 
 } //end of VetClinic
