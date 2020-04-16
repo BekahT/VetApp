@@ -1,4 +1,4 @@
-/*
+package version1files;/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -11,7 +11,7 @@
 public class LoginGui extends javax.swing.JFrame {
 
     /**
-     * Creates new form LoginGui
+     * Creates new form version1files.LoginGui
      */
     public LoginGui() {
         initComponents();

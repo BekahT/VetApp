@@ -219,7 +219,7 @@ public class VetPortal extends JFrame {
         String password = new String(passwordField.getPassword());
 
         if ((username.isEmpty()) || (password.isEmpty())) { //Verify the username or password are not empty
-            System.out.println("Username or password can not be empty!");
+            warningMsg.setText("Username or password can not be empty!");
             return;
         }
 
@@ -231,7 +231,7 @@ public class VetPortal extends JFrame {
 
         if (!myDatabase.authenticate(username, password)) { //Attempt actual authentication
             //TODO: change implementation; make error display on GUI
-            System.out.println("Invalid username or password!");
+            warningMsg.setText("Invalid username or password!");
         } else {
             System.out.println("Authentication successful!");
             dashboard = new DashboardsGui(vetPortal);
