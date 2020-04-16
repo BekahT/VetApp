@@ -14,6 +14,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+import vetportal.DashboardsGui;
+import vetportal.Database;
 
 public class VetPortal extends JFrame {
     private static final long serialVersionUID = 123L;
