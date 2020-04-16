@@ -45,6 +45,7 @@ public class AddClient extends javax.swing.JFrame {
         lastNameField = new javax.swing.JTextField();
         emailField = new javax.swing.JTextField();
         phoneField = new javax.swing.JTextField();
+        cWarningMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +83,10 @@ public class AddClient extends javax.swing.JFrame {
 
         phoneField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
+        cWarningMsg.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        cWarningMsg.setForeground(new java.awt.Color(203, 0, 0));
+
+
         javax.swing.GroupLayout addClientPanelLayout = new javax.swing.GroupLayout(addClientPanel);
         addClientPanel.setLayout(addClientPanelLayout);
         addClientPanelLayout.setHorizontalGroup(
@@ -93,23 +98,26 @@ public class AddClient extends javax.swing.JFrame {
                         .addGroup(addClientPanelLayout.createSequentialGroup()
                                 .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(addClientPanelLayout.createSequentialGroup()
-                                                .addGap(70, 70, 70)
-                                                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(lastNameLabel)
-                                                        .addComponent(firstNameLabel)
-                                                        .addComponent(emailLabel)
-                                                        .addComponent(phoneLabel))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                        .addComponent(emailField, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                                        .addComponent(lastNameField, javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(firstNameField, javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(phoneField)))
-                                        .addGroup(addClientPanelLayout.createSequentialGroup()
                                                 .addGap(103, 103, 103)
                                                 .addComponent(submitBtn)
                                                 .addGap(54, 54, 54)
-                                                .addComponent(cancelBtn)))
+                                                .addComponent(cancelBtn))
+                                        .addGroup(addClientPanelLayout.createSequentialGroup()
+                                                .addGap(70, 70, 70)
+                                                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(cWarningMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(addClientPanelLayout.createSequentialGroup()
+                                                                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                                        .addComponent(lastNameLabel)
+                                                                        .addComponent(firstNameLabel)
+                                                                        .addComponent(emailLabel)
+                                                                        .addComponent(phoneLabel))
+                                                                .addGap(18, 18, 18)
+                                                                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                                        .addComponent(emailField, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                                                        .addComponent(lastNameField, javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(firstNameField, javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(phoneField))))))
                                 .addContainerGap(103, Short.MAX_VALUE))
         );
         addClientPanelLayout.setVerticalGroup(
@@ -133,7 +141,9 @@ public class AddClient extends javax.swing.JFrame {
                                 .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(phoneLabel)
                                         .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cWarningMsg)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                                 .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(submitBtn)
                                         .addComponent(cancelBtn))
@@ -157,8 +167,13 @@ public class AddClient extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void createNewClient() {
-        vetPortal.createClient(firstNameField.getText(), lastNameField.getText(), phoneField.getText(), emailField.getText());
-        dispose();
+        Boolean createTF = vetPortal.createClient(cWarningMsg, firstNameField.getText(), lastNameField.getText(), phoneField.getText(), emailField.getText());
+
+        //only close if successfully created client
+        if(createTF) {
+            dispose();
+        }
+
         DashboardsGui dashboard = vetPortal.getDashboard();
         DefaultTableModel model = (DefaultTableModel)dashboard.getClientsTable().getModel();
         model.setRowCount(0);
@@ -188,5 +203,6 @@ public class AddClient extends javax.swing.JFrame {
     private javax.swing.JTextField phoneField;
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JButton submitBtn;
+    private javax.swing.JLabel cWarningMsg;
     // End of variables declaration//GEN-END:variables
 }
