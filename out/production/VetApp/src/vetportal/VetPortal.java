@@ -35,6 +35,7 @@ public class VetPortal extends JFrame {
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JTextField usernameField;
     private javax.swing.JLabel usernameLabel;
+    private javax.swing.JLabel warningMsg;
     private javax.swing.JLabel welcomeLabel;
     private javax.swing.JPanel welcomePanel;
 
@@ -54,6 +55,7 @@ public class VetPortal extends JFrame {
         loginBtn = new javax.swing.JButton();
         passwordField = new javax.swing.JPasswordField();
         exitBtn = new javax.swing.JButton();
+        warningMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -93,6 +95,9 @@ public class VetPortal extends JFrame {
         exitBtn.setForeground(new java.awt.Color(122, 188, 255));
         exitBtn.setText("Exit");
 
+        warningMsg.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        warningMsg.setForeground(new java.awt.Color(122, 188, 255));
+
         javax.swing.GroupLayout welcomePanelLayout = new javax.swing.GroupLayout(welcomePanel);
         welcomePanel.setLayout(welcomePanelLayout);
         welcomePanelLayout.setHorizontalGroup(
@@ -107,16 +112,14 @@ public class VetPortal extends JFrame {
                                                 .addGroup(welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                         .addComponent(usernameField, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                                                         .addComponent(passwordField)
+                                                        .addComponent(passwordLabel)
+                                                        .addComponent(usernameLabel)
                                                         .addGroup(welcomePanelLayout.createSequentialGroup()
-                                                                .addGroup(welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(passwordLabel)
-                                                                        .addComponent(usernameLabel)
-                                                                        .addGroup(welcomePanelLayout.createSequentialGroup()
-                                                                                .addGap(14, 14, 14)
-                                                                                .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(22, 22, 22)))))
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(35, 35, 35)
+                                                                .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(warningMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addContainerGap(136, Short.MAX_VALUE))
         );
         welcomePanelLayout.setVerticalGroup(
@@ -132,11 +135,13 @@ public class VetPortal extends JFrame {
                                 .addComponent(passwordLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(warningMsg)
+                                .addGap(19, 19, 19)
                                 .addGroup(welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(145, Short.MAX_VALUE))
+                                .addContainerGap(151, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
@@ -162,6 +167,7 @@ public class VetPortal extends JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(loginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
 
         pack();
 
