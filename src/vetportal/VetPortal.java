@@ -209,8 +209,10 @@ public class VetPortal extends JFrame {
         if (!myDatabase.authenticate(username, password)) { //Attempt actual authentication
             //TODO: change implementation; make error display on GUI
             System.out.println("Invalid username or password!");
+            AuditLog.logWriter("failedLogin", username);
         } else {
             System.out.println("Authentication successful!");
+            AuditLog.logWriter("successfulLogin", username);
             dashboard = new DashboardsGui(vetPortal);
             vetPortal.setVisible(false);
             vetPortal.viewAllClients();
@@ -257,10 +259,12 @@ public class VetPortal extends JFrame {
 
         if (!vetDatabase.insertClient(firstName, lastName, phoneNumber, email)) { //Attempt actual INSERT
             String errorMessage = vetDatabase.getErrorMessage();
-            JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+            AuditLog.logWriter("failedClientAdd", errorMessage);
+            JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);            
         } else {
             //TODO: change implementation to refresh the view of all clients
             System.out.println("Creating client was successful!");
+            AuditLog.logWriter("successfulClientAdd", lastName + ", " + firstName);
         }
         vetDatabase.close();
     } //end of createClient()
@@ -276,9 +280,11 @@ public class VetPortal extends JFrame {
 
         if (!vetDatabase.deleteClient(phoneNumber)) {
             String errorMessage = vetDatabase.getErrorMessage();
+            AuditLog.logWriter("failedClientDelete", errorMessage);
             JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             System.out.println("Deleting client was successful!");
+            // NEED CLIENT INFO AuditLog.logWriter("successfulClientDelete", lastName + ", " + firstName);
         }
         vetDatabase.close();
     } //end of deleteClient()
@@ -344,9 +350,11 @@ public class VetPortal extends JFrame {
 
         if (!vetDatabase.updateClient(id, updatedFirstName, updatedLastName, updatedPhoneNumber, updatedEmail)) {
             String errorMessage = vetDatabase.getErrorMessage();
+            AuditLog.logWriter("failedClientEdit", errorMessage);
             JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             System.out.println("Updating client was successful!");
+            AuditLog.logWriter("successfulClientEdit", updatedLastName + ", " + updatedFirstName);
         }
         vetDatabase.close();
 
