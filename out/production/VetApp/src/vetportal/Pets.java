@@ -6,8 +6,6 @@
  * Purpose: This class is used to create new Pets.
  */
 
-package vetportal;
-
 import java.util.Date;
 
 public class Pets {

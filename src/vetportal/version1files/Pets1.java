@@ -6,9 +6,11 @@
  * Purpose: This class is used to create new Pets.
  */
 
+package vetportal;
+
 import java.util.Date;
 
-public class Pets {
+public class Pets1 {
 
     private int petID;
     private String petName;
@@ -18,7 +20,7 @@ public class Pets {
     private int petOwner;
 
     //TODO: add petID and petDateOfBirth
-    public Pets(String petName, String petSpecies, String petGender, int petOwner) {
+    public Pets1(String petName, String petSpecies, String petGender, int petOwner) {
         this.petName = petName;
         this.petSpecies = petSpecies;
         this.petGender = petGender;

@@ -4,16 +4,23 @@
  * and open the template in the editor.
  */
 
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+
 /**
  *
  * @author my-pc
  */
 public class AddClient extends javax.swing.JFrame {
 
+    //Creating VetPortal object:
+    VetPortal vetPortal;
+
     /**
      * Creates new form AddClient
      */
-    public AddClient() {
+    public AddClient(VetPortal vetPortal) {
+        this.vetPortal = vetPortal;
         initComponents();
     }
 
@@ -78,109 +85,95 @@ public class AddClient extends javax.swing.JFrame {
         javax.swing.GroupLayout addClientPanelLayout = new javax.swing.GroupLayout(addClientPanel);
         addClientPanel.setLayout(addClientPanelLayout);
         addClientPanelLayout.setHorizontalGroup(
-            addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addClientPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(addClientLabel)
-                .addGap(146, 146, 146))
-            .addGroup(addClientPanelLayout.createSequentialGroup()
-                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(addClientPanelLayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lastNameLabel)
-                            .addComponent(firstNameLabel)
-                            .addComponent(emailLabel)
-                            .addComponent(phoneLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(emailField, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(lastNameField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(firstNameField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(phoneField)))
-                    .addGroup(addClientPanelLayout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addComponent(submitBtn)
-                        .addGap(54, 54, 54)
-                        .addComponent(cancelBtn)))
-                .addContainerGap(103, Short.MAX_VALUE))
+                addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addClientPanelLayout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(addClientLabel)
+                                .addGap(146, 146, 146))
+                        .addGroup(addClientPanelLayout.createSequentialGroup()
+                                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(addClientPanelLayout.createSequentialGroup()
+                                                .addGap(70, 70, 70)
+                                                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(lastNameLabel)
+                                                        .addComponent(firstNameLabel)
+                                                        .addComponent(emailLabel)
+                                                        .addComponent(phoneLabel))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                        .addComponent(emailField, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                                        .addComponent(lastNameField, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(firstNameField, javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(phoneField)))
+                                        .addGroup(addClientPanelLayout.createSequentialGroup()
+                                                .addGap(103, 103, 103)
+                                                .addComponent(submitBtn)
+                                                .addGap(54, 54, 54)
+                                                .addComponent(cancelBtn)))
+                                .addContainerGap(103, Short.MAX_VALUE))
         );
         addClientPanelLayout.setVerticalGroup(
-            addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addClientPanelLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(addClientLabel)
-                .addGap(34, 34, 34)
-                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(firstNameLabel)
-                    .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lastNameLabel)
-                    .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(emailLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(phoneLabel)
-                    .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(submitBtn)
-                    .addComponent(cancelBtn))
-                .addGap(126, 126, 126))
+                addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(addClientPanelLayout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(addClientLabel)
+                                .addGap(34, 34, 34)
+                                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(firstNameLabel)
+                                        .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(lastNameLabel)
+                                        .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(emailLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(phoneLabel)
+                                        .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(submitBtn)
+                                        .addComponent(cancelBtn))
+                                .addGap(126, 126, 126))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addClientPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(addClientPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addClientPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(addClientPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        submitBtn.addActionListener(event -> createNewClient());
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddClient.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void createNewClient() {
+        vetPortal.createClient(firstNameField.getText(), lastNameField.getText(), phoneField.getText(), emailField.getText());
+        dispose();
+        DashboardsGui dashboard = vetPortal.getDashboard();
+        DefaultTableModel model = (DefaultTableModel)dashboard.getClientsTable().getModel();
+        model.setRowCount(0);
+        Database vetDatabase = vetPortal.getVetDatabase();
+        vetDatabase.open();
+        ArrayList<Clients> allClients = vetDatabase.selectAllClients();
+        for (Clients client : allClients) {
+            Object[] row = {client.getClientFirstName(), client.getClientLastName(), client.getClientEmail(), client.getClientPhoneNumber()};
+            model.addRow(row);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AddClient().setVisible(true);
-            }
-        });
-    }
+        firstNameField.setText(null);
+        lastNameField.setText(null);
+        emailField.setText(null);
+        phoneField.setText(null);
+    } //end of createNewClient()
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addClientLabel;

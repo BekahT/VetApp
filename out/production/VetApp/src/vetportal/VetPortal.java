@@ -2,6 +2,7 @@
  * File: VetPortal.java
  * Date: March 26, 2020
  * @Author: Brian Rease, Nour Debiat
+ * Main POC: Nour Debiat
  * Purpose: This program is meant to simulate a Vet Clinic Portal application that allows staff to
  * add and manage clients, add and manage client pets, and add and manage appointments.
  *
@@ -9,6 +10,8 @@
  */
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -33,6 +36,9 @@ public class VetPortal extends JFrame {
     private javax.swing.JLabel usernameLabel;
     private javax.swing.JLabel welcomeLabel;
     private javax.swing.JPanel welcomePanel;
+
+    //Create object for DashboardGui:
+    DashboardsGui dashboard;
 
     //constructor:
     public VetPortal() {
@@ -149,10 +155,14 @@ public class VetPortal extends JFrame {
         vetPortal = new VetPortal();
         vetPortal.setVisible(true);
 
+//        AddClient page = new AddClient();
+//        page.setVisible(true);
+
         //vetPortal.authenticateUser();
         //vetPortal.createClient();
         //vetPortal.deleteClient();
         //vetPortal.viewAllClients();
+        //vetPortal.editClient();
     } //end of main()
 
     private boolean isAlphabetic(String stringToCheck) {
@@ -161,6 +171,18 @@ public class VetPortal extends JFrame {
 
     private boolean isValidEmail(String email) {
         return emailPattern.matcher(email).matches();
+    }
+
+    public DashboardsGui getDashboard() {
+        return dashboard;
+    }
+
+    public Database getVetDatabase() {
+        return vetDatabase;
+    }
+
+    public VetPortal getVetPortal() {
+        return vetPortal;
     }
 
     /*
@@ -187,19 +209,22 @@ public class VetPortal extends JFrame {
             System.out.println("Invalid username or password!");
         } else {
             System.out.println("Authentication successful!");
-            DashboardsGui dashboard = new DashboardsGui();
+            dashboard = new DashboardsGui(vetPortal);
             vetPortal.setVisible(false);
+            vetPortal.viewAllClients();
             dashboard.setVisible(true);
         }
         myDatabase.close();
     } //end of authenticateUser()
 
     //TODO: add follow on methods
-    private void createClient() {
-        String firstName = "Elton";
-        String lastName = "John";
-        String phoneNumber = "543-123-5698";
-        String email = "elton.john@yahoo.com";
+    public void createClient(String firstName, String lastName, String phoneNumber, String email) {
+//        String firstName = "Elton";
+//        String lastName = "John";
+//        String phoneNumber = "543-123-5698";
+//        String email = "elton.john@yahoo.com";
+
+
 
         if ((firstName.isEmpty()) || (lastName.isEmpty()
                 || (phoneNumber.isEmpty()) || (email.isEmpty()))) { //Verify if any fields are empty
@@ -256,7 +281,7 @@ public class VetPortal extends JFrame {
         vetDatabase.close();
     } //end of deleteClient()
 
-    private void viewAllClients() {
+    public void viewAllClients() {
         vetDatabase = new Database();
         if (!vetDatabase.open()) { //Attempt to open a connection with the database
             System.out.println("Can't connect to the database!");
@@ -272,8 +297,57 @@ public class VetPortal extends JFrame {
             for (Clients client: allClients) {
                 System.out.println("client_id: " + client.getClientID() + ", First Name: " + client.getClientFirstName());
             }
+            DefaultTableModel model = (DefaultTableModel)dashboard.getClientsTable().getModel();
+            for (Clients client : allClients) {
+                Object[] row = {client.getClientFirstName(), client.getClientLastName(), client.getClientEmail(), client.getClientPhoneNumber()};
+                model.addRow(row);
+            }
         }
         vetDatabase.close();
     } //end of viewAllClients()
+
+    private void editClient() {
+        String currentPhoneNumber = "111-111-1111";
+
+        String updatedFirstName = "Elton";
+        String updatedLastName = "John";
+        String updatedPhoneNumber = "222-222-2222";
+        String updatedEmail = "elton.john@yahoo.com";
+
+        if ((updatedFirstName.isEmpty()) || (updatedLastName.isEmpty()
+                || (updatedPhoneNumber.isEmpty()) || (updatedEmail.isEmpty()))) { //Verify if any fields are empty
+            System.out.println("All fields are required!");
+            return;
+        }
+
+        if (!(isAlphabetic(updatedFirstName) && isAlphabetic(updatedLastName))) { //Verify the first and last name are alphabetic
+            String nameErrorMessage = "First and last name must be alphabetic!";
+            JOptionPane.showMessageDialog(null, nameErrorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!isValidEmail(updatedEmail)) { //Verify valid email address
+            String emailErrorMessage = "Invalid email address!";
+            JOptionPane.showMessageDialog(null, emailErrorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) { //Attempt to open a connection with the database
+            System.out.println("Can't connect to the database!");
+            return;
+        }
+
+        int id = vetDatabase.getClientID(currentPhoneNumber);
+
+        if (!vetDatabase.updateClient(id, updatedFirstName, updatedLastName, updatedPhoneNumber, updatedEmail)) {
+            String errorMessage = vetDatabase.getErrorMessage();
+            JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            System.out.println("Updating client was successful!");
+        }
+        vetDatabase.close();
+
+    } //end of editClient()
 
 } //end of VetClinic

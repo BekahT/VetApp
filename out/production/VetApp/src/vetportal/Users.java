@@ -6,8 +6,6 @@
  * Purpose: This class is used to create new Users.
  */
 
-package vetportal;
-
 public class Users {
 
     private int userID;

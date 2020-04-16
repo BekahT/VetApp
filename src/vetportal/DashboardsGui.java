@@ -4,16 +4,23 @@
  * and open the template in the editor.
  */
 
+import javax.swing.*;
+
 /**
  *
  * @author my-pc
  */
 public class DashboardsGui extends javax.swing.JFrame {
 
+    //Create object for VetPortal and AddClient page:
+    VetPortal vetPortal;
+    AddClient addClientPage;
     /**
      * Creates new form DashboardsGui
      */
-    public DashboardsGui() {
+    public DashboardsGui(VetPortal vetPortal) {
+        super("Vet Portal");
+        this.vetPortal = vetPortal;
         initComponents();
     }
 
@@ -58,12 +65,12 @@ public class DashboardsGui extends javax.swing.JFrame {
         javax.swing.GroupLayout appointmentsTabLayout = new javax.swing.GroupLayout(appointmentsTab);
         appointmentsTab.setLayout(appointmentsTabLayout);
         appointmentsTabLayout.setHorizontalGroup(
-            appointmentsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 695, Short.MAX_VALUE)
+                appointmentsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 695, Short.MAX_VALUE)
         );
         appointmentsTabLayout.setVerticalGroup(
-            appointmentsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 419, Short.MAX_VALUE)
+                appointmentsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 419, Short.MAX_VALUE)
         );
 
         dashboardTabs.addTab("Appointments", appointmentsTab);
@@ -73,12 +80,12 @@ public class DashboardsGui extends javax.swing.JFrame {
         javax.swing.GroupLayout petsTabLayout = new javax.swing.GroupLayout(petsTab);
         petsTab.setLayout(petsTabLayout);
         petsTabLayout.setHorizontalGroup(
-            petsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 695, Short.MAX_VALUE)
+                petsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 695, Short.MAX_VALUE)
         );
         petsTabLayout.setVerticalGroup(
-            petsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 419, Short.MAX_VALUE)
+                petsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 419, Short.MAX_VALUE)
         );
 
         dashboardTabs.addTab("Pets", petsTab);
@@ -88,19 +95,13 @@ public class DashboardsGui extends javax.swing.JFrame {
         clientTableScroll.setBackground(new java.awt.Color(255, 255, 255));
 
         clientsTable.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        clientsTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "First Name", "Last Name", "Email Address", "Phone Number", "Actions"
-            }
+        clientsTable.setModel(new javax.swing.table.DefaultTableModel(null,
+                new String [] {
+                        "First Name", "Last Name", "Email Address", "Phone Number", "Actions"
+                }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                    false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -147,47 +148,47 @@ public class DashboardsGui extends javax.swing.JFrame {
         javax.swing.GroupLayout clientsTabLayout = new javax.swing.GroupLayout(clientsTab);
         clientsTab.setLayout(clientsTabLayout);
         clientsTabLayout.setHorizontalGroup(
-            clientsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(clientsTabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(clientsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(clientTableScroll)
-                    .addGroup(clientsTabLayout.createSequentialGroup()
-                        .addGroup(clientsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(createClientBtn)
-                            .addGroup(clientsTabLayout.createSequentialGroup()
-                                .addComponent(cNameSearch)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cEmailSearch)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cNumberSearch)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cNumberField, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(cSearchBtn)))
-                .addContainerGap())
+                clientsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(clientsTabLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(clientsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(clientTableScroll)
+                                        .addGroup(clientsTabLayout.createSequentialGroup()
+                                                .addGroup(clientsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(createClientBtn)
+                                                        .addGroup(clientsTabLayout.createSequentialGroup()
+                                                                .addComponent(cNameSearch)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(cNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(cEmailSearch)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(cEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(cNumberSearch)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(cNumberField, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)))
+                                                .addGap(18, 18, 18)
+                                                .addComponent(cSearchBtn)))
+                                .addContainerGap())
         );
         clientsTabLayout.setVerticalGroup(
-            clientsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(clientsTabLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(createClientBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(clientsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cNameSearch)
-                    .addComponent(cEmailSearch)
-                    .addComponent(cNumberSearch)
-                    .addComponent(cSearchBtn)
-                    .addComponent(cNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addComponent(clientTableScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
+                clientsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(clientsTabLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(createClientBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(clientsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(cNameSearch)
+                                        .addComponent(cEmailSearch)
+                                        .addComponent(cNumberSearch)
+                                        .addComponent(cSearchBtn)
+                                        .addComponent(cNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(8, 8, 8)
+                                .addComponent(clientTableScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         dashboardTabs.addTab("Clients", clientsTab);
@@ -199,20 +200,20 @@ public class DashboardsGui extends javax.swing.JFrame {
         javax.swing.GroupLayout dashboardPanelLayout = new javax.swing.GroupLayout(dashboardPanel);
         dashboardPanel.setLayout(dashboardPanelLayout);
         dashboardPanelLayout.setHorizontalGroup(
-            dashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dashboardTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashboardPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(logoutBtn)
-                .addContainerGap())
+                dashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(dashboardTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashboardPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(logoutBtn)
+                                .addContainerGap())
         );
         dashboardPanelLayout.setVerticalGroup(
-            dashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashboardPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(logoutBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                .addComponent(dashboardTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+                dashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashboardPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(logoutBtn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                                .addComponent(dashboardTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         dashboardTabs.getAccessibleContext().setAccessibleName("");
@@ -220,13 +221,16 @@ public class DashboardsGui extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dashboardPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(dashboardPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dashboardPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(dashboardPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        addClientPage = new AddClient(vetPortal);
+        createClientBtn.addActionListener(event -> addClientPage.setVisible(true));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -235,39 +239,12 @@ public class DashboardsGui extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cSearchBtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DashboardsGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DashboardsGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DashboardsGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DashboardsGui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    public JTable getClientsTable() {
+        return clientsTable;
+    }
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DashboardsGui().setVisible(true);
-            }
-        });
+    public void setClientsTable(JTable clientsTable) {
+        this.clientsTable = clientsTable;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
