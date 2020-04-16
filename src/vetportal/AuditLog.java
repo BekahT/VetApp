@@ -25,30 +25,22 @@ public class AuditLog {
                 case ("failedLogin"):
                     writer.write(Instant.now() + " - Type: Login - Location: VetPortal Login " 
                         + "- Outcome: Failed Login - " + info + "\n");
-                    break;       
+                    break;    
+                case ("accountLockout"):
+                    writer.write(Instant.now() + " - Type: Login - Location: VetPortal Login " 
+                        + "- Outcome: Account Lockout - " + info + "\n");
+                    break; 
                 case ("successfulClientAdd"):
                     writer.write(Instant.now() + " - Type: Add Client - Location: VetPortal New Client " 
                         + "- Outcome: Successful New Client Creation - " + info + "\n");
-                    break;
-                case ("failedClientAdd"):
-                    writer.write(Instant.now() + " - Type: Add Client - Location: VetPortal New Client " 
-                        + "- Outcome: Failed New Client Creation - " + info + "\n");
                     break;
                 case ("successfulClientEdit"):
                     writer.write(Instant.now() + " - Type: Edit Client - Location: VetPortal Edit Client " 
                         + "- Outcome: Successful Client Edit - " + info + "\n");
                     break;
-                case ("failedClientEdit"):
-                    writer.write(Instant.now() + " - Type: Edit Client - Location: VetPortal Edit Client " 
-                        + "- Outcome: Failed Client Edit - " + info + "\n");
-                    break;
                 case ("successfulClientDelete"):
                     writer.write(Instant.now() + " - Type: Delete Client - Location: VetPortal Client Dashboard " 
                         + "- Outcome: Successful Client Delete - " + info + "\n");
-                    break;
-                case ("failedClientDelete"):
-                    writer.write(Instant.now() + " - Type: Delete Client - Location: VetPortal Client Dashboard " 
-                        + "- Outcome: Failed Client Delete - " + info + "\n");
                     break;
             }            
         // Catch errors

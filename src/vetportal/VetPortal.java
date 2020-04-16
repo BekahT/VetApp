@@ -259,7 +259,6 @@ public class VetPortal extends JFrame {
 
         if (!vetDatabase.insertClient(firstName, lastName, phoneNumber, email)) { //Attempt actual INSERT
             String errorMessage = vetDatabase.getErrorMessage();
-            AuditLog.logWriter("failedClientAdd", errorMessage);
             JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);            
         } else {
             //TODO: change implementation to refresh the view of all clients
@@ -280,7 +279,6 @@ public class VetPortal extends JFrame {
 
         if (!vetDatabase.deleteClient(phoneNumber)) {
             String errorMessage = vetDatabase.getErrorMessage();
-            AuditLog.logWriter("failedClientDelete", errorMessage);
             JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             System.out.println("Deleting client was successful!");
@@ -350,7 +348,6 @@ public class VetPortal extends JFrame {
 
         if (!vetDatabase.updateClient(id, updatedFirstName, updatedLastName, updatedPhoneNumber, updatedEmail)) {
             String errorMessage = vetDatabase.getErrorMessage();
-            AuditLog.logWriter("failedClientEdit", errorMessage);
             JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             System.out.println("Updating client was successful!");
