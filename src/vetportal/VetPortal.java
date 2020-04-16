@@ -98,7 +98,7 @@ public class VetPortal extends JFrame {
         exitBtn.setText("Exit");
 
         warningMsg.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        warningMsg.setForeground(new java.awt.Color(122, 188, 255));
+        warningMsg.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout welcomePanelLayout = new javax.swing.GroupLayout(welcomePanel);
         welcomePanel.setLayout(welcomePanelLayout);
