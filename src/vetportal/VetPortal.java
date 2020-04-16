@@ -2,7 +2,6 @@
  * File: VetPortal.java
  * Date: March 26, 2020
  * @Author: Brian Rease, Nour Debiat
- * Main POC: Nour Debiat
  * Purpose: This program is meant to simulate a Vet Clinic Portal application that allows staff to
  * add and manage clients, add and manage client pets, and add and manage appointments.
  *
