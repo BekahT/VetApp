@@ -6,6 +6,8 @@
  * Purpose: This class is used to create new Appointments.
  */
 
+ package vetportal;
+ 
 import java.sql.Time;
 import java.util.Date;
 
