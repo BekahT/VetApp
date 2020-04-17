@@ -1,5 +1,6 @@
 /**
  * File: VetPortal.java
+
  * Date: April 16, 2020
  * @Author: Brian Rease, Nour Debiat, Rebekah Qu
  * Main POC: Nour Debiat
@@ -15,18 +16,20 @@ import java.awt.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
+import java.time.Instant;
 
 public class VetPortal extends JFrame {
+
     private static final long serialVersionUID = 123L;
 
     private Database vetDatabase;
 
-    private String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+
-                                "[a-zA-Z0-9_+&*-]+)*@" +
-                                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                                "A-Z]{2,7}$";
+    private String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."
+            + "[a-zA-Z0-9_+&*-]+)*@"
+            + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
+            + "A-Z]{2,7}$";
     private Pattern emailPattern = Pattern.compile(emailRegex);
-
+  
     //TODO: create all the objects for the main GUI:
     private static VetPortal vetPortal;
     private javax.swing.JButton exitBtn;
@@ -188,7 +191,6 @@ public class VetPortal extends JFrame {
 
 //        AddClient page = new AddClient();
 //        page.setVisible(true);
-
         //vetPortal.authenticateUser();
         //vetPortal.createClient();
         //vetPortal.deleteClient();
@@ -235,15 +237,23 @@ public class VetPortal extends JFrame {
             return;
         }
 
-        if (!myDatabase.authenticate(username, password)) { //Attempt actual authentication
-            warningMsg.setText("Invalid username or password!");
-            AuditLog.logWriter("failedLogin", username);       
-        } else {
-            AuditLog.logWriter("successfulLogin", username);
-            dashboard = new DashboardsGui(vetPortal);
-            vetPortal.setVisible(false);
-            vetPortal.viewAllClients();
-            dashboard.setVisible(true);
+        // If user is not locked out, attempt to authenticate
+        if (!AccountLockout.isLocked(username)) {
+            if (!myDatabase.authenticate(username, password)) { //Attempt actual authentication
+                warningMsg.setText("Invalid username or password!");                
+                AuditLog.logWriter("failedLogin", username);
+                AccountLockout.addFailedLogin(username);
+            } else {
+                AuditLog.logWriter("successfulLogin", username);
+                dashboard = new DashboardsGui(vetPortal);
+                vetPortal.setVisible(false);
+                vetPortal.viewAllClients();
+                dashboard.setVisible(true);
+            }
+        // If user is locked out, display error
+        } else {           
+            warningMsg.setText("User account is locked!");
+            AuditLog.logWriter("accountLockout", username);
         }
         myDatabase.close();
     } //end of authenticateUser()
@@ -272,8 +282,6 @@ public class VetPortal extends JFrame {
         }
 
         //TODO: Possibly add error checking to see if phoneNumber is valid??
-
-
         vetDatabase = new Database();
         if (!vetDatabase.open()) { //Attempt to open a connection with the database
             System.out.println("Can't connect to the database!");
@@ -324,10 +332,10 @@ public class VetPortal extends JFrame {
             String errorMessage = vetDatabase.getErrorMessage();
             JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            for (Clients client: allClients) {
+            for (Clients client : allClients) {
                 System.out.println("client_id: " + client.getClientID() + ", First Name: " + client.getClientFirstName());
             }
-            DefaultTableModel model = (DefaultTableModel)dashboard.getClientsTable().getModel();
+            DefaultTableModel model = (DefaultTableModel) dashboard.getClientsTable().getModel();
             for (Clients client : allClients) {
                 Object[] row = {client.getClientFirstName(), client.getClientLastName(), client.getClientEmail(), client.getClientPhoneNumber()};
                 model.addRow(row);
