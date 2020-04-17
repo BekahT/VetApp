@@ -234,7 +234,8 @@ public class VetPortal extends JFrame {
     from a Java Swing GUI; specifically, a JTextfield and JPasswordfield
      */
     private void authenticateUser() throws ParseException {
-        String username = usernameField.getText();
+        // Make username lowercase to effectively make case insensitive
+        String username = usernameField.getText().toLowerCase();
         String password = new String(passwordField.getPassword());
 
         if ((username.isEmpty()) || (password.isEmpty())) { //Verify the username or password are not empty
