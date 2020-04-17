@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+package vetportal;
+
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 

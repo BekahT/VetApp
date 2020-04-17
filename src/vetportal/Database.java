@@ -1,10 +1,12 @@
 /**
- * File: Datasource.java
+ * File: Database.java
  * Date: March 28, 2020
  * @Author: Brian Rease, Nour Debiat
  * Main POC: Brian Rease
  * Purpose: This class acts as the model for the SQLite database and contains the direct methods for specific interactions.
  */
+
+package vetportal;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.sqlite.SQLiteConfig;
