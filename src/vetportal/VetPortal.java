@@ -1,19 +1,21 @@
 /**
  * File: VetPortal.java
- * Date: March 26, 2020
- *
- * @Author: Brian Rease, Nour Debiat Main POC: Nour Debiat Purpose: This program
- * is meant to simulate a Vet Clinic Portal application that allows staff to add
- * and manage clients, add and manage client pets, and add and manage
- * appointments.
+
+ * Date: April 16, 2020
+ * @Author: Brian Rease, Nour Debiat, Rebekah Qu
+ * Main POC: Nour Debiat
+ * Purpose: This program is meant to simulate a Vet Clinic Portal application that allows staff to
+ * add and manage clients, add and manage client pets, and add and manage appointments.
  *
  * This specific class implements the GUI for the program and the main() method.
  */
+
 package vetportal;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 import java.time.Instant;
@@ -174,7 +176,13 @@ public class VetPortal extends JFrame {
 
         pack();
 
-        loginBtn.addActionListener(event -> authenticateUser());
+        loginBtn.addActionListener(event -> {
+            try {
+                authenticateUser();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        });
         //TODO: create follow on Swing components and add them to the frame:
 
     } //end of constructor
@@ -216,7 +224,7 @@ public class VetPortal extends JFrame {
     This method is used to authenticate a user by pulling a username and password
     from a Java Swing GUI; specifically, a JTextfield and JPasswordfield
      */
-    private void authenticateUser() {
+    private void authenticateUser() throws ParseException {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
 
@@ -253,46 +261,40 @@ public class VetPortal extends JFrame {
     } //end of authenticateUser()
 
     //TODO: add follow on methods
-    public void createClient(String firstName, String lastName, String phoneNumber, String email) {
-//        String firstName = "Elton";
-//        String lastName = "John";
-//        String phoneNumber = "543-123-5698";
-//        String email = "elton.john@yahoo.com";
-
+    public Boolean createClient(JLabel warnUser, String firstName, String lastName, String phoneNumber, String email) {
         if ((firstName.isEmpty()) || (lastName.isEmpty()
                 || (phoneNumber.isEmpty()) || (email.isEmpty()))) { //Verify if any fields are empty
-            System.out.println("All fields are required!");
-            return;
+            warnUser.setText("All fields are required!");
+            return false;
         }
 
         if (!(isAlphabetic(firstName) && isAlphabetic(lastName))) { //Verify the first and last name are alphabetic
-            String nameErrorMessage = "First and last name must be alphabetic!";
-            JOptionPane.showMessageDialog(null, nameErrorMessage, "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            warnUser.setText("First and last name must be alphabetic!");
+            return false;
         }
 
         if (!isValidEmail(email)) { //Verify valid email address
-            String emailErrorMessage = "Invalid email address!";
-            JOptionPane.showMessageDialog(null, emailErrorMessage, "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            warnUser.setText("Invalid email address!");
+            return false;
         }
 
         //TODO: Possibly add error checking to see if phoneNumber is valid??
         vetDatabase = new Database();
         if (!vetDatabase.open()) { //Attempt to open a connection with the database
             System.out.println("Can't connect to the database!");
-            return;
+            return false;
         }
 
         if (!vetDatabase.insertClient(firstName, lastName, phoneNumber, email)) { //Attempt actual INSERT
             String errorMessage = vetDatabase.getErrorMessage();
-            JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+            warnUser.setText(errorMessage);
         } else {
             //TODO: change implementation to refresh the view of all clients
-            System.out.println("Creating client was successful!");
             AuditLog.logWriter("successfulClientAdd", lastName + ", " + firstName);
+            return true;
         }
         vetDatabase.close();
+        return false;
     } //end of createClient()
 
     private void deleteClient() {

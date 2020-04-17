@@ -1,17 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * File: DashboardsGui.java
+ * Date: April 16, 2020
+ * @Author: Nour Debiat
+ * Purpose: This window displays the dashboards where users can view appointments, pets, and clients.
  */
 
 package vetportal;
 
 import javax.swing.*;
+import java.text.ParseException;
 
-/**
- *
- * @author my-pc
- */
 public class DashboardsGui extends javax.swing.JFrame {
 
     //Create object for VetPortal and AddClient page:
@@ -20,7 +18,7 @@ public class DashboardsGui extends javax.swing.JFrame {
     /**
      * Creates new form DashboardsGui
      */
-    public DashboardsGui(VetPortal vetPortal) {
+    public DashboardsGui(VetPortal vetPortal) throws ParseException {
         super("Vet Portal");
         this.vetPortal = vetPortal;
         initComponents();
@@ -33,7 +31,7 @@ public class DashboardsGui extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() throws ParseException {
 
         dashboardPanel = new javax.swing.JPanel();
         dashboardTabs = new javax.swing.JTabbedPane();
@@ -51,6 +49,11 @@ public class DashboardsGui extends javax.swing.JFrame {
         cEmailField = new javax.swing.JTextField();
         cNumberField = new javax.swing.JTextField();
         logoutBtn = new javax.swing.JButton();
+
+        //table buttons
+        cDeleteBtn = new javax.swing.JButton();
+        cEditBtn = new javax.swing.JButton();
+        cButtonsGroup = new javax.swing.ButtonGroup();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,11 +138,13 @@ public class DashboardsGui extends javax.swing.JFrame {
         cSearchBtn.setBackground(new java.awt.Color(255, 255, 255));
         cSearchBtn.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         cSearchBtn.setText("Search");
-        cSearchBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cSearchBtnActionPerformed(evt);
-            }
-        });
+
+        //table buttons
+        cDeleteBtn.setText("Delete");
+        cEditBtn.setText("Edit");
+        //add buttons to group
+        cButtonsGroup.add(cDeleteBtn);
+        cButtonsGroup.add(cEditBtn);
 
         cNameField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
@@ -237,10 +242,6 @@ public class DashboardsGui extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cSearchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cSearchBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cSearchBtnActionPerformed
-
     public JTable getClientsTable() {
         return clientsTable;
     }
@@ -266,5 +267,11 @@ public class DashboardsGui extends javax.swing.JFrame {
     private javax.swing.JTabbedPane dashboardTabs;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JPanel petsTab;
+
+    //buttons to add to table
+    private javax.swing.JButton cDeleteBtn;
+    private javax.swing.JButton cEditBtn;
+    //button group
+    private javax.swing.ButtonGroup cButtonsGroup;
     // End of variables declaration//GEN-END:variables
 }

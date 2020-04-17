@@ -27,7 +27,6 @@ public class AccountLockout {
         }
         // If the user previously failed
         if (matchedIndex > -1) {
-            System.out.println("Matched: " + users.get(matchedIndex).getUsername());
             // If the user is not yet locked out
             if (users.get(matchedIndex).getLoginAttempts() < 4) {
                 // Increment the failed login attempts
@@ -40,7 +39,6 @@ public class AccountLockout {
         // If the user has no previous failed attempts
         } else {
             users.add(new FailedUser(username, 1, 0));
-            System.out.println("Added user");
         }
     }
 
