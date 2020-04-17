@@ -20,6 +20,7 @@ public class AddClient extends javax.swing.JFrame {
      * Creates new form AddClient
      */
     public AddClient(VetPortal vetPortal) {
+        super("Vet Portal");
         this.vetPortal = vetPortal;
         initComponents();
     }
