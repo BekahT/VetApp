@@ -5,6 +5,8 @@
  * Purpose: This window allows the user to add new clients.
  */
 
+package vetportal;
+
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import java.text.ParseException;

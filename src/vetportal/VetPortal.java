@@ -10,6 +10,8 @@
  * This specific class implements the GUI for the program and the main() method.
  */
 
+package vetportal;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -260,11 +262,6 @@ public class VetPortal extends JFrame {
 
     //TODO: add follow on methods
     public Boolean createClient(JLabel warnUser, String firstName, String lastName, String phoneNumber, String email) {
-//        String firstName = "Elton";
-//        String lastName = "John";
-//        String phoneNumber = "543-123-5698";
-//        String email = "elton.john@yahoo.com";
-
         if ((firstName.isEmpty()) || (lastName.isEmpty()
                 || (phoneNumber.isEmpty()) || (email.isEmpty()))) { //Verify if any fields are empty
             warnUser.setText("All fields are required!");

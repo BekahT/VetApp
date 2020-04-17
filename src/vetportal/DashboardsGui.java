@@ -5,13 +5,11 @@
  * Purpose: This window displays the dashboards where users can view appointments, pets, and clients.
  */
 
+package vetportal;
+
 import javax.swing.*;
 import java.text.ParseException;
 
-/**
- *
- * @author my-pc
- */
 public class DashboardsGui extends javax.swing.JFrame {
 
     //Create object for VetPortal and AddClient page:
