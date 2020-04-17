@@ -5,9 +5,9 @@
  * Purpose: This window allows the user to add new clients.
  */
 
-package vetportal;
-
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class AddClient extends javax.swing.JFrame {
@@ -18,7 +18,7 @@ public class AddClient extends javax.swing.JFrame {
     /**
      * Creates new form AddClient
      */
-    public AddClient(VetPortal vetPortal) {
+    public AddClient(VetPortal vetPortal) throws ParseException {
         super("Vet Portal");
         this.vetPortal = vetPortal;
         initComponents();
@@ -31,7 +31,10 @@ public class AddClient extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() throws ParseException {
+        //create a formatter to format phone number
+        //source: http://www.java2s.com/Code/Java/Swing-JFC/JFormattedTextFieldaninputmaskforatelephonenumber.htm
+        MaskFormatter phoneFormat = new MaskFormatter("(###) ###-####");
 
         addClientPanel = new javax.swing.JPanel();
         cancelBtn = new javax.swing.JButton();
@@ -44,7 +47,7 @@ public class AddClient extends javax.swing.JFrame {
         firstNameField = new javax.swing.JTextField();
         lastNameField = new javax.swing.JTextField();
         emailField = new javax.swing.JTextField();
-        phoneField = new javax.swing.JTextField();
+        phoneField = new javax.swing.JFormattedTextField(phoneFormat);
         cWarningMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -200,7 +203,7 @@ public class AddClient extends javax.swing.JFrame {
     private javax.swing.JLabel firstNameLabel;
     private javax.swing.JTextField lastNameField;
     private javax.swing.JLabel lastNameLabel;
-    private javax.swing.JTextField phoneField;
+    private javax.swing.JFormattedTextField phoneField;
     private javax.swing.JLabel phoneLabel;
     private javax.swing.JButton submitBtn;
     private javax.swing.JLabel cWarningMsg;

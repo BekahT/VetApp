@@ -9,11 +9,10 @@
  * This specific class implements the GUI for the program and the main() method.
  */
 
-package vetportal;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
@@ -172,7 +171,13 @@ public class VetPortal extends JFrame {
 
         pack();
 
-        loginBtn.addActionListener(event -> authenticateUser());
+        loginBtn.addActionListener(event -> {
+            try {
+                authenticateUser();
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        });
         //TODO: create follow on Swing components and add them to the frame:
 
     } //end of constructor
@@ -215,7 +220,7 @@ public class VetPortal extends JFrame {
     This method is used to authenticate a user by pulling a username and password
     from a Java Swing GUI; specifically, a JTextfield and JPasswordfield
      */
-    private void authenticateUser() {
+    private void authenticateUser() throws ParseException {
         String username = usernameField.getText();
         String password = new String(passwordField.getPassword());
 

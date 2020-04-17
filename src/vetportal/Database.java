@@ -6,8 +6,6 @@
  * Purpose: This class acts as the model for the SQLite database and contains the direct methods for specific interactions.
  */
 
-package vetportal;
-
 import org.apache.commons.codec.digest.DigestUtils;
 import org.sqlite.SQLiteConfig;
 import org.sqlite.SQLiteErrorCode;

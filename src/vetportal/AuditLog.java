@@ -6,7 +6,6 @@
  * Purpose: This class takes events triggered in the application and logs them
  *
  */
-package vetportal;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

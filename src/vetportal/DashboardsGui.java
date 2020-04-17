@@ -5,9 +5,8 @@
  * Purpose: This window displays the dashboards where users can view appointments, pets, and clients.
  */
 
-package vetportal;
-
 import javax.swing.*;
+import java.text.ParseException;
 
 /**
  *
@@ -21,7 +20,7 @@ public class DashboardsGui extends javax.swing.JFrame {
     /**
      * Creates new form DashboardsGui
      */
-    public DashboardsGui(VetPortal vetPortal) {
+    public DashboardsGui(VetPortal vetPortal) throws ParseException {
         super("Vet Portal");
         this.vetPortal = vetPortal;
         initComponents();
@@ -34,7 +33,7 @@ public class DashboardsGui extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() throws ParseException {
 
         dashboardPanel = new javax.swing.JPanel();
         dashboardTabs = new javax.swing.JTabbedPane();
