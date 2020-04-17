@@ -96,12 +96,7 @@ public class DashboardsGui extends javax.swing.JFrame {
 
         clientsTable.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         clientsTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
+            new Object [][] {},
             new String [] {
                 "First Name", "Last Name", "Email Address", "Phone Number", "Actions"
             }
