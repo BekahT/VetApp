@@ -1,10 +1,12 @@
 /**
  * File: Appointments.java
- * Date: March 26, 2020
+ * Date: April 16, 2020
  * @Author: Brian Rease, Nour Debiat
  * Main POC: Brian Rease
  * Purpose: This class is used to create new Appointments.
  */
+
+package vetportal;
 
 import java.sql.Time;
 import java.util.Date;

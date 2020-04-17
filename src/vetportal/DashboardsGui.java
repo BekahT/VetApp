@@ -1,8 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * File: DashboardsGui.java
+ * Date: April 16, 2020
+ * @Author: Nour Debiat
+ * Purpose: This window displays the dashboards where users can view appointments, pets, and clients.
  */
+
+package vetportal;
 
 import javax.swing.*;
 

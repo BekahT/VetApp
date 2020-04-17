@@ -23,7 +23,7 @@
 The application is a Java desktop application to be used in a veterinarian's office for managing clients, pets, and appointments.
   
 ## Phase I Functionality
-- Database1 connection
+- Database connection
 - Login
 - Logout
 - Add clients

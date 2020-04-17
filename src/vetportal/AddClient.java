@@ -1,16 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * File: AddClient.java
+ * Date: April 16, 2020
+ * @Author: Nour Debiat
+ * Purpose: This window allows the user to add new clients.
  */
+
+package vetportal;
 
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 
-/**
- *
- * @author my-pc
- */
 public class AddClient extends javax.swing.JFrame {
 
     //Creating VetPortal object:

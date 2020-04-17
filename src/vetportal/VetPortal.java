@@ -1,13 +1,15 @@
 /**
  * File: VetPortal.java
- * Date: March 26, 2020
- * @Author: Brian Rease, Nour Debiat
+ * Date: April 16, 2020
+ * @Author: Brian Rease, Nour Debiat, Rebekah Qu
  * Main POC: Nour Debiat
  * Purpose: This program is meant to simulate a Vet Clinic Portal application that allows staff to
  * add and manage clients, add and manage client pets, and add and manage appointments.
  *
  * This specific class implements the GUI for the program and the main() method.
  */
+
+package vetportal;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -96,7 +98,7 @@ public class VetPortal extends JFrame {
         exitBtn.setText("Exit");
 
         warningMsg.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        warningMsg.setForeground(new java.awt.Color(122, 188, 255));
+        warningMsg.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout welcomePanelLayout = new javax.swing.GroupLayout(welcomePanel);
         welcomePanel.setLayout(welcomePanelLayout);
@@ -168,7 +170,6 @@ public class VetPortal extends JFrame {
                         .addComponent(loginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-
         pack();
 
         loginBtn.addActionListener(event -> authenticateUser());
@@ -230,10 +231,10 @@ public class VetPortal extends JFrame {
         }
 
         if (!myDatabase.authenticate(username, password)) { //Attempt actual authentication
-            //TODO: change implementation; make error display on GUI
             warningMsg.setText("Invalid username or password!");
+            AuditLog.logWriter("failedLogin", username);       
         } else {
-            System.out.println("Authentication successful!");
+            AuditLog.logWriter("successfulLogin", username);
             dashboard = new DashboardsGui(vetPortal);
             vetPortal.setVisible(false);
             vetPortal.viewAllClients();
@@ -279,7 +280,7 @@ public class VetPortal extends JFrame {
             warnUser.setText(errorMessage);
         } else {
             //TODO: change implementation to refresh the view of all clients
-            System.out.println("Creating client was successful!");
+            AuditLog.logWriter("successfulClientAdd", lastName + ", " + firstName);
             return true;
         }
         vetDatabase.close();
@@ -300,6 +301,7 @@ public class VetPortal extends JFrame {
             JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             System.out.println("Deleting client was successful!");
+            // NEED CLIENT INFO AuditLog.logWriter("successfulClientDelete", lastName + ", " + firstName);
         }
         vetDatabase.close();
     } //end of deleteClient()
@@ -368,6 +370,7 @@ public class VetPortal extends JFrame {
             JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             System.out.println("Updating client was successful!");
+            AuditLog.logWriter("successfulClientEdit", updatedLastName + ", " + updatedFirstName);
         }
         vetDatabase.close();
 

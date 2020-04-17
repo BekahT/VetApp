@@ -1,10 +1,12 @@
 /**
  * File: Clients.java
- * Date: March 26, 2020
+ * Date: March 28, 2020
  * @Author: Brian Rease, Nour Debiat
  * Main POC: Brian Rease
  * Purpose: This class is used to create new Clients.
  */
+
+package vetportal;
 
 public class Clients {
 
