@@ -175,7 +175,8 @@ public class VetPortal extends JFrame {
         );
 
         pack();
-
+        
+        // Login Button Action
         loginBtn.addActionListener(event -> {
             try {
                 authenticateUser();
@@ -183,7 +184,12 @@ public class VetPortal extends JFrame {
                 e.printStackTrace();
             }
         });
-        //TODO: create follow on Swing components and add them to the frame:
+        
+        
+        // Exit Button Action
+        exitBtn.addActionListener(event -> {
+            System.exit(0);
+        });
 
     } //end of constructor
 
