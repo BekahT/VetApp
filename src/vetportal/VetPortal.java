@@ -31,6 +31,10 @@ public class VetPortal extends JFrame {
             + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
             + "A-Z]{2,7}$";
     private Pattern emailPattern = Pattern.compile(emailRegex);
+    
+    // Allow letters, apostrophes and hyphens in names
+    private String nameRegex = "[A-Za-z'\\-]+";
+    private Pattern namePattern = Pattern.compile(nameRegex);
   
     //TODO: create all the objects for the main GUI:
     private static VetPortal vetPortal;
@@ -205,9 +209,9 @@ public class VetPortal extends JFrame {
         //vetPortal.viewAllClients();
         //vetPortal.editClient();
     } //end of main()
-
-    private boolean isAlphabetic(String stringToCheck) {
-        return stringToCheck.chars().allMatch(Character::isAlphabetic);
+    
+    private boolean isValidName(String name) {
+        return namePattern.matcher(name).matches();
     }
 
     private boolean isValidEmail(String email) {
@@ -283,8 +287,8 @@ public class VetPortal extends JFrame {
             return false;
         }
 
-        if (!(isAlphabetic(firstName) && isAlphabetic(lastName))) { //Verify the first and last name are alphabetic
-            warnUser.setText("First and last name must be alphabetic!");
+        if (!(isValidName(firstName) && isValidName(lastName))) { //Verify the first and last name are validly formatted
+            warnUser.setText("First and last name may not contain invalid characters!");
             return false;
         }
 
@@ -293,7 +297,6 @@ public class VetPortal extends JFrame {
             return false;
         }
 
-        //TODO: Possibly add error checking to see if phoneNumber is valid??
         vetDatabase = new Database();
         if (!vetDatabase.open()) { //Attempt to open a connection with the database
             System.out.println("Can't connect to the database!");
@@ -370,8 +373,8 @@ public class VetPortal extends JFrame {
             return;
         }
 
-        if (!(isAlphabetic(updatedFirstName) && isAlphabetic(updatedLastName))) { //Verify the first and last name are alphabetic
-            String nameErrorMessage = "First and last name must be alphabetic!";
+        if (!(isValidName(updatedFirstName) && isValidName(updatedLastName))) { //Verify the first and last name are validly formatted
+            String nameErrorMessage = "First and last name may not contain invalid characters!";
             JOptionPane.showMessageDialog(null, nameErrorMessage, "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }

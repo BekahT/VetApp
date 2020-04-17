@@ -134,10 +134,8 @@ public class Database {
             return true;
         } catch (SQLException e) {
             if (SQLiteErrorCode.SQLITE_CONSTRAINT_UNIQUE.code == 2067) {
-                //System.out.println("The phone number you entered is already in the database! Please try again.");
-                setErrorMessage("The phone number you entered is already in the database! Please try again.");
+                setErrorMessage("The phone number you entered is already in the database!");
             } else {
-                //System.out.println("Unable to create new client.\n" + e.getMessage());
                 setErrorMessage("Unable to create new client.\n" + e.getMessage());
             }
             return false;
