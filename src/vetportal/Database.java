@@ -5,8 +5,8 @@
  * Main POC: Brian Rease
  * Purpose: This class acts as the model for the SQLite database and contains the direct methods for specific interactions.
  */
- 
- package vetportal;
+
+package vetportal;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.sqlite.SQLiteConfig;
