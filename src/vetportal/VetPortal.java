@@ -30,12 +30,14 @@ public class VetPortal extends JFrame {
 
     //TODO: create all the objects for the main GUI:
     private static VetPortal vetPortal;
+    private javax.swing.JButton exitBtn;
     private javax.swing.JButton loginBtn;
     private javax.swing.JPanel loginPanel;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JTextField usernameField;
     private javax.swing.JLabel usernameLabel;
+    private javax.swing.JLabel warningMsg;
     private javax.swing.JLabel welcomeLabel;
     private javax.swing.JPanel welcomePanel;
 
@@ -54,6 +56,8 @@ public class VetPortal extends JFrame {
         usernameField = new javax.swing.JTextField();
         loginBtn = new javax.swing.JButton();
         passwordField = new javax.swing.JPasswordField();
+        exitBtn = new javax.swing.JButton();
+        warningMsg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -68,49 +72,64 @@ public class VetPortal extends JFrame {
         welcomeLabel.setForeground(new java.awt.Color(122, 188, 255));
         welcomeLabel.setText("Welcome to the Vet Portal");
 
-        usernameLabel.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        usernameLabel.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         usernameLabel.setForeground(new java.awt.Color(122, 188, 255));
         usernameLabel.setText("Username");
 
-        passwordLabel.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        passwordLabel.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         passwordLabel.setForeground(new java.awt.Color(122, 188, 255));
         passwordLabel.setText("Password");
 
-        usernameField.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
-        usernameField.setForeground(new java.awt.Color(100, 100, 100));
+        usernameField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        usernameField.setForeground(new java.awt.Color(41, 41, 41));
         usernameField.setToolTipText("");
 
         loginBtn.setBackground(new java.awt.Color(122, 188, 255));
-        loginBtn.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        loginBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         loginBtn.setForeground(new java.awt.Color(255, 255, 255));
         loginBtn.setText("Login");
 
-        passwordField.setFont(new java.awt.Font("Calibri", 1, 15)); // NOI18N
+        passwordField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        passwordField.setForeground(new java.awt.Color(41, 41, 41));
+
+        exitBtn.setBackground(new java.awt.Color(255, 255, 255));
+        exitBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        exitBtn.setForeground(new java.awt.Color(122, 188, 255));
+        exitBtn.setText("Exit");
+
+        warningMsg.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        warningMsg.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout welcomePanelLayout = new javax.swing.GroupLayout(welcomePanel);
         welcomePanel.setLayout(welcomePanelLayout);
         welcomePanelLayout.setHorizontalGroup(
                 welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(welcomePanelLayout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addGroup(welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(passwordLabel)
-                                        .addComponent(usernameLabel)
-                                        .addComponent(usernameField)
-                                        .addComponent(passwordField)
-                                        .addComponent(loginBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, welcomePanelLayout.createSequentialGroup()
-                                .addContainerGap(103, Short.MAX_VALUE)
-                                .addComponent(welcomeLabel)
-                                .addGap(99, 99, 99))
+                                .addGroup(welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(welcomePanelLayout.createSequentialGroup()
+                                                .addGap(180, 180, 180)
+                                                .addComponent(welcomeLabel))
+                                        .addGroup(welcomePanelLayout.createSequentialGroup()
+                                                .addGap(135, 135, 135)
+                                                .addGroup(welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(usernameField, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                                                        .addComponent(passwordField)
+                                                        .addComponent(passwordLabel)
+                                                        .addComponent(usernameLabel)
+                                                        .addGroup(welcomePanelLayout.createSequentialGroup()
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(35, 35, 35)
+                                                                .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(warningMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addContainerGap(136, Short.MAX_VALUE))
         );
         welcomePanelLayout.setVerticalGroup(
                 welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(welcomePanelLayout.createSequentialGroup()
-                                .addGap(41, 41, 41)
+                                .addGap(43, 43, 43)
                                 .addComponent(welcomeLabel)
-                                .addGap(36, 36, 36)
+                                .addGap(28, 28, 28)
                                 .addComponent(usernameLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -118,16 +137,21 @@ public class VetPortal extends JFrame {
                                 .addComponent(passwordLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
-                                .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(140, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(warningMsg)
+                                .addGap(19, 19, 19)
+                                .addGroup(welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addContainerGap(151, Short.MAX_VALUE))
         );
+
         javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
         loginPanel.setLayout(loginPanelLayout);
         loginPanelLayout.setHorizontalGroup(
                 loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
-                                .addGap(0, 284, Short.MAX_VALUE)
+                                .addGap(0, 75, Short.MAX_VALUE)
                                 .addComponent(welcomePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         loginPanelLayout.setVerticalGroup(
@@ -196,7 +220,7 @@ public class VetPortal extends JFrame {
         String password = new String(passwordField.getPassword());
 
         if ((username.isEmpty()) || (password.isEmpty())) { //Verify the username or password are not empty
-            System.out.println("Username or password can not be empty!");
+            warningMsg.setText("Username or password can not be empty!");
             return;
         }
 
@@ -207,11 +231,9 @@ public class VetPortal extends JFrame {
         }
 
         if (!myDatabase.authenticate(username, password)) { //Attempt actual authentication
-            //TODO: change implementation; make error display on GUI
-            System.out.println("Invalid username or password!");
-            AuditLog.logWriter("failedLogin", username);
+            warningMsg.setText("Invalid username or password!");
+            AuditLog.logWriter("failedLogin", username);       
         } else {
-            System.out.println("Authentication successful!");
             AuditLog.logWriter("successfulLogin", username);
             dashboard = new DashboardsGui(vetPortal);
             vetPortal.setVisible(false);
