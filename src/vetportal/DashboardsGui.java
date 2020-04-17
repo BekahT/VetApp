@@ -52,6 +52,10 @@ public class DashboardsGui extends javax.swing.JFrame {
         cNumberField = new javax.swing.JTextField();
         logoutBtn = new javax.swing.JButton();
 
+        //table buttons
+        cDeleteBtn = new javax.swing.JButton();
+        cEditBtn = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         dashboardPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -135,11 +139,10 @@ public class DashboardsGui extends javax.swing.JFrame {
         cSearchBtn.setBackground(new java.awt.Color(255, 255, 255));
         cSearchBtn.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         cSearchBtn.setText("Search");
-        cSearchBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cSearchBtnActionPerformed(evt);
-            }
-        });
+
+        //table buttons
+        cDeleteBtn.setText("Delete");
+        cEditBtn.setText("Edit");
 
         cNameField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
@@ -237,10 +240,6 @@ public class DashboardsGui extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cSearchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cSearchBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cSearchBtnActionPerformed
-
     public JTable getClientsTable() {
         return clientsTable;
     }
@@ -266,5 +265,9 @@ public class DashboardsGui extends javax.swing.JFrame {
     private javax.swing.JTabbedPane dashboardTabs;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JPanel petsTab;
+
+    //buttons to add to table
+    private javax.swing.JButton cDeleteBtn;
+    private javax.swing.JButton cEditBtn;
     // End of variables declaration//GEN-END:variables
 }
