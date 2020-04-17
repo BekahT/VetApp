@@ -248,7 +248,12 @@ public class VetPortal extends JFrame {
         // If user is not locked out, attempt to authenticate
         if (!AccountLockout.isLocked(username)) {
             if (!myDatabase.authenticate(username, password)) { //Attempt actual authentication
-                warningMsg.setText("Invalid username or password!");                
+                // Add a warning message to the window
+                warningMsg.setText("Invalid username or password!");     
+                // Reset the form fields
+                usernameField.setText("");
+                passwordField.setText("");
+                // Log the failure
                 AuditLog.logWriter("failedLogin", username);
                 AccountLockout.addFailedLogin(username);
             } else {
@@ -260,7 +265,11 @@ public class VetPortal extends JFrame {
             }
         // If user is locked out, display error
         } else {           
+            // Add a warning message to the window
             warningMsg.setText("User account is locked!");
+            // Reset the form fields
+            usernameField.setText("");
+            passwordField.setText("");
             AuditLog.logWriter("accountLockout", username);
         }
         myDatabase.close();
