@@ -50,10 +50,6 @@ public class Database {
 
     private Connection conn;
     private Statement statement;
-<<<<<<< HEAD
-
-=======
->>>>>>> development
 
     //This method attempts to open a connection with the database
     public boolean open() {
