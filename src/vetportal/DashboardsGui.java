@@ -14,7 +14,7 @@ public class DashboardsGui extends javax.swing.JFrame {
 
     //Create object for VetPortal and AddClient page:
     VetPortal vetPortal;
-    AddClient addClient2Page;
+    AddClient addClientPage;
     /**
      * Creates new form DashboardsGui
      */
@@ -236,8 +236,8 @@ public class DashboardsGui extends javax.swing.JFrame {
                         .addComponent(dashboardPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        addClient2Page = new AddClient(vetPortal);
-        createClientBtn.addActionListener(event -> addClient2Page.setVisible(true));
+        addClientPage = new AddClient(vetPortal);
+        createClientBtn.addActionListener(event -> addClientPage.setVisible(true));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
