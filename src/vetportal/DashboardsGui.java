@@ -55,6 +55,7 @@ public class DashboardsGui extends javax.swing.JFrame {
         //table buttons
         cDeleteBtn = new javax.swing.JButton();
         cEditBtn = new javax.swing.JButton();
+        cButtonsGroup = new javax.swing.ButtonGroup();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -143,6 +144,9 @@ public class DashboardsGui extends javax.swing.JFrame {
         //table buttons
         cDeleteBtn.setText("Delete");
         cEditBtn.setText("Edit");
+        //add buttons to group
+        cButtonsGroup.add(cDeleteBtn);
+        cButtonsGroup.add(cEditBtn);
 
         cNameField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
@@ -269,5 +273,7 @@ public class DashboardsGui extends javax.swing.JFrame {
     //buttons to add to table
     private javax.swing.JButton cDeleteBtn;
     private javax.swing.JButton cEditBtn;
+    //button group
+    private javax.swing.ButtonGroup cButtonsGroup;
     // End of variables declaration//GEN-END:variables
 }
