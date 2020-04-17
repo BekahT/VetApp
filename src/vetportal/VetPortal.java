@@ -18,7 +18,6 @@ import java.awt.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
-import java.time.Instant;
 
 public class VetPortal extends JFrame {
 
@@ -92,9 +91,9 @@ public class VetPortal extends JFrame {
         usernameField.setForeground(new java.awt.Color(41, 41, 41));
         usernameField.setToolTipText("");
 
-        loginBtn.setBackground(new java.awt.Color(122, 188, 255));
+        loginBtn.setBackground(new java.awt.Color(255, 255, 255));
         loginBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        loginBtn.setForeground(new java.awt.Color(255, 255, 255));
+        loginBtn.setForeground(new java.awt.Color(122, 188, 255));
         loginBtn.setText("Login");
 
         passwordField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N

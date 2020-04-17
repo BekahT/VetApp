@@ -56,6 +56,7 @@ public class AddClient extends javax.swing.JFrame {
 
         cancelBtn.setBackground(new java.awt.Color(255, 255, 255));
         cancelBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+		cancelBtn.setForeground(new java.awt.Color(122, 188, 255));
         cancelBtn.setText("Cancel");
         cancelBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -63,9 +64,9 @@ public class AddClient extends javax.swing.JFrame {
             }
         });
 
-        submitBtn.setBackground(new java.awt.Color(122, 188, 255));
-        submitBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        submitBtn.setForeground(new java.awt.Color(255, 255, 255));
+        submitBtn.setBackground(new java.awt.Color(255, 255, 255));
+        submitBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N   
+		submitBtn.setForeground(new java.awt.Color(122, 188, 255));		
         submitBtn.setText("Submit");
         submitBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
