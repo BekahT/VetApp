@@ -1,5 +1,5 @@
 /**
- * File: Datasource.java
+ * File: Database.java
  * Date: March 28, 2020
  * @Author: Brian Rease, Nour Debiat
  * Main POC: Brian Rease
@@ -10,9 +10,13 @@ package vetportal;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.sqlite.SQLiteConfig;
+import org.sqlite.SQLiteErrorCode;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Database {
+
+    private String errorMessage;
 
     public static final String DB_NAME = "vetclinic.db";
     public static final String CONNECTION_STRING = "jdbc:sqlite:" + DB_NAME;
@@ -51,8 +55,8 @@ public class Database {
     public boolean open() {
         try {
             SQLiteConfig config = new SQLiteConfig();
-	    config.enforceForeignKeys(true);
-	    conn = DriverManager.getConnection(CONNECTION_STRING, config.toProperties());
+            config.enforceForeignKeys(true);
+            conn = DriverManager.getConnection(CONNECTION_STRING, config.toProperties());
             return true;
         } catch (SQLException eS) {
             System.out.println("SQLException: " + eS.getMessage());
@@ -70,6 +74,28 @@ public class Database {
             System.out.println("Couldn't close connection: " + eS.getMessage());
         }
     } //end of close()
+
+    private void setErrorMessage(String message) {
+        errorMessage = message;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public int getClientID(String phoneNumber) {
+        try {
+            statement = conn.createStatement();
+            ResultSet idResult = statement.executeQuery("SELECT " + COLUMN_CLIENT_ID +
+                                                            " FROM " + TABLE_CLIENTS + " WHERE " +
+                                                            COLUMN_CLIENT_PHONE_NUMBER + "=\'" +
+                                                            phoneNumber + "\'");
+            return idResult.getInt("client_id");
+        } catch (SQLException e) {
+            System.out.println("Something went wrong: " + e.getMessage());
+            return -1;
+        }
+    } //end of getClientID()
 
     /*
     This method uses the Apache commons codec to hash a given 'password' String with sha256.
@@ -90,9 +116,83 @@ public class Database {
             statement.close();
             return false;
         } catch (SQLException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            System.out.println("Authentication unsuccessful: " + e.getMessage());
             return false;
         }
     } //end of authenticate()
+
+    public boolean insertClient(String firstName, String lastName, String phoneNumber, String email) {
+        try {
+            statement = conn.createStatement();
+            statement.execute("INSERT INTO " + TABLE_CLIENTS +
+                    " (" + COLUMN_CLIENT_FIRST_NAME +
+                    ", " + COLUMN_CLIENT_LAST_NAME +
+                    ", " + COLUMN_CLIENT_PHONE_NUMBER +
+                    ", " + COLUMN_CLIENT_EMAIL + ") VALUES (\'" +
+                    firstName + "\', \'" + lastName + "\', \'" + phoneNumber + "\', \'" + email + "\')");
+            statement.close();
+            return true;
+        } catch (SQLException e) {
+            if (SQLiteErrorCode.SQLITE_CONSTRAINT_UNIQUE.code == 2067) {
+                //System.out.println("The phone number you entered is already in the database! Please try again.");
+                setErrorMessage("The phone number you entered is already in the database! Please try again.");
+            } else {
+                //System.out.println("Unable to create new client.\n" + e.getMessage());
+                setErrorMessage("Unable to create new client.\n" + e.getMessage());
+            }
+            return false;
+        }
+    } //end of insertClient()
+
+    public boolean deleteClient(String phoneNumber) {
+        try {
+            statement = conn.createStatement();
+            statement.execute("DELETE FROM " + TABLE_CLIENTS +
+                    " WHERE " + COLUMN_CLIENT_PHONE_NUMBER +
+                    "=\'" + phoneNumber + "\'");
+            statement.close();
+            return true;
+        } catch (SQLException e) {
+            setErrorMessage("Unable to delete client.\n" + e.getMessage());
+            return false;
+        }
+    } //end of deleteClient()
+
+    public ArrayList<Clients> selectAllClients() {
+        try {
+            statement = conn.createStatement();
+            ResultSet results = statement.executeQuery("SELECT * FROM " + TABLE_CLIENTS);
+            ArrayList<Clients> allClients = new ArrayList<>();
+            while(results.next()) {
+                Clients client = new Clients(results.getInt(COLUMN_CLIENT_ID), results.getString(COLUMN_CLIENT_FIRST_NAME),
+                                            results.getString(COLUMN_CLIENT_LAST_NAME), results.getString(COLUMN_CLIENT_PHONE_NUMBER),
+                                            results.getString(COLUMN_CLIENT_EMAIL));
+                allClients.add(client);
+            }
+            results.close();
+            statement.close();
+            return allClients;
+        } catch (SQLException e) {
+            setErrorMessage("Could not find any clients.");
+            return null;
+        }
+    } //end of selectAllClients()
+
+    public boolean updateClient(int clientID, String firstName, String lastName, String phoneNumber, String email) {
+        try {
+            statement = conn.createStatement();
+            statement.execute("UPDATE " + TABLE_CLIENTS +
+                    " SET " + COLUMN_CLIENT_FIRST_NAME + "=\'" + firstName +
+                    "\', " + COLUMN_CLIENT_LAST_NAME + "=\'" + lastName +
+                    "\', " + COLUMN_CLIENT_PHONE_NUMBER + "=\'" + phoneNumber +
+                    "\', " + COLUMN_CLIENT_EMAIL + "=\'" + email +
+                    "\' WHERE " + COLUMN_CLIENT_ID + "=" + clientID);
+            statement.close();
+            return true;
+        } catch (SQLException e) {
+            setErrorMessage("Unable to update client.\n" + e.getMessage());
+            return false;
+        }
+    } //end of updateClient()
 
 } //end of Database
