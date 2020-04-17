@@ -18,7 +18,6 @@ import java.awt.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
-import java.time.Instant;
 
 public class VetPortal extends JFrame {
 
@@ -92,9 +91,9 @@ public class VetPortal extends JFrame {
         usernameField.setForeground(new java.awt.Color(41, 41, 41));
         usernameField.setToolTipText("");
 
-        loginBtn.setBackground(new java.awt.Color(122, 188, 255));
+        loginBtn.setBackground(new java.awt.Color(255, 255, 255));
         loginBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        loginBtn.setForeground(new java.awt.Color(255, 255, 255));
+        loginBtn.setForeground(new java.awt.Color(122, 188, 255));
         loginBtn.setText("Login");
 
         passwordField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -235,11 +234,12 @@ public class VetPortal extends JFrame {
     from a Java Swing GUI; specifically, a JTextfield and JPasswordfield
      */
     private void authenticateUser() throws ParseException {
-        String username = usernameField.getText();
+        // Make username lowercase to effectively make case insensitive
+        String username = usernameField.getText().toLowerCase();
         String password = new String(passwordField.getPassword());
 
         if ((username.isEmpty()) || (password.isEmpty())) { //Verify the username or password are not empty
-            warningMsg.setText("Username or password can not be empty!");
+            warningMsg.setText("Username or password cannot be empty!");
             return;
         }
 
