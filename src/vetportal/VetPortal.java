@@ -238,7 +238,7 @@ public class VetPortal extends JFrame {
         String password = new String(passwordField.getPassword());
 
         if ((username.isEmpty()) || (password.isEmpty())) { //Verify the username or password are not empty
-            warningMsg.setText("Username or password can not be empty!");
+            warningMsg.setText("Username or password cannot be empty!");
             return;
         }
 
