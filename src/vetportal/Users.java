@@ -10,15 +10,12 @@ package vetportal;
 
 public class Users {
 
-    private int userID;
     private String userName;
     private String userPassword;
 
-    //TODO: add userID
+    // Constructor
     public Users(String userName, String userPassword) {
         this.userName = userName;
-
-        //TODO: change the functionality to have secure authentication
         this.userPassword = userPassword;
     } //end of constructor
 

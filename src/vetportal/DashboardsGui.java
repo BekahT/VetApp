@@ -1,7 +1,7 @@
 /**
  * File: DashboardsGui.java
  * Date: April 16, 2020
- * @Author: Nour Debiat
+ * @Author: Nour Debiat, Brian Rease
  * Purpose: This window displays the dashboards where users can view appointments, pets, and clients.
  */
 
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class DashboardsGui extends javax.swing.JFrame {
 
-    //Create object for VetPortal and AddClient page:
+    // Create objects for VetPortal and AddClient page:
     VetPortal vetPortal;
     AddClient addClientPage;
     /**
@@ -269,22 +269,25 @@ public class DashboardsGui extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void deleteSelectedClient(String number) {
-        //System.out.println("here");
+	// Handler for deleteing a client
+    private void deleteSelectedClient(String number) {        
         vetPortal.getVetDatabase().open();
         vetPortal.getVetDatabase().deleteClient(number);
         myTableModel.remove();
     } //end of deleteSelectedClient()
 
+	// Handler for logout button click event
     private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
-        // Open login page
+        // Open Login Page
         vetPortal = new VetPortal();
         vetPortal.setVisible(true);
-        // Close vet portal
+        // Close Vet Portal Dashboard
         dispose();
     }//GEN-LAST:event_logoutBtnMouseClicked
 
+	// Handler for create client button click event
     private void createClientBtnMouseClicked(java.awt.event.MouseEvent evt) throws ParseException {//GEN-FIRST:event_createClientBtnMouseClicked
+		// Open the Add Client Page
         addClientPage = new AddClient(vetPortal);
         addClientPage.setVisible(true);        
     }//GEN-LAST:event_createClientBtnMouseClicked
