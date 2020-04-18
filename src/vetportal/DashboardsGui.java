@@ -26,6 +26,8 @@ public class DashboardsGui extends javax.swing.JFrame {
     AddClient addClientPage;
     /**
      * Creates new form DashboardsGui
+	 * @param vetPortal
+	 * @throws java.text.ParseException
      */
     public DashboardsGui(VetPortal vetPortal) throws ParseException {
         super("Vet Portal");

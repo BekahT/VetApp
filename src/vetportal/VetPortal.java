@@ -248,7 +248,7 @@ public class VetPortal extends JFrame {
 
 		// Attempt to open a connection with the database
         Database myDatabase = new Database();
-        if (!myDatabase.open()) { //Attempt to open a connection with the database
+        if (!myDatabase.open()) {
             System.out.println("Can't connect to the database!");
             return;
         }
@@ -316,7 +316,7 @@ public class VetPortal extends JFrame {
 
 		//Attempt to open a connection with the database
         vetDatabase = new Database();
-        if (!vetDatabase.open()) { //Attempt to open a connection with the database
+        if (!vetDatabase.open()) {
             System.out.println("Can't connect to the database!");
             return false;
         }
@@ -325,7 +325,7 @@ public class VetPortal extends JFrame {
             // Display the error to the user
             String errorMessage = vetDatabase.getErrorMessage();
             warnUser.setText(errorMessage);
-        // If INSERT into databse is successful
+        // If INSERT into database is successful
         } else {      
             // Log the add client action
             AuditLog.logWriter("successfulClientAdd", lastName + ", " + firstName);

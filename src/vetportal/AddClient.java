@@ -20,7 +20,7 @@ public class AddClient extends javax.swing.JFrame {
 
     /**
      * Creates new form AddClient
-	 * @param vetPortal	
+	 * @param vetPortal
      * @throws java.text.ParseException
      */
     public AddClient(VetPortal vetPortal) throws ParseException {
