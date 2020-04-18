@@ -1,7 +1,7 @@
 /**
  * File: AddClient.java
  * Date: April 16, 2020
- * @Author: Nour Debiat
+ * @Author: Nour Debiat, Rebekah Qu
  * Purpose: This window allows the user to add new clients.
  */
 
@@ -19,6 +19,8 @@ public class AddClient extends javax.swing.JFrame {
 
     /**
      * Creates new form AddClient
+     * @param vetPortal
+     * @throws java.text.ParseException
      */
     public AddClient(VetPortal vetPortal) throws ParseException {
         super("Add New Client Form");
@@ -181,19 +183,24 @@ public class AddClient extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    // Event for Submit button click
     private void submitBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitBtnMouseClicked
+        // Attempt to create a new client
         createNewClient();
     }//GEN-LAST:event_submitBtnMouseClicked
 
+    // Event for Cancel button click
     private void cancelBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelBtnMouseClicked
+        // Close the Add Client window and do nothing
         dispose();
     }//GEN-LAST:event_cancelBtnMouseClicked
 
+    // Method to create a new client
     private void createNewClient() {
         Boolean createTF = vetPortal.createClient(cWarningMsg, firstNameField.getText(), lastNameField.getText(), phoneField.getText(), emailField.getText());
 
-        //only close if successfully created client
+        // If creation was successful
         if(createTF) {
             // If success, reset the form
             firstNameField.setText(null);
@@ -203,7 +210,9 @@ public class AddClient extends javax.swing.JFrame {
             // And close it
             dispose();
         } 
+        // If creation was not succesful, cWarningMsg will convey any errors to the user
 
+        // Refresh the Clients Table in the Dashboard
         DashboardsGui dashboard = vetPortal.getDashboard();
         DefaultTableModel model = (DefaultTableModel)dashboard.getClientsTable().getModel();
         model.setRowCount(0);
