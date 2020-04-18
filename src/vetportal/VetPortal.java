@@ -335,11 +335,9 @@ public class VetPortal extends JFrame {
         return false;
     } //end of createClient()
 
-	// Method to delete an existing client
-    private void deleteClient() {
-        String phoneNumber = "543-123-5691";
-
-		//Attempt to open a connection with the database
+    // Method to delete an existing client
+    public void deleteClient(String phoneNumber, String firstName, String lastName) {
+	//Attempt to open a connection with the database
         vetDatabase = new Database();
         if (!vetDatabase.open()) { 
             System.out.println("Can't connect to the database!");
@@ -350,33 +348,33 @@ public class VetPortal extends JFrame {
         if (!vetDatabase.deleteClient(phoneNumber)) {
             // Display an error
             String errorMessage = vetDatabase.getErrorMessage();
-            JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
-        // If the client was deleted
+            JOptionPane.showMessageDialog(null, errorMessage, "Error: No client selected", JOptionPane.ERROR_MESSAGE);
+        // Delete the client
         } else {
+            vetDatabase.deleteClient(phoneNumber);
             // Log the deletion
-            System.out.println("Deleting client was successful!"); // rm this when logging is finished
-            // NEED CLIENT INFO AuditLog.logWriter("successfulClientDelete", lastName + ", " + firstName);
+            AuditLog.logWriter("successfulClientDelete", lastName + ", " + firstName);
         }
         vetDatabase.close();
     } //end of deleteClient()
 
-	// Method to view all clients that currently exist in the database
+// Method to view all clients that currently exist in the database
     public void viewAllClients() {
-		// Attempt to open a connection with the database
+        // Attempt to open a connection with the database
         vetDatabase = new Database();
         if (!vetDatabase.open()) { 
             System.out.println("Can't connect to the database!");
             return;
         }
-		// Add all the clients to an array
+	// Add all the clients to an array
         ArrayList<Clients> allClients = vetDatabase.selectAllClients();
-		// If the array is empty
+	// If the array is empty
         if (allClients.isEmpty()) {
             String errorMessage = vetDatabase.getErrorMessage();
             JOptionPane.showMessageDialog(null, errorMessage, "Error: No clients exist", JOptionPane.ERROR_MESSAGE);
-		// If clients exist
+	// If clients exist
         } else {
-			// Loop through the clients and add them to the Clients Table              
+            // Loop through the clients and add them to the Clients Table              
             DefaultTableModel model = (DefaultTableModel) dashboard.getClientsTable().getModel();
             DashboardsGui.MyTableModel newModel = (DashboardsGui.MyTableModel) dashboard.getTable().getModel();
             for (Clients client : allClients) {
@@ -422,7 +420,7 @@ public class VetPortal extends JFrame {
             return false;
         }        
         */
-		// Attempt to open a connection with the database
+	// Attempt to open a connection with the database
         vetDatabase = new Database();
         if (!vetDatabase.open()) { 
             System.out.println("Can't connect to the database!");
@@ -430,12 +428,12 @@ public class VetPortal extends JFrame {
         }
 
         int id = vetDatabase.getClientID(currentPhoneNumber);
-		// If update fails
+	// If update fails
         if (!vetDatabase.updateClient(id, updatedFirstName, updatedLastName, updatedPhoneNumber, updatedEmail)) {
-			// Show an error
+            // Show an error
             String errorMessage = vetDatabase.getErrorMessage();
             JOptionPane.showMessageDialog(null, errorMessage, "Error: Client Edit Failed", JOptionPane.ERROR_MESSAGE);
-		// If update is successful
+	// If update is successful
         } else {
             // Log successful client edit
             AuditLog.logWriter("successfulClientEdit", updatedLastName + ", " + updatedFirstName);

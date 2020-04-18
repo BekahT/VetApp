@@ -271,14 +271,21 @@ public class DashboardsGui extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-	// Handler for deleteing a client
-    private void deleteSelectedClient(String number) {        
-        vetPortal.getVetDatabase().open();
-        vetPortal.getVetDatabase().deleteClient(number);
-        myTableModel.remove();
+    // Handler for deleteing a client
+    private void deleteSelectedClient(String phoneNumber, String firstName, String lastName) {
+        // Ask the user to confirm client deletion      
+        int delete = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + firstName + " " + lastName + "?", "Confirm Client Deletion", JOptionPane.YES_NO_OPTION);
+        // If Yes (0) was selected
+        if (delete == 0) {
+            // Delete the client
+            vetPortal.deleteClient(phoneNumber, firstName, lastName);
+            myTableModel.remove();
+        }
+        // If No (1) was selected do nothing
+
     } //end of deleteSelectedClient()
 
-	// Handler for logout button click event
+    // Handler for logout button click event
     private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
         // Open Login Page
         vetPortal = new VetPortal();
@@ -287,9 +294,9 @@ public class DashboardsGui extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_logoutBtnMouseClicked
 
-	// Handler for create client button click event
+    // Handler for create client button click event
     private void createClientBtnMouseClicked(java.awt.event.MouseEvent evt) throws ParseException {//GEN-FIRST:event_createClientBtnMouseClicked
-		// Open the Add Client Page
+	// Open the Add Client Page
         addClientPage = new AddClient(vetPortal);
         addClientPage.setVisible(true);        
     }//GEN-LAST:event_createClientBtnMouseClicked
@@ -351,9 +358,11 @@ public class DashboardsGui extends javax.swing.JFrame {
 
         private void delete() {
             Object selectedPhoneNumber = myTableModel.getValueAt(table.getSelectedRow(), 3);
-            deleteSelectedClient((String)selectedPhoneNumber);
+            Object selectedFirstName = myTableModel.getValueAt(table.getSelectedRow(), 0);
+            Object selectedLastName = myTableModel.getValueAt(table.getSelectedRow(), 1);
+            deleteSelectedClient((String) selectedPhoneNumber, (String) selectedFirstName, (String) selectedLastName);
             myTableModel.remove();
-        }
+        }        
     } //end of AcceptRejectPane
 
     public class MyTableModel extends AbstractTableModel {
