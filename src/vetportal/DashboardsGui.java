@@ -8,18 +8,24 @@
 package vetportal;
 
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellEditor;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.EventObject;
+import java.util.List;
 
 public class DashboardsGui extends javax.swing.JFrame {
 
-    // Create objects for VetPortal and AddClient page:
+    //Create object for VetPortal and AddClient page:
     VetPortal vetPortal;
     AddClient addClientPage;
-    
     /**
      * Creates new form DashboardsGui
-     * @param vetPortal
-     * @throws java.text.ParseException
      */
     public DashboardsGui(VetPortal vetPortal) throws ParseException {
         super("Vet Portal");
@@ -52,6 +58,11 @@ public class DashboardsGui extends javax.swing.JFrame {
         cEmailField = new javax.swing.JTextField();
         cNumberField = new javax.swing.JTextField();
         logoutBtn = new javax.swing.JButton();
+
+        myTableModel = new MyTableModel();
+        table = new JTable(myTableModel);
+        renderer = new ActionRenderer();
+        editor = new ActionEditor();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,6 +106,17 @@ public class DashboardsGui extends javax.swing.JFrame {
 
         clientsTab.setBackground(new java.awt.Color(255, 255, 255));
 
+        //TODO: Adding code here:
+        //MultiButtonTable.MyTableModel myTableModel = new MultiButtonTable.MyTableModel();
+        //myTableModel.add(new MultiButtonTable.Data("Brian", "Test", "brian@gmail.com", "555-555-5555"));
+
+        //JTable table = new JTable(myTableModel);
+        //MultiButtonTable.AcceptRejectRenderer renderer = new MultiButtonTable.AcceptRejectRenderer();
+        table.getColumnModel().getColumn(4).setCellRenderer(renderer);
+        //table.getColumnModel().getColumn(4).setCellEditor(new MultiButtonTable.AcceptRejectEditor());
+        table.getColumnModel().getColumn(4).setCellEditor(editor);
+        table.setRowHeight(renderer.getTableCellRendererComponent(table, null, true, true, 0, 0).getPreferredSize().height);
+
         clientTableScroll.setBackground(new java.awt.Color(255, 255, 255));
 
         clientsTable.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -113,7 +135,8 @@ public class DashboardsGui extends javax.swing.JFrame {
             }
         });
         clientsTable.setGridColor(new java.awt.Color(255, 255, 255));
-        clientTableScroll.setViewportView(clientsTable);
+        //clientTableScroll.setViewportView(clientsTable);
+        clientTableScroll.setViewportView(table);
         if (clientsTable.getColumnModel().getColumnCount() > 0) {
             clientsTable.getColumnModel().getColumn(0).setResizable(false);
             clientsTable.getColumnModel().getColumn(1).setResizable(false);
@@ -246,19 +269,22 @@ public class DashboardsGui extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    // Handler for logout button click event
+    private void deleteSelectedClient(String number) {
+        //System.out.println("here");
+        vetPortal.getVetDatabase().open();
+        vetPortal.getVetDatabase().deleteClient(number);
+        myTableModel.remove();
+    } //end of deleteSelectedClient()
+
     private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
-        // Open Login Page
+        // Open login page
         vetPortal = new VetPortal();
         vetPortal.setVisible(true);
-        // Close Vet Portal Dashboard
+        // Close vet portal
         dispose();
     }//GEN-LAST:event_logoutBtnMouseClicked
 
-    // Handler for create client button click event
     private void createClientBtnMouseClicked(java.awt.event.MouseEvent evt) throws ParseException {//GEN-FIRST:event_createClientBtnMouseClicked
-        // Open the Add Client Page
         addClientPage = new AddClient(vetPortal);
         addClientPage.setVisible(true);        
     }//GEN-LAST:event_createClientBtnMouseClicked
@@ -267,8 +293,8 @@ public class DashboardsGui extends javax.swing.JFrame {
         return clientsTable;
     }
 
-    public void setClientsTable(JTable clientsTable) {
-        this.clientsTable = clientsTable;
+    public JTable getTable() {
+        return table;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -288,5 +314,197 @@ public class DashboardsGui extends javax.swing.JFrame {
     private javax.swing.JTabbedPane dashboardTabs;
     private javax.swing.JButton logoutBtn;
     private javax.swing.JPanel petsTab;
+
+    private MyTableModel myTableModel;
+    private JTable table;
+    private ActionRenderer renderer;
+    private ActionEditor editor;
     // End of variables declaration//GEN-END:variables
-}
+
+    //Testing code here for JTable:
+    public class ActionPane extends JPanel {
+
+        private JButton editButton;
+        private JButton deleteButton;
+
+        public ActionPane() {
+            setLayout(new GridBagLayout());
+            editButton = new JButton("Edit");
+            deleteButton = new JButton("Delete");
+
+            add(editButton);
+            add(deleteButton);
+
+            editButton.addActionListener(event -> System.out.println("Clicked edit button"));
+            deleteButton.addActionListener(event -> delete());
+        } //end of constructor
+
+        public void addActionListener(ActionListener listener) {
+            editButton.addActionListener(listener);
+            deleteButton.addActionListener(listener);
+        }
+
+        private void delete() {
+            Object selectedPhoneNumber = myTableModel.getValueAt(table.getSelectedRow(), 3);
+            deleteSelectedClient((String)selectedPhoneNumber);
+            myTableModel.remove();
+        }
+    } //end of AcceptRejectPane
+
+    public class MyTableModel extends AbstractTableModel {
+
+        private  List<Clients> data;
+
+        public MyTableModel() {
+            data = new ArrayList<>(25);
+        }
+
+        public List<Clients> getData() {
+            return data;
+        }
+
+        @Override
+        public String getColumnName(int column) {
+            String value = null;
+            switch (column) {
+                case 0:
+                    value = "First Name";
+                    break;
+                case 1:
+                    value = "Last Name";
+                    break;
+                case 2:
+                    value = "Email Address";
+                    break;
+                case 3:
+                    value = "Phone Number";
+                    break;
+                case 4:
+                    value = "Actions";
+            }
+            return value;
+        }
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            Class value = Object.class;
+            switch (columnIndex) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                    value = String.class;
+                    break;
+            }
+            return value;
+        }
+
+        @Override
+        public int getRowCount() {
+            return data.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 5;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            Clients obj = data.get(rowIndex);
+            String value = null;
+            switch (columnIndex) {
+                case 0:
+                    value = obj.getClientFirstName();
+                    break;
+                case 1:
+                    value = obj.getClientLastName();
+                    break;
+                case 2:
+                    value = obj.getClientEmail();
+                    break;
+                case 3:
+                    value = obj.getClientPhoneNumber();
+                    break;
+            }
+            return value;
+        }
+
+        public void add(Clients content) {
+            int startIndex = getRowCount();
+            data.add(content);
+            fireTableRowsInserted(startIndex, getRowCount() - 1);
+        }
+
+        public void remove() {
+//            try {
+//                Clients content = data.get(table.getSelectedRow());
+//                int startIndex = data.indexOf(content);
+//                data.remove(content);
+//                fireTableRowsInserted(startIndex, startIndex);
+//            } catch (IndexOutOfBoundsException e) {
+//                //TODO: figure out why IndexOutOfBounds error is happening. Something to do stopCellEditing()
+//                System.out.println("IndexOutOfBoundsError" + e.getMessage());
+//            }
+            //TODO: This is terribly optimized, but the only way I could get it to work. Maybe change.
+            data.clear();
+            fireTableDataChanged();
+            vetPortal.viewAllClients();
+        }
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return columnIndex == 4;
+        }
+    } //end of MyTableModel
+
+    public class ActionRenderer extends DefaultTableCellRenderer {
+
+        private ActionPane actionPane;
+
+        public ActionRenderer() {
+            actionPane = new ActionPane();
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            return actionPane;
+        }
+    } //end of AcceptRejectRenderer
+
+    public class ActionEditor extends AbstractCellEditor implements TableCellEditor {
+
+        private ActionPane actionPane;
+
+        public ActionEditor() {
+            actionPane = new ActionPane();
+            actionPane.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            stopCellEditing();
+                        }
+                    });
+                }
+            });
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return null;
+        }
+
+        @Override
+        public boolean isCellEditable(EventObject e) {
+            return true;
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            return actionPane;
+        }
+    } //end of AcceptRejectEditor
+
+} //end of DashboardsGui

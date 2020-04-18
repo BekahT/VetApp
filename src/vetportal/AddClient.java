@@ -1,12 +1,13 @@
 /**
  * File: AddClient.java
  * Date: April 16, 2020
- * @Author: Nour Debiat, Rebekah Qu
+ * @Author: Nour Debiat
  * Purpose: This window allows the user to add new clients.
  */
 
 package vetportal;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import java.text.ParseException;
@@ -19,8 +20,6 @@ public class AddClient extends javax.swing.JFrame {
 
     /**
      * Creates new form AddClient
-     * @param vetPortal
-     * @throws java.text.ParseException
      */
     public AddClient(VetPortal vetPortal) throws ParseException {
         super("Add New Client Form");
@@ -183,24 +182,19 @@ public class AddClient extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    // Event for Submit button click
+
     private void submitBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitBtnMouseClicked
-        // Attempt to create a new client
         createNewClient();
     }//GEN-LAST:event_submitBtnMouseClicked
 
-    // Event for Cancel button click
     private void cancelBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelBtnMouseClicked
-        // Close the Add Client window and do nothing
         dispose();
     }//GEN-LAST:event_cancelBtnMouseClicked
 
-    // Method to create a new client
     private void createNewClient() {
         Boolean createTF = vetPortal.createClient(cWarningMsg, firstNameField.getText(), lastNameField.getText(), phoneField.getText(), emailField.getText());
 
-        // If creation was successful
+        //only close if successfully created client
         if(createTF) {
             // If success, reset the form
             firstNameField.setText(null);
@@ -210,19 +204,23 @@ public class AddClient extends javax.swing.JFrame {
             // And close it
             dispose();
         } 
-        // If creation was not succesful, cWarningMsg will convey any errors to the user
 
-        // Refresh the Clients Table in the Dashboard
         DashboardsGui dashboard = vetPortal.getDashboard();
-        DefaultTableModel model = (DefaultTableModel)dashboard.getClientsTable().getModel();
-        model.setRowCount(0);
+//        DefaultTableModel modelOld = (DefaultTableModel)dashboard.getTable().getModel();
+//        modelOld.setRowCount(0);
+        //model.setRowCount(0);
+        DashboardsGui.MyTableModel model = (DashboardsGui.MyTableModel) dashboard.getTable().getModel();
+        //JTable table = dashboard.getTable();
         Database vetDatabase = vetPortal.getVetDatabase();
         vetDatabase.open();
         ArrayList<Clients> allClients = vetDatabase.selectAllClients();
-        for (Clients client : allClients) {
-            Object[] row = {client.getClientFirstName(), client.getClientLastName(), client.getClientEmail(), client.getClientPhoneNumber()};
-            model.addRow(row);
-        }
+        Clients newClient = allClients.get(allClients.size()-1);
+        model.add(newClient);
+//        for (Clients client : allClients) {
+//            //Object[] row = {client.getClientFirstName(), client.getClientLastName(), client.getClientEmail(), client.getClientPhoneNumber()};
+//            //model.addRow(row);
+//            //model.add(client);
+//        }
         
     } //end of createNewClient()
 

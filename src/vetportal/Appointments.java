@@ -19,7 +19,7 @@ public class Appointments {
     private int pet;
     private String aptReason;
 
-    //TODO in Development Phase III: figure out what needs to be created / pulled from GUI and how
+    //TODO: figure out what needs to be created / pulled from GUI and how
     public Appointments(String aptReason) {
         this.aptReason = aptReason;
     } //end of constructor

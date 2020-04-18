@@ -4,7 +4,7 @@
  * Date: April 16, 2020
  * @Author: Brian Rease, Nour Debiat, Rebekah Qu
  * Main POC: Nour Debiat
- * Purpose: This program is meant to simulate a Vet Portal application that allows staff to
+ * Purpose: This program is meant to simulate a Vet Clinic Portal application that allows staff to
  * add and manage clients, add and manage client pets, and add and manage appointments.
  *
  * This specific class implements the GUI for the program and the main() method.
@@ -14,6 +14,8 @@ package vetportal;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -24,38 +26,33 @@ public class VetPortal extends JFrame {
 
     private Database vetDatabase;
 
-    // Validate email addresses are valid email addresses
-    private final String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."
+    private String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."
             + "[a-zA-Z0-9_+&*-]+)*@"
             + "(?:[a-zA-Z0-9-]+\\.)+[a-z"
             + "A-Z]{2,7}$";
-    private final Pattern emailPattern = Pattern.compile(emailRegex);
+    private Pattern emailPattern = Pattern.compile(emailRegex);
     
-    // Allow only letters, apostrophes and hyphens in names
-    private final String nameRegex = "[A-Za-z'\\-]+";
-    private final Pattern namePattern = Pattern.compile(nameRegex);
-    
-    // Validate phone number is exactly 10 digits
-    private final String phoneRegex = "^\\(\\d{3}\\)\\s+\\d{3}\\-\\d{4}$";
-    private final Pattern phonePattern = Pattern.compile(phoneRegex);
+    // Allow letters, apostrophes and hyphens in names
+    private String nameRegex = "[A-Za-z'\\-]+";
+    private Pattern namePattern = Pattern.compile(nameRegex);
   
+    //TODO: create all the objects for the main GUI:
     private static VetPortal vetPortal;
-    // Fields for the Login GUI
-    private final javax.swing.JButton exitBtn;
-    private final javax.swing.JButton loginBtn;
-    private final javax.swing.JPanel loginPanel;
-    private final javax.swing.JPasswordField passwordField;
-    private final javax.swing.JLabel passwordLabel;
-    private final javax.swing.JTextField usernameField;
-    private final javax.swing.JLabel usernameLabel;
-    private final javax.swing.JLabel warningMsg;
-    private final javax.swing.JLabel welcomeLabel;
-    private final javax.swing.JPanel welcomePanel;
+    private javax.swing.JButton exitBtn;
+    private javax.swing.JButton loginBtn;
+    private javax.swing.JPanel loginPanel;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JLabel passwordLabel;
+    private javax.swing.JTextField usernameField;
+    private javax.swing.JLabel usernameLabel;
+    private javax.swing.JLabel warningMsg;
+    private javax.swing.JLabel welcomeLabel;
+    private javax.swing.JPanel welcomePanel;
 
-    // Create object for DashboardGui:
+    //Create object for DashboardGui:
     DashboardsGui dashboard;
 
-    // Constructor for Login Page
+    //constructor:
     public VetPortal() {
         super("Vet Portal");
 
@@ -183,46 +180,52 @@ public class VetPortal extends JFrame {
 
         pack();
         
-        // Login Button Event Action
+        // Login Button Action
         loginBtn.addActionListener(event -> {
             try {
                 authenticateUser();
             } catch (ParseException e) {
-                System.out.println(e);
+                e.printStackTrace();
             }
         });
         
         
-        // Exit Button Event Action
+        // Exit Button Action
         exitBtn.addActionListener(event -> {
             System.exit(0);
         });
 
-    } //end of Login Page constructor
+    } //end of constructor
 
     public static void main(String[] args) {
         vetPortal = new VetPortal();
         vetPortal.setVisible(true);
+
+//        AddClient page = new AddClient();
+//        page.setVisible(true);
+        //vetPortal.authenticateUser();
+        //vetPortal.createClient();
+        //vetPortal.deleteClient();
+        //vetPortal.viewAllClients();
+        //vetPortal.editClient();
     } //end of main()
     
-    // Validation functions for New Client Form Fields
     private boolean isValidName(String name) {
         return namePattern.matcher(name).matches();
     }
+
     private boolean isValidEmail(String email) {
         return emailPattern.matcher(email).matches();
-    }    
-    private boolean isValidPhone(String phoneNumber) {
-        return phonePattern.matcher(phoneNumber).matches();
     }
 
-    // Getter Functions
     public DashboardsGui getDashboard() {
         return dashboard;
     }
+
     public Database getVetDatabase() {
         return vetDatabase;
     }
+
     public VetPortal getVetPortal() {
         return vetPortal;
     }
@@ -236,23 +239,20 @@ public class VetPortal extends JFrame {
         String username = usernameField.getText().toLowerCase();
         String password = new String(passwordField.getPassword());
 
-        // Verify the username or password are not empty
-        if ((username.isEmpty()) || (password.isEmpty())) { 
+        if ((username.isEmpty()) || (password.isEmpty())) { //Verify the username or password are not empty
             warningMsg.setText("Username or password cannot be empty!");
             return;
         }
-        
-        // Attempt to open a connection with the database
+
         Database myDatabase = new Database();
-        if (!myDatabase.open()) { 
+        if (!myDatabase.open()) { //Attempt to open a connection with the database
             System.out.println("Can't connect to the database!");
             return;
         }
 
         // If user is not locked out, attempt to authenticate
         if (!AccountLockout.isLocked(username)) {
-            // If authentication fails
-            if (!myDatabase.authenticate(username, password)) { 
+            if (!myDatabase.authenticate(username, password)) { //Attempt actual authentication
                 // Add a warning message to the window
                 warningMsg.setText("Invalid username or password!");     
                 // Reset the form fields
@@ -260,16 +260,11 @@ public class VetPortal extends JFrame {
                 passwordField.setText("");
                 // Log the failure
                 AuditLog.logWriter("failedLogin", username);
-                // Increment the number of failed logins
                 AccountLockout.addFailedLogin(username);
-            // Authentication was successful
             } else {
-                // Log successful login
                 AuditLog.logWriter("successfulLogin", username);
-                // Display the Dashboards
                 dashboard = new DashboardsGui(vetPortal);
-                // Close the Login Page
-                vetPortal.setVisible(false);                
+                vetPortal.setVisible(false);
                 vetPortal.viewAllClients();
                 dashboard.setVisible(true);
             }
@@ -280,50 +275,40 @@ public class VetPortal extends JFrame {
             // Reset the form fields
             usernameField.setText("");
             passwordField.setText("");
-            // Log the account lockout
             AuditLog.logWriter("accountLockout", username);
         }
         myDatabase.close();
     } //end of authenticateUser()
 
-    // Method to create a new client, called from the AddClient.java file
+    //TODO: add follow on methods
     public Boolean createClient(JLabel warnUser, String firstName, String lastName, String phoneNumber, String email) {
-        // Verify no fields are empty
         if ((firstName.isEmpty()) || (lastName.isEmpty()
-                || (phoneNumber.isEmpty()) || (email.isEmpty()))) { 
+                || (phoneNumber.isEmpty()) || (email.isEmpty()))) { //Verify if any fields are empty
             warnUser.setText("All fields are required!");
             return false;
         }
-        // Verify the first and last name are validly formatted
-        if (!(isValidName(firstName) && isValidName(lastName))) { 
+
+        if (!(isValidName(firstName) && isValidName(lastName))) { //Verify the first and last name are validly formatted
             warnUser.setText("First and last name may not contain invalid characters!");
             return false;
         }
-        // Verify valid email address format
-        if (!isValidEmail(email)) { 
+
+        if (!isValidEmail(email)) { //Verify valid email address
             warnUser.setText("Invalid email address!");
             return false;
         }
-        // Verify valid phone number format
-        if(!isValidPhone(phoneNumber)) { 
-            warnUser.setText("Phone number must be 10 digits!");
-            return false;
-        }
-        
-        //Attempt to open a connection with the database
+
         vetDatabase = new Database();
-        if (!vetDatabase.open()) { 
+        if (!vetDatabase.open()) { //Attempt to open a connection with the database
             System.out.println("Can't connect to the database!");
             return false;
         }
-        // If INSERT into database fails
-        if (!vetDatabase.insertClient(firstName, lastName, phoneNumber, email)) { 
-            // Display the error to the user
+
+        if (!vetDatabase.insertClient(firstName, lastName, phoneNumber, email)) { //Attempt actual INSERT
             String errorMessage = vetDatabase.getErrorMessage();
             warnUser.setText(errorMessage);
-        // If INSERT into databse is successful
-        } else {      
-            // Log the add client action
+        } else {
+            //TODO: change implementation to refresh the view of all clients
             AuditLog.logWriter("successfulClientAdd", lastName + ", " + firstName);
             return true;
         }
@@ -331,112 +316,99 @@ public class VetPortal extends JFrame {
         return false;
     } //end of createClient()
 
-    // Method to delete an existing client
     private void deleteClient() {
         String phoneNumber = "543-123-5691";
 
-        //Attempt to open a connection with the database
         vetDatabase = new Database();
-        if (!vetDatabase.open()) { 
+        if (!vetDatabase.open()) { //Attempt to open a connection with the database
             System.out.println("Can't connect to the database!");
             return;
         }
-        // If no client was passed
+
         if (!vetDatabase.deleteClient(phoneNumber)) {
-            // Display an error
             String errorMessage = vetDatabase.getErrorMessage();
             JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
-        // If the client was deleted
         } else {
-            // Log the deletion
-            System.out.println("Deleting client was successful!"); // rm this when logging is finished
+            System.out.println("Deleting client was successful!");
             // NEED CLIENT INFO AuditLog.logWriter("successfulClientDelete", lastName + ", " + firstName);
         }
         vetDatabase.close();
     } //end of deleteClient()
 
-    // Method to view all clients that currently exist in the database
     public void viewAllClients() {
-        // Attempt to open a connection with the database
         vetDatabase = new Database();
-        if (!vetDatabase.open()) { 
+        if (!vetDatabase.open()) { //Attempt to open a connection with the database
             System.out.println("Can't connect to the database!");
             return;
         }
-        // Add all the clients to an array
+
         ArrayList<Clients> allClients = vetDatabase.selectAllClients();
-        // If the array is empty
+
         if (allClients.isEmpty()) {
-            // Show an error message
             String errorMessage = vetDatabase.getErrorMessage();
-            JOptionPane.showMessageDialog(null, errorMessage, "Error: No clients exist", JOptionPane.ERROR_MESSAGE);
-        // If clients exist
+            JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            // Loop through the clients and add them to the Clients Table            
+            for (Clients client : allClients) {
+                System.out.println("client_id: " + client.getClientID() + ", First Name: " + client.getClientFirstName());
+            }
             DefaultTableModel model = (DefaultTableModel) dashboard.getClientsTable().getModel();
+            DashboardsGui.MyTableModel newModel = (DashboardsGui.MyTableModel) dashboard.getTable().getModel();
             for (Clients client : allClients) {
                 Object[] row = {client.getClientFirstName(), client.getClientLastName(), client.getClientEmail(), client.getClientPhoneNumber()};
-                model.addRow(row);
+                //model.addRow(row);
+//                newModel.add(client.getClientFirstName());
+//                newModel.add(client.getClientLastName());
+//                newModel.add(client.getClientEmail());
+//                newModel.add(client.getClientPhoneNumber());
+                newModel.add(client);
             }
         }
         vetDatabase.close();
     } //end of viewAllClients()
 
-    // Method to edit information on existing clients
-    private void editClient() {        
-        // DELETE FROM HERE WHEN EDIT CLIENT IS IMPLEMENTED
+    private void editClient() {
         String currentPhoneNumber = "111-111-1111";
 
         String updatedFirstName = "Elton";
         String updatedLastName = "John";
         String updatedPhoneNumber = "222-222-2222";
         String updatedEmail = "elton.john@yahoo.com";
-        // DELETE TO HERE WHEN EDIT CLIENT IS IMPLEMENTED
-        
-        
-        /* UNCOMMENT WHEN EDIT CLIENT IS IMPLEMENTED
-        // Verify no fields are empty
+
         if ((updatedFirstName.isEmpty()) || (updatedLastName.isEmpty()
-                || (updatedPhoneNumber.isEmpty()) || (updatedEmail.isEmpty()))) { 
-            warnUser.setText("All fields are required!");
-            return false;
+                || (updatedPhoneNumber.isEmpty()) || (updatedEmail.isEmpty()))) { //Verify if any fields are empty
+            System.out.println("All fields are required!");
+            return;
         }
-        // Verify the first and last name are validly formatted
-        if (!(isValidName(updatedFirstName) && isValidName(updatedLastName))) { 
-            warnUser.setText("First and last name may not contain invalid characters!");
-            return false;
+
+        if (!(isValidName(updatedFirstName) && isValidName(updatedLastName))) { //Verify the first and last name are validly formatted
+            String nameErrorMessage = "First and last name may not contain invalid characters!";
+            JOptionPane.showMessageDialog(null, nameErrorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        // Verify valid email address format
-        if (!isValidEmail(updatedEmail)) { 
-            warnUser.setText("Invalid email address!");
-            return false;
+
+        if (!isValidEmail(updatedEmail)) { //Verify valid email address
+            String emailErrorMessage = "Invalid email address!";
+            JOptionPane.showMessageDialog(null, emailErrorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        // Verify valid phone number format
-        if(!isValidPhone(updatedPhoneNumber)) { 
-            warnUser.setText("Phone number must be 10 digits!");
-            return false;
-        }        
-        */ 
-        // Attempt to open a connection with the database
+
         vetDatabase = new Database();
-        if (!vetDatabase.open()) { 
+        if (!vetDatabase.open()) { //Attempt to open a connection with the database
             System.out.println("Can't connect to the database!");
             return;
         }
 
         int id = vetDatabase.getClientID(currentPhoneNumber);
-        // If update fails
+
         if (!vetDatabase.updateClient(id, updatedFirstName, updatedLastName, updatedPhoneNumber, updatedEmail)) {
-            // Show an error
             String errorMessage = vetDatabase.getErrorMessage();
             JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
-        // If update is successful
         } else {
-            // Log successful client edit
+            System.out.println("Updating client was successful!");
             AuditLog.logWriter("successfulClientEdit", updatedLastName + ", " + updatedFirstName);
         }
         vetDatabase.close();
 
     } //end of editClient()
 
-} //end of VetPortal
+} //end of VetClinic

@@ -19,7 +19,7 @@ public class Pets {
     private Date petDateOfBirth; //TODO: figure out implementation and possibly change to java.sql.Date vs java.util.Date?
     private int petOwner;
 
-    //TODO in Phase II: add petID and petDateOfBirth
+    //TODO: add petID and petDateOfBirth
     public Pets(String petName, String petSpecies, String petGender, int petOwner) {
         this.petName = petName;
         this.petSpecies = petSpecies;

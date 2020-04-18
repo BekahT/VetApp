@@ -20,7 +20,8 @@ public class FailedUser {
         this.lockoutTime = lockoutTime;       
     }    
     
-    // Setter methods    
+    // Setter methods
+    
     public void setUsername(String username) {
         this.username = username;
     }
@@ -32,8 +33,10 @@ public class FailedUser {
     public void setLockoutTime(long lockoutTime) {
         this.lockoutTime = lockoutTime;
     }
-        
-    // Getter methods     
+    
+    
+    // Getter methods 
+    
     public String getUsername() {
         return this.username;
     }
