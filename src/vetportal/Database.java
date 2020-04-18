@@ -17,7 +17,7 @@ public class Database {
 
     private String errorMessage;
 
-    public static final String DB_NAME = "vetclinic.db";
+    public static final String DB_NAME = "VetPortal.db";
     public static final String CONNECTION_STRING = "jdbc:sqlite:" + DB_NAME;
 
     public static final String TABLE_USERS = "users";
