@@ -1,11 +1,10 @@
 /**
  * File: Database.java
  * Date: March 28, 2020
- * @Author: Brian Rease, Nour Debiat
- * Main POC: Brian Rease
+ * @Author: Brian Rease, Nour Debiat, Rebekah Qu
+ * Main POC: Brian Rease 
  * Purpose: This class acts as the model for the SQLite database and contains the direct methods for specific interactions.
  */
-
 package vetportal;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -84,15 +83,16 @@ public class Database {
     }
 
     public int getClientID(String phoneNumber) {
-        try {
-            statement = conn.createStatement();
-            ResultSet idResult = statement.executeQuery("SELECT " + COLUMN_CLIENT_ID +
-                                                            " FROM " + TABLE_CLIENTS + " WHERE " +
-                                                            COLUMN_CLIENT_PHONE_NUMBER + "=\'" +
-                                                            phoneNumber + "\'");
+        String sql = "SELECT " + COLUMN_CLIENT_ID
+            + " FROM " + TABLE_CLIENTS + " WHERE "
+            + COLUMN_CLIENT_PHONE_NUMBER + "=?";
+        
+        try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, phoneNumber);
+            ResultSet idResult = pstmt.executeQuery();
             return idResult.getInt("client_id");
         } catch (SQLException e) {
-            System.out.println("Something went wrong: " + e.getMessage());
+            System.out.println(e.getMessage());
             return -1;
         }
     } //end of getClientID()
@@ -102,75 +102,87 @@ public class Database {
     The hash is then compared to a password hash in the sqlite database
      */
     public boolean authenticate(String username, String password) {
-        try {
-            String passwordHash = DigestUtils.sha256Hex(password);
-
-            statement = conn.createStatement();
-            ResultSet authResult = statement.executeQuery("SELECT " + COLUMN_USER_PASSWORD +
-                                                                " FROM " + TABLE_USERS + " WHERE "
-                                                            + COLUMN_USER_NAME + "='" + username + "'");
-
-            if (passwordHash.equals(authResult.getString(COLUMN_USER_PASSWORD))) {
+        // Create a hash of the password
+        String passwordHash = DigestUtils.sha256Hex(password);
+        // Get the password for the user in order to compare passwords
+        String getUser = "SELECT " + COLUMN_USER_PASSWORD
+            + " FROM " + TABLE_USERS + " WHERE "
+            + COLUMN_USER_NAME + "=?";      
+        try(PreparedStatement pstmt = conn.prepareStatement(getUser)){
+            pstmt.setString(1, username);
+            ResultSet matchedUser = pstmt.executeQuery();
+            // If the hashed password for the selected user matches
+            if(passwordHash.equals(matchedUser.getString(COLUMN_USER_PASSWORD))) {                
+                pstmt.close();
                 return true;
+            // Otherwise, authentication failed
+            } else {
+                return false;
             }
-            statement.close();
-            return false;
         } catch (SQLException e) {
-            System.out.println("Authentication unsuccessful: " + e.getMessage());
+            System.out.println(e.getMessage());
             return false;
         }
     } //end of authenticate()
 
-	// This method inserts a new client into the clients table in the database
+    // This method inserts a new client into the clients table in the database
     public boolean insertClient(String firstName, String lastName, String phoneNumber, String email) {
-        try {
-            statement = conn.createStatement();
-            statement.execute("INSERT INTO " + TABLE_CLIENTS +
-                    " (" + COLUMN_CLIENT_FIRST_NAME +
-                    ", " + COLUMN_CLIENT_LAST_NAME +
-                    ", " + COLUMN_CLIENT_PHONE_NUMBER +
-                    ", " + COLUMN_CLIENT_EMAIL + ") VALUES (\'" +
-                    firstName + "\', \'" + lastName + "\', \'" + phoneNumber + "\', \'" + email + "\')");
-            statement.close();
+        String sql = "INSERT INTO " + TABLE_CLIENTS
+            + " (" + COLUMN_CLIENT_FIRST_NAME
+            + ", " + COLUMN_CLIENT_LAST_NAME
+            + ", " + COLUMN_CLIENT_PHONE_NUMBER
+            + ", " + COLUMN_CLIENT_EMAIL + ") VALUES(?,?,?,?)";
+        
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, firstName);
+            pstmt.setString(2, lastName);
+            pstmt.setString(3, phoneNumber);
+            pstmt.setString(4, email);
+            pstmt.executeUpdate();
+            pstmt.close();
             return true;
         } catch (SQLException e) {
             if (SQLiteErrorCode.SQLITE_CONSTRAINT_UNIQUE.code == 2067) {
                 setErrorMessage("The phone number you entered is already in the database!");
             } else {
-                setErrorMessage("Unable to create new client.\n" + e.getMessage());
+                setErrorMessage("Unable to create new client.");
+                System.out.println(e.getMessage());
             }
             return false;
         }
     } //end of insertClient()
 
-	// This method deletes an existing client from the clients table in the database
+    // This method deletes an existing client from the clients table in the database
     public boolean deleteClient(String phoneNumber) {
-        try {
-            statement = conn.createStatement();
-            statement.execute("DELETE FROM " + TABLE_CLIENTS +
-                    " WHERE " + COLUMN_CLIENT_PHONE_NUMBER +
-                    "=\'" + phoneNumber + "\'");
-            statement.close();
+        String sql = "DELETE FROM " + TABLE_CLIENTS
+            + " WHERE " + COLUMN_CLIENT_PHONE_NUMBER + "=?";
+        
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, phoneNumber);
+            pstmt.execute();
+            pstmt.close();
             return true;
         } catch (SQLException e) {
-            setErrorMessage("Unable to delete client.\n" + e.getMessage());
+            setErrorMessage("Unable to delete client.");
+            System.out.println(e.getMessage());
             return false;
         }
     } //end of deleteClient()
 
-	// This method selects all the clients from the clients table in the database and returns them as a list
+    // This method selects all the clients from the clients table in the database and returns them as a list
     public ArrayList<Clients> selectAllClients() {
         try {
             statement = conn.createStatement();
-            ResultSet results = statement.executeQuery("SELECT * FROM " + TABLE_CLIENTS);
-            ArrayList<Clients> allClients = new ArrayList<>();
-            while(results.next()) {
-                Clients client = new Clients(results.getInt(COLUMN_CLIENT_ID), results.getString(COLUMN_CLIENT_FIRST_NAME),
-                                            results.getString(COLUMN_CLIENT_LAST_NAME), results.getString(COLUMN_CLIENT_PHONE_NUMBER),
-                                            results.getString(COLUMN_CLIENT_EMAIL));
-                allClients.add(client);
+            ArrayList<Clients> allClients;
+            try (ResultSet results = statement.executeQuery("SELECT * FROM " + TABLE_CLIENTS)) {
+                allClients = new ArrayList<>();
+                while (results.next()) {
+                    Clients client = new Clients(results.getInt(COLUMN_CLIENT_ID), results.getString(COLUMN_CLIENT_FIRST_NAME),
+                            results.getString(COLUMN_CLIENT_LAST_NAME), results.getString(COLUMN_CLIENT_PHONE_NUMBER),
+                            results.getString(COLUMN_CLIENT_EMAIL));
+                    allClients.add(client);
+                }
             }
-            results.close();
             statement.close();
             return allClients;
         } catch (SQLException e) {
@@ -179,20 +191,26 @@ public class Database {
         }
     } //end of selectAllClients()
 
-	// This method updates a client with edited information in the clients table in the database
+    // This method updates a client with edited information in the clients table in the database
     public boolean updateClient(int clientID, String firstName, String lastName, String phoneNumber, String email) {
-        try {
-            statement = conn.createStatement();
-            statement.execute("UPDATE " + TABLE_CLIENTS +
-                    " SET " + COLUMN_CLIENT_FIRST_NAME + "=\'" + firstName +
-                    "\', " + COLUMN_CLIENT_LAST_NAME + "=\'" + lastName +
-                    "\', " + COLUMN_CLIENT_PHONE_NUMBER + "=\'" + phoneNumber +
-                    "\', " + COLUMN_CLIENT_EMAIL + "=\'" + email +
-                    "\' WHERE " + COLUMN_CLIENT_ID + "=" + clientID);
-            statement.close();
+        String sql = "UPDATE " + TABLE_CLIENTS
+            + " SET " + COLUMN_CLIENT_FIRST_NAME + "=?, "
+            + COLUMN_CLIENT_LAST_NAME + "=?, "
+            + COLUMN_CLIENT_PHONE_NUMBER + "=?, "
+            + COLUMN_CLIENT_EMAIL + "=? "
+            + "WHERE " + COLUMN_CLIENT_ID + "=?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, firstName);
+            pstmt.setString(2, lastName);
+            pstmt.setString(3, phoneNumber);
+            pstmt.setString(4, email);
+            pstmt.setInt(5, clientID);
+            pstmt.executeUpdate();
+            pstmt.close();
             return true;
-        } catch (SQLException e) {
-            setErrorMessage("Unable to update client.\n" + e.getMessage());
+        } catch (SQLException e)  {
+            setErrorMessage("Unable to update client.");
+            System.out.println(e.getMessage());
             return false;
         }
     } //end of updateClient()
