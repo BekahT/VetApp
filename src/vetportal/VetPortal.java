@@ -409,4 +409,4 @@ public class VetPortal extends JFrame {
 
     } //end of editClient()
 
-} //end of VetClinic
+} //end of VetPortal
