@@ -18,7 +18,7 @@ public class AuditLog {
      public static void logWriter(String event, String info) {
         // Try-with-resources write to a file with append being true, so the log retains old events
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("auditLog.txt", true))) {
-            // Depending on the event, write a different log to the log file
+			// Depending on the event, write a different log to the log file
             switch(event){
                 case ("successfulLogin"): 
                     writer.write(Instant.now() + " - Type: Login - Location: VetPortal Login " 

@@ -32,7 +32,8 @@ public class FailedUser {
     public void setLockoutTime(long lockoutTime) {
         this.lockoutTime = lockoutTime;
     }
-        
+    
+    
     // Getter methods     
     public String getUsername() {
         return this.username;
