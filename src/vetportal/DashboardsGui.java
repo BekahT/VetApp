@@ -1,7 +1,7 @@
 /**
  * File: DashboardsGui.java
  * Date: April 16, 2020
- * @Author: Nour Debiat, Brian Rease
+ * @Author: Nour Debiat, Brian Rease, Rebekah Qu
  * Purpose: This window displays the dashboards where users can view appointments, pets, and clients.
  */
 
@@ -18,12 +18,15 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DashboardsGui extends javax.swing.JFrame {
 
-    // Create objects for VetPortal and AddClient page:
+    // Create objects for pages
     VetPortal vetPortal;
     AddClient addClientPage;
+    EditClient editClientPage;
     /**
      * Creates new form DashboardsGui
 	 * @param vetPortal
@@ -107,15 +110,8 @@ public class DashboardsGui extends javax.swing.JFrame {
         dashboardTabs.addTab("Pets", petsTab);
 
         clientsTab.setBackground(new java.awt.Color(255, 255, 255));
-
-        //TODO: Adding code here:
-        //MultiButtonTable.MyTableModel myTableModel = new MultiButtonTable.MyTableModel();
-        //myTableModel.add(new MultiButtonTable.Data("Brian", "Test", "brian@gmail.com", "555-555-5555"));
-
-        //JTable table = new JTable(myTableModel);
-        //MultiButtonTable.AcceptRejectRenderer renderer = new MultiButtonTable.AcceptRejectRenderer();
+        
         table.getColumnModel().getColumn(4).setCellRenderer(renderer);
-        //table.getColumnModel().getColumn(4).setCellEditor(new MultiButtonTable.AcceptRejectEditor());
         table.getColumnModel().getColumn(4).setCellEditor(editor);
         table.setRowHeight(renderer.getTableCellRendererComponent(table, null, true, true, 0, 0).getPreferredSize().height);
 
@@ -137,7 +133,6 @@ public class DashboardsGui extends javax.swing.JFrame {
             }
         });
         clientsTable.setGridColor(new java.awt.Color(255, 255, 255));
-        //clientTableScroll.setViewportView(clientsTable);
         clientTableScroll.setViewportView(table);
         if (clientsTable.getColumnModel().getColumnCount() > 0) {
             clientsTable.getColumnModel().getColumn(0).setResizable(false);
@@ -301,6 +296,13 @@ public class DashboardsGui extends javax.swing.JFrame {
         addClientPage.setVisible(true);        
     }//GEN-LAST:event_createClientBtnMouseClicked
 
+    // Handler for edit selected client click event
+    private void editSelectedClient(String currentFirstName, String currentLastName, String currentEmail, String currentPhoneNumber) throws ParseException {
+        // Open the Edit Client Page and pass the selected client's information
+        editClientPage = new EditClient(vetPortal, currentFirstName, currentLastName, currentEmail, currentPhoneNumber);
+        editClientPage.setVisible(true);
+    }
+    
     public JTable getClientsTable() {
         return clientsTable;
     }
@@ -333,7 +335,7 @@ public class DashboardsGui extends javax.swing.JFrame {
     private ActionEditor editor;
     // End of variables declaration//GEN-END:variables
 
-    //Testing code here for JTable:
+    // Action Pane for Clients Table
     public class ActionPane extends JPanel {
 
         private JButton editButton;
@@ -346,15 +348,29 @@ public class DashboardsGui extends javax.swing.JFrame {
 
             add(editButton);
             add(deleteButton);
-
-            editButton.addActionListener(event -> System.out.println("Clicked edit button"));
-            deleteButton.addActionListener(event -> delete());
+                    
+            editButton.addActionListener(event -> edit());
+            deleteButton.addActionListener(event -> delete());            
         } //end of constructor
 
         public void addActionListener(ActionListener listener) {
             editButton.addActionListener(listener);
             deleteButton.addActionListener(listener);
         }
+        
+        private void edit() {
+            // Get the information for the selected client
+            Object selectedFirstName = myTableModel.getValueAt(table.getSelectedRow(), 0);
+            Object selectedLastName = myTableModel.getValueAt(table.getSelectedRow(), 1);
+            Object selectedEmail = myTableModel.getValueAt(table.getSelectedRow(), 2);
+            Object selectedPhoneNumber = myTableModel.getValueAt(table.getSelectedRow(), 3);
+            try {
+                // Pass to the event handler
+                editSelectedClient((String) selectedFirstName, (String) selectedLastName, (String) selectedEmail, (String) selectedPhoneNumber);
+            } catch (ParseException ex) {
+                // DO nothing
+            }
+        }          
 
         private void delete() {
             Object selectedPhoneNumber = myTableModel.getValueAt(table.getSelectedRow(), 3);
@@ -362,8 +378,9 @@ public class DashboardsGui extends javax.swing.JFrame {
             Object selectedLastName = myTableModel.getValueAt(table.getSelectedRow(), 1);
             deleteSelectedClient((String) selectedPhoneNumber, (String) selectedFirstName, (String) selectedLastName);
             myTableModel.remove();
-        }        
-    } //end of AcceptRejectPane
+        }      
+        
+    } //end of ActionPane
 
     public class MyTableModel extends AbstractTableModel {
 
@@ -451,16 +468,6 @@ public class DashboardsGui extends javax.swing.JFrame {
         }
 
         public void remove() {
-//            try {
-//                Clients content = data.get(table.getSelectedRow());
-//                int startIndex = data.indexOf(content);
-//                data.remove(content);
-//                fireTableRowsInserted(startIndex, startIndex);
-//            } catch (IndexOutOfBoundsException e) {
-//                //TODO: figure out why IndexOutOfBounds error is happening. Something to do stopCellEditing()
-//                System.out.println("IndexOutOfBoundsError" + e.getMessage());
-//            }
-            //TODO: This is terribly optimized, but the only way I could get it to work. Maybe change.
             data.clear();
             fireTableDataChanged();
             vetPortal.viewAllClients();
@@ -484,7 +491,7 @@ public class DashboardsGui extends javax.swing.JFrame {
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
             return actionPane;
         }
-    } //end of AcceptRejectRenderer
+    } //end of DefaultTableCellRenderer
 
     public class ActionEditor extends AbstractCellEditor implements TableCellEditor {
 
@@ -519,6 +526,6 @@ public class DashboardsGui extends javax.swing.JFrame {
         public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
             return actionPane;
         }
-    } //end of AcceptRejectEditor
+    } //end of AbstractCellEditor
 
 } //end of DashboardsGui
