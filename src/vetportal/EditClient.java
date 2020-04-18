@@ -2,7 +2,7 @@
  * File: EditClient.java
  * Date: April 18, 2020
  * @Author: Nour Debiat, Rebekah Qu
- * Purpose: This window allows the user to add new clients.
+ * Purpose: This window allows the user to edit existing clients.
  */
 
 package vetportal;
