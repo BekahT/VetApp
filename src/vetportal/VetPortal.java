@@ -34,6 +34,10 @@ public class VetPortal extends JFrame {
     // Allow letters, apostrophes and hyphens in names
     private String nameRegex = "[A-Za-z'\\-]+";
     private Pattern namePattern = Pattern.compile(nameRegex);
+    
+    // Validate phone number is exactly 10 digits
+    private String phoneRegex = "^\\(\\d{3}\\)\\s+\\d{3}\\-\\d{4}$";
+    private Pattern phonePattern = Pattern.compile(phoneRegex);
   
     //TODO: create all the objects for the main GUI:
     private static VetPortal vetPortal;
@@ -199,14 +203,6 @@ public class VetPortal extends JFrame {
     public static void main(String[] args) {
         vetPortal = new VetPortal();
         vetPortal.setVisible(true);
-
-//        AddClient page = new AddClient();
-//        page.setVisible(true);
-        //vetPortal.authenticateUser();
-        //vetPortal.createClient();
-        //vetPortal.deleteClient();
-        //vetPortal.viewAllClients();
-        //vetPortal.editClient();
     } //end of main()
     
     private boolean isValidName(String name) {
@@ -215,6 +211,10 @@ public class VetPortal extends JFrame {
 
     private boolean isValidEmail(String email) {
         return emailPattern.matcher(email).matches();
+    }
+    
+    private boolean isValidPhone(String phoneNumber) {
+        return phonePattern.matcher(phoneNumber).matches();
     }
 
     public DashboardsGui getDashboard() {
@@ -294,6 +294,11 @@ public class VetPortal extends JFrame {
 
         if (!isValidEmail(email)) { //Verify valid email address
             warnUser.setText("Invalid email address!");
+            return false;
+        }
+        
+        if(!isValidPhone(phoneNumber)) { // Verify valid phone number
+            warnUser.setText("Phone number must be 10 digits!");
             return false;
         }
 
