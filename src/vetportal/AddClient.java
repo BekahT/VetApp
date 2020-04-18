@@ -61,22 +61,14 @@ public class AddClient extends javax.swing.JFrame {
         cancelBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
 		cancelBtn.setForeground(new java.awt.Color(122, 188, 255));
         cancelBtn.setText("Cancel");
-        cancelBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cancelBtnMouseClicked(evt);
-            }
-        });
+        cancelBtn.addActionListener(event -> cancel());
 
         submitBtn.setBackground(new java.awt.Color(255, 255, 255));
         submitBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N   
 		submitBtn.setForeground(new java.awt.Color(122, 188, 255));		
         submitBtn.setText("Submit");
-        submitBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                submitBtnMouseClicked(evt);
-            }
-        });
-
+        submitBtn.addActionListener(event -> submit());
+        
         addClientLabel.setBackground(new java.awt.Color(255, 255, 255));
         addClientLabel.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         addClientLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -185,17 +177,17 @@ public class AddClient extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-	// Event for Submit button click
-    private void submitBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitBtnMouseClicked
-		// Attempt to create a new client
+    // Event for Submit button click
+    private void submit() {
+        // Attempt to create a new client
         createNewClient();
-    }//GEN-LAST:event_submitBtnMouseClicked
+    }
 
-	// Event for Cancel button click
-    private void cancelBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelBtnMouseClicked
-		// Close the Add Client window and do nothing
+    // Event for Cancel button click
+    private void cancel() {
+	// Close the Add Client window and do nothing
         dispose();
-    }//GEN-LAST:event_cancelBtnMouseClicked
+    }
 
     private void createNewClient() {
         Boolean createTF = vetPortal.createClient(cWarningMsg, firstNameField.getText(), lastNameField.getText(), phoneField.getText(), emailField.getText());
