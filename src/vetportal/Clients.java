@@ -16,7 +16,7 @@ public class Clients {
     private String clientPhoneNumber;
     private String clientEmail;
 
-    //TODO: add clientID
+    // Constructor
     public Clients(int clientID, String clientFirstName, String clientLastName, String clientPhoneNumber, String clientEmail) {
         this.clientID = clientID;
         this.clientFirstName = clientFirstName;
@@ -25,6 +25,7 @@ public class Clients {
         this.clientEmail = clientEmail;
     } //end of constructor
 
+    // Getter methods
     public int getClientID() {
         return clientID;
     }
@@ -37,6 +38,8 @@ public class Clients {
         return clientFirstName;
     }
 
+    
+    // Setter methods
     public void setClientFirstName(String clientFirstName) {
         this.clientFirstName = clientFirstName;
     }

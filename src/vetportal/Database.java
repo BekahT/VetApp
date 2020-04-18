@@ -121,6 +121,7 @@ public class Database {
         }
     } //end of authenticate()
 
+	// This method inserts a new client into the clients table in the database
     public boolean insertClient(String firstName, String lastName, String phoneNumber, String email) {
         try {
             statement = conn.createStatement();
@@ -142,6 +143,7 @@ public class Database {
         }
     } //end of insertClient()
 
+	// This method deletes an existing client from the clients table in the database
     public boolean deleteClient(String phoneNumber) {
         try {
             statement = conn.createStatement();
@@ -156,6 +158,7 @@ public class Database {
         }
     } //end of deleteClient()
 
+	// This method selects all the clients from the clients table in the database and returns them as a list
     public ArrayList<Clients> selectAllClients() {
         try {
             statement = conn.createStatement();
@@ -176,6 +179,7 @@ public class Database {
         }
     } //end of selectAllClients()
 
+	// This method updates a client with edited information in the clients table in the database
     public boolean updateClient(int clientID, String firstName, String lastName, String phoneNumber, String email) {
         try {
             statement = conn.createStatement();
@@ -192,37 +196,5 @@ public class Database {
             return false;
         }
     } //end of updateClient()
-
-    private void setErrorMessage(String message) {
-        errorMessage = message;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-
-    public boolean insertClient(String firstName, String lastName, String phoneNumber, String email) {
-        try {
-            statement = conn.createStatement();
-            statement.execute("INSERT INTO " + TABLE_CLIENTS +
-                    " (" + COLUMN_CLIENT_FIRST_NAME +
-                    ", " + COLUMN_CLIENT_LAST_NAME +
-                    ", " + COLUMN_CLIENT_PHONE_NUMBER +
-                    ", " + COLUMN_CLIENT_EMAIL + ") VALUES (\'" +
-                    firstName + "\', \'" + lastName + "\', \'" + phoneNumber + "\', \'" + email + "\')");
-            statement.close();
-            return true;
-        } catch (SQLException e) {
-            if (SQLiteErrorCode.SQLITE_CONSTRAINT_UNIQUE.code == 2067) {
-                //System.out.println("The phone number you entered is already in the database! Please try again.");
-                setErrorMessage("The phone number you entered is already in the database! Please try again.");
-            } else {
-                //System.out.println("Unable to create new client.\n" + e.getMessage());
-                setErrorMessage("Unable to create new client.\n" + e.getMessage());
-                e.printStackTrace();
-            }
-            return false;
-        }
-    } //end of insertClient()
 
 } //end of Database

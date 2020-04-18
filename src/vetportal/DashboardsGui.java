@@ -12,11 +12,14 @@ import java.text.ParseException;
 
 public class DashboardsGui extends javax.swing.JFrame {
 
-    //Create object for VetPortal and AddClient page:
+    // Create objects for VetPortal and AddClient page:
     VetPortal vetPortal;
     AddClient addClientPage;
+    
     /**
      * Creates new form DashboardsGui
+     * @param vetPortal
+     * @throws java.text.ParseException
      */
     public DashboardsGui(VetPortal vetPortal) throws ParseException {
         super("Vet Portal");
@@ -243,15 +246,19 @@ public class DashboardsGui extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    // Handler for logout button click event
     private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
-        // Open login page
+        // Open Login Page
         vetPortal = new VetPortal();
         vetPortal.setVisible(true);
-        // Close vet portal
+        // Close Vet Portal Dashboard
         dispose();
     }//GEN-LAST:event_logoutBtnMouseClicked
 
+    // Handler for create client button click event
     private void createClientBtnMouseClicked(java.awt.event.MouseEvent evt) throws ParseException {//GEN-FIRST:event_createClientBtnMouseClicked
+        // Open the Add Client Page
         addClientPage = new AddClient(vetPortal);
         addClientPage.setVisible(true);        
     }//GEN-LAST:event_createClientBtnMouseClicked
