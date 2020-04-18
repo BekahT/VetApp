@@ -34,7 +34,7 @@ public class VetPortal extends JFrame {
     private final Pattern emailPattern = Pattern.compile(emailRegex);
     
     // Allow only letters, apostrophes and hyphens in names
-    private final String nameRegex = "[A-Za-z'\\-]+";
+    private final String nameRegex = "[A-Za-z\\'\\-]+";
     private final Pattern namePattern = Pattern.compile(nameRegex);
     
     // Validate phone number is exactly 10 digits
@@ -336,7 +336,7 @@ public class VetPortal extends JFrame {
     } //end of createClient()
 
     // Method to delete an existing client
-    public void deleteClient(String phoneNumber) {
+    public void deleteClient(String phoneNumber, String firstName, String lastName) {
 	//Attempt to open a connection with the database
         vetDatabase = new Database();
         if (!vetDatabase.open()) { 
@@ -353,7 +353,7 @@ public class VetPortal extends JFrame {
         } else {
             vetDatabase.deleteClient(phoneNumber);
             // Log the deletion
-            AuditLog.logWriter("successfulClientDelete", phoneNumber);
+            AuditLog.logWriter("successfulClientDelete", lastName + ", " + firstName);
         }
         vetDatabase.close();
     } //end of deleteClient()
@@ -385,19 +385,8 @@ public class VetPortal extends JFrame {
         vetDatabase.close();
     } //end of viewAllClients()
 
-	// Method to edit information on existing clients
-    private void editClient() {
-        // DELETE FROM HERE WHEN EDIT CLIENT IS IMPLEMENTED
-        String currentPhoneNumber = "111-111-1111";
-
-        String updatedFirstName = "Elton";
-        String updatedLastName = "John";
-        String updatedPhoneNumber = "222-222-2222";
-        String updatedEmail = "elton.john@yahoo.com";
-        // DELETE TO HERE WHEN EDIT CLIENT IS IMPLEMENTED
-        
-        
-        /* UNCOMMENT WHEN EDIT CLIENT IS IMPLEMENTED
+    // Method to edit information on existing clients
+    public Boolean editClient(JLabel warnUser, String userID, String updatedFirstName, String updatedLastName, String updatedPhoneNumber, String updatedEmail) {            
         // Verify no fields are empty
         if ((updatedFirstName.isEmpty()) || (updatedLastName.isEmpty()
                 || (updatedPhoneNumber.isEmpty()) || (updatedEmail.isEmpty()))) { 
@@ -419,27 +408,30 @@ public class VetPortal extends JFrame {
             warnUser.setText("Phone number must be 10 digits!");
             return false;
         }        
-        */
+
 	// Attempt to open a connection with the database
         vetDatabase = new Database();
         if (!vetDatabase.open()) { 
             System.out.println("Can't connect to the database!");
-            return;
+            return false;
         }
-
-        int id = vetDatabase.getClientID(currentPhoneNumber);
-	// If update fails
+        
+        // Get the id for the user based on the original phone number
+        int id = vetDatabase.getClientID(userID);
+	// If UPDATE in database fails
         if (!vetDatabase.updateClient(id, updatedFirstName, updatedLastName, updatedPhoneNumber, updatedEmail)) {
             // Show an error
             String errorMessage = vetDatabase.getErrorMessage();
-            JOptionPane.showMessageDialog(null, errorMessage, "Error: Client Edit Failed", JOptionPane.ERROR_MESSAGE);
-	// If update is successful
+            warnUser.setText(errorMessage);
+	// If UPDATE in database is successful
         } else {
             // Log successful client edit
+            System.out.println("Update success");
             AuditLog.logWriter("successfulClientEdit", updatedLastName + ", " + updatedFirstName);
+            return true;
         }
         vetDatabase.close();
-
+        return false;
     } //end of editClient()
 
 } //end of VetPortal

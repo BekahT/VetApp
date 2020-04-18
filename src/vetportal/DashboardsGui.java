@@ -18,12 +18,15 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DashboardsGui extends javax.swing.JFrame {
 
-    // Create objects for VetPortal and AddClient page:
+    // Create objects for pages
     VetPortal vetPortal;
     AddClient addClientPage;
+    EditClient editClientPage;
     /**
      * Creates new form DashboardsGui
 	 * @param vetPortal
@@ -272,13 +275,13 @@ public class DashboardsGui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // Handler for deleteing a client
-    private void deleteSelectedClient(String phoneNumber) {
+    private void deleteSelectedClient(String phoneNumber, String firstName, String lastName) {
         // Ask the user to confirm client deletion      
-        int delete = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the selected client?", "Confirm Client Deletion", JOptionPane.YES_NO_OPTION);
+        int delete = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + firstName + " " + lastName + "?", "Confirm Client Deletion", JOptionPane.YES_NO_OPTION);
         // If Yes (0) was selected
         if (delete == 0) {
             // Delete the client
-            vetPortal.deleteClient(phoneNumber);
+            vetPortal.deleteClient(phoneNumber, firstName, lastName);
             myTableModel.remove();
         }
         // If No (1) was selected do nothing
@@ -301,6 +304,13 @@ public class DashboardsGui extends javax.swing.JFrame {
         addClientPage.setVisible(true);        
     }//GEN-LAST:event_createClientBtnMouseClicked
 
+    // Handler for edit selected client click event
+    private void editSelectedClient(String currentFirstName, String currentLastName, String currentEmail, String currentPhoneNumber) throws ParseException {
+        // Open the Edit Client Page and pass the selected client's information
+        editClientPage = new EditClient(vetPortal, currentFirstName, currentLastName, currentEmail, currentPhoneNumber);
+        editClientPage.setVisible(true);
+    }
+    
     public JTable getClientsTable() {
         return clientsTable;
     }
@@ -346,21 +356,38 @@ public class DashboardsGui extends javax.swing.JFrame {
 
             add(editButton);
             add(deleteButton);
-
-            editButton.addActionListener(event -> System.out.println("Clicked edit button"));
-            deleteButton.addActionListener(event -> delete());
+                    
+            editButton.addActionListener(event -> edit());
+            deleteButton.addActionListener(event -> delete());            
         } //end of constructor
 
         public void addActionListener(ActionListener listener) {
             editButton.addActionListener(listener);
             deleteButton.addActionListener(listener);
         }
+        
+        private void edit() {
+            // Get the information for the selected client
+            Object selectedFirstName = myTableModel.getValueAt(table.getSelectedRow(), 0);
+            Object selectedLastName = myTableModel.getValueAt(table.getSelectedRow(), 1);
+            Object selectedEmail = myTableModel.getValueAt(table.getSelectedRow(), 2);
+            Object selectedPhoneNumber = myTableModel.getValueAt(table.getSelectedRow(), 3);
+            try {
+                // Pass to the event handler
+                editSelectedClient((String) selectedFirstName, (String) selectedLastName, (String) selectedEmail, (String) selectedPhoneNumber);
+            } catch (ParseException ex) {
+                // DO nothing
+            }
+        }          
 
         private void delete() {
             Object selectedPhoneNumber = myTableModel.getValueAt(table.getSelectedRow(), 3);
-            deleteSelectedClient((String)selectedPhoneNumber);
+            Object selectedFirstName = myTableModel.getValueAt(table.getSelectedRow(), 0);
+            Object selectedLastName = myTableModel.getValueAt(table.getSelectedRow(), 1);
+            deleteSelectedClient((String) selectedPhoneNumber, (String) selectedFirstName, (String) selectedLastName);
             myTableModel.remove();
-        }
+        }      
+        
     } //end of AcceptRejectPane
 
     public class MyTableModel extends AbstractTableModel {
