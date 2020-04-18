@@ -121,6 +121,7 @@ public class Database {
         }
     } //end of authenticate()
 
+	// This method inserts a new client into the clients table in the database
     public boolean insertClient(String firstName, String lastName, String phoneNumber, String email) {
         try {
             statement = conn.createStatement();
@@ -142,6 +143,7 @@ public class Database {
         }
     } //end of insertClient()
 
+	// This method deletes an existing client from the clients table in the database
     public boolean deleteClient(String phoneNumber) {
         try {
             statement = conn.createStatement();
@@ -156,6 +158,7 @@ public class Database {
         }
     } //end of deleteClient()
 
+	// This method selects all the clients from the clients table in the database and returns them as a list
     public ArrayList<Clients> selectAllClients() {
         try {
             statement = conn.createStatement();
@@ -176,6 +179,7 @@ public class Database {
         }
     } //end of selectAllClients()
 
+	// This method updates a client with edited information in the clients table in the database
     public boolean updateClient(int clientID, String firstName, String lastName, String phoneNumber, String email) {
         try {
             statement = conn.createStatement();
