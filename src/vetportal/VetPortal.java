@@ -426,7 +426,6 @@ public class VetPortal extends JFrame {
 	// If UPDATE in database is successful
         } else {
             // Log successful client edit
-            System.out.println("Update success");
             AuditLog.logWriter("successfulClientEdit", updatedLastName + ", " + updatedFirstName);
             return true;
         }
