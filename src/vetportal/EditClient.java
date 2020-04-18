@@ -63,22 +63,14 @@ public class EditClient extends javax.swing.JFrame {
         cancelBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
 		cancelBtn.setForeground(new java.awt.Color(122, 188, 255));
         cancelBtn.setText("Cancel");
-        cancelBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cancelBtnMouseClicked(evt);
-            }
-        });
+        cancelBtn.addActionListener(event -> cancel());        
 
         submitBtn.setBackground(new java.awt.Color(255, 255, 255));
         submitBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N   
 		submitBtn.setForeground(new java.awt.Color(122, 188, 255));		
         submitBtn.setText("Submit");
-        submitBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                submitBtnMouseClicked(evt, userID);
-            }
-        });
-
+        submitBtn.addActionListener(event -> submit(userID));
+        
         editClientLabel.setBackground(new java.awt.Color(255, 255, 255));
         editClientLabel.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         editClientLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -192,16 +184,16 @@ public class EditClient extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // Event for Submit button click
-    private void submitBtnMouseClicked(java.awt.event.MouseEvent evt, String userID) {//GEN-FIRST:event_submitBtnMouseClicked
+    private void submit(String userID) {
         // Attempt to edit the client using the original phone number as the identifier
         editSelectedClient(userID);
-    }//GEN-LAST:event_submitBtnMouseClicked
+    }
 
     // Event for Cancel button click
-    private void cancelBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelBtnMouseClicked
+    private void cancel() {
 	// Close the Add Client window and do nothing
         dispose();
-    }//GEN-LAST:event_cancelBtnMouseClicked
+    }
 
     private void editSelectedClient(String userID) {
         Boolean editTF = vetPortal.editClient(cWarningMsg, userID, firstNameField.getText(), lastNameField.getText(), phoneField.getText(), emailField.getText());

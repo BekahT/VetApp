@@ -145,16 +145,14 @@ public class DashboardsGui extends javax.swing.JFrame {
         createClientBtn.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         createClientBtn.setText("+ Create New Client");
         createClientBtn.setToolTipText("");
-        createClientBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                try {
-					createClientBtnMouseClicked(evt);
-				} catch (ParseException e) {
-					// do nothing
-				}				
+        createClientBtn.addActionListener(event -> {
+            try {
+                openCreateClient();
+            } catch (ParseException ex) {
+                // Do nothing
             }
         });
-
+        
         cNameSearch.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         cNameSearch.setText("Last Name:");
 
@@ -225,11 +223,7 @@ public class DashboardsGui extends javax.swing.JFrame {
         logoutBtn.setBackground(new java.awt.Color(255, 255, 255));
         logoutBtn.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         logoutBtn.setText("Logout");
-        logoutBtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                logoutBtnMouseClicked(evt);
-            }
-        });
+        logoutBtn.addActionListener(event -> logout());        
 
         javax.swing.GroupLayout dashboardPanelLayout = new javax.swing.GroupLayout(dashboardPanel);
         dashboardPanel.setLayout(dashboardPanelLayout);
@@ -281,20 +275,20 @@ public class DashboardsGui extends javax.swing.JFrame {
     } //end of deleteSelectedClient()
 
     // Handler for logout button click event
-    private void logoutBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutBtnMouseClicked
+    private void logout() {
         // Open Login Page
         vetPortal = new VetPortal();
         vetPortal.setVisible(true);
         // Close Vet Portal Dashboard
         dispose();
-    }//GEN-LAST:event_logoutBtnMouseClicked
+    }
 
     // Handler for create client button click event
-    private void createClientBtnMouseClicked(java.awt.event.MouseEvent evt) throws ParseException {//GEN-FIRST:event_createClientBtnMouseClicked
+    private void openCreateClient() throws ParseException {
 	// Open the Add Client Page
         addClientPage = new AddClient(vetPortal);
         addClientPage.setVisible(true);        
-    }//GEN-LAST:event_createClientBtnMouseClicked
+    }
 
     // Handler for edit selected client click event
     private void editSelectedClient(String currentFirstName, String currentLastName, String currentEmail, String currentPhoneNumber) throws ParseException {
