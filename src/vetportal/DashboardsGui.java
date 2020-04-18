@@ -272,13 +272,13 @@ public class DashboardsGui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     // Handler for deleteing a client
-    private void deleteSelectedClient(String phoneNumber) {
+    private void deleteSelectedClient(String phoneNumber, String firstName, String lastName) {
         // Ask the user to confirm client deletion      
-        int delete = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the selected client?", "Confirm Client Deletion", JOptionPane.YES_NO_OPTION);
+        int delete = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + firstName + " " + lastName + "?", "Confirm Client Deletion", JOptionPane.YES_NO_OPTION);
         // If Yes (0) was selected
         if (delete == 0) {
             // Delete the client
-            vetPortal.deleteClient(phoneNumber);
+            vetPortal.deleteClient(phoneNumber, firstName, lastName);
             myTableModel.remove();
         }
         // If No (1) was selected do nothing
@@ -358,9 +358,11 @@ public class DashboardsGui extends javax.swing.JFrame {
 
         private void delete() {
             Object selectedPhoneNumber = myTableModel.getValueAt(table.getSelectedRow(), 3);
-            deleteSelectedClient((String)selectedPhoneNumber);
+            Object selectedFirstName = myTableModel.getValueAt(table.getSelectedRow(), 0);
+            Object selectedLastName = myTableModel.getValueAt(table.getSelectedRow(), 1);
+            deleteSelectedClient((String) selectedPhoneNumber, (String) selectedFirstName, (String) selectedLastName);
             myTableModel.remove();
-        }
+        }        
     } //end of AcceptRejectPane
 
     public class MyTableModel extends AbstractTableModel {

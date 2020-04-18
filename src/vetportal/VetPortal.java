@@ -336,7 +336,7 @@ public class VetPortal extends JFrame {
     } //end of createClient()
 
     // Method to delete an existing client
-    public void deleteClient(String phoneNumber) {
+    public void deleteClient(String phoneNumber, String firstName, String lastName) {
 	//Attempt to open a connection with the database
         vetDatabase = new Database();
         if (!vetDatabase.open()) { 
@@ -353,7 +353,7 @@ public class VetPortal extends JFrame {
         } else {
             vetDatabase.deleteClient(phoneNumber);
             // Log the deletion
-            AuditLog.logWriter("successfulClientDelete", phoneNumber);
+            AuditLog.logWriter("successfulClientDelete", lastName + ", " + firstName);
         }
         vetDatabase.close();
     } //end of deleteClient()
