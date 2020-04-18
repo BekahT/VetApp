@@ -40,9 +40,9 @@ public class VetPortal extends JFrame {
     // Validate phone number is exactly 10 digits
     private final String phoneRegex = "^\\(\\d{3}\\)\\s+\\d{3}\\-\\d{4}$";
     private final Pattern phonePattern = Pattern.compile(phoneRegex);
-  
+    // Create object for Vet Portal (login page)
     private static VetPortal vetPortal;
-	// Fields for the Login GUI
+    // Fields for the Login GUI
     private javax.swing.JButton exitBtn;
     private javax.swing.JButton loginBtn;
     private javax.swing.JPanel loginPanel;
@@ -54,8 +54,8 @@ public class VetPortal extends JFrame {
     private javax.swing.JLabel welcomeLabel;
     private javax.swing.JPanel welcomePanel;
 
-    //Create object for DashboardGui:
-    DashboardsGui dashboard;
+    //Create object for DashboardGui
+    private static DashboardsGui dashboard;
 
     // Constructor for Login Page
     public VetPortal() {
@@ -216,8 +216,9 @@ public class VetPortal extends JFrame {
     }    
     private boolean isValidPhone(String phoneNumber) {
         return phonePattern.matcher(phoneNumber).matches();
-
-	// Getter Functions
+    }
+        
+    // Getter Functions
     public DashboardsGui getDashboard() {
         return dashboard;
     }
