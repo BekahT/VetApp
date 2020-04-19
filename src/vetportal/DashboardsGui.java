@@ -54,15 +54,15 @@ public class DashboardsGui extends javax.swing.JFrame {
         clientsTab = new javax.swing.JPanel();
         clientTableScroll = new javax.swing.JScrollPane();
         clientsTable = new javax.swing.JTable();
-        createClientBtn = new javax.swing.JButton();
+        createClientBtn = new JButton(new ImageIcon(((new ImageIcon("icons/user-plus.png")).getImage()).getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH)));
         cNameSearch = new javax.swing.JLabel();
         cEmailSearch = new javax.swing.JLabel();
         cNumberSearch = new javax.swing.JLabel();
-        cSearchBtn = new javax.swing.JButton();
+        cSearchBtn = new JButton(new ImageIcon(((new ImageIcon("icons/search.png")).getImage()).getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH)));
         cNameField = new javax.swing.JTextField();
         cEmailField = new javax.swing.JTextField();
         cNumberField = new javax.swing.JTextField();
-        logoutBtn = new javax.swing.JButton();
+        logoutBtn = new JButton(new ImageIcon(((new ImageIcon("icons/sign-out.png")).getImage()).getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH)));
 
         myTableModel = new MyTableModel();
         table = new JTable(myTableModel);
@@ -143,8 +143,7 @@ public class DashboardsGui extends javax.swing.JFrame {
         }
 
         createClientBtn.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        createClientBtn.setText("+ Create New Client");
-        createClientBtn.setToolTipText("");
+        createClientBtn.setText("Create New Client");
         createClientBtn.addActionListener(event -> {
             try {
                 openCreateClient();
@@ -337,8 +336,11 @@ public class DashboardsGui extends javax.swing.JFrame {
 
         public ActionPane() {
             setLayout(new GridBagLayout());
-            editButton = new JButton("Edit");
-            deleteButton = new JButton("Delete");
+            // Add icons and tool tips to buttons
+            editButton = new JButton(new ImageIcon(((new ImageIcon("icons/edit.png")).getImage()).getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH)));
+            editButton.setToolTipText("Edit Client");
+            deleteButton = new JButton(new ImageIcon(((new ImageIcon("icons/trash.png")).getImage()).getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH)));
+            deleteButton.setToolTipText("Delete Client");
 
             add(editButton);
             add(deleteButton);
