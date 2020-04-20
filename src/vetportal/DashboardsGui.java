@@ -11,6 +11,7 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,8 +19,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DashboardsGui extends javax.swing.JFrame {
 
@@ -61,7 +60,8 @@ public class DashboardsGui extends javax.swing.JFrame {
         cSearchBtn = new JButton(new ImageIcon(((new ImageIcon("icons/search.png")).getImage()).getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH)));
         cNameField = new javax.swing.JTextField();
         cEmailField = new javax.swing.JTextField();
-        cNumberField = new javax.swing.JTextField();
+        MaskFormatter phoneFormat = new MaskFormatter("(***) ***-****");
+        cNumberField = new javax.swing.JFormattedTextField(phoneFormat);
         logoutBtn = new JButton(new ImageIcon(((new ImageIcon("icons/sign-out.png")).getImage()).getScaledInstance(16, 16, java.awt.Image.SCALE_SMOOTH)));
 
         myTableModel = new MyTableModel();
@@ -164,7 +164,8 @@ public class DashboardsGui extends javax.swing.JFrame {
         cSearchBtn.setBackground(new java.awt.Color(255, 255, 255));
         cSearchBtn.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
         cSearchBtn.setText("Search");
-
+        cSearchBtn.addActionListener(event -> myTableModel.executeClientSearch());
+        
         cNameField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         cEmailField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -267,7 +268,7 @@ public class DashboardsGui extends javax.swing.JFrame {
         if (delete == 0) {
             // Delete the client
             vetPortal.deleteClient(phoneNumber, firstName, lastName);
-            myTableModel.remove();
+            myTableModel.refetchClients();
         }
         // If No (1) was selected do nothing
 
@@ -288,7 +289,7 @@ public class DashboardsGui extends javax.swing.JFrame {
         addClientPage = new AddClient(vetPortal);
         addClientPage.setVisible(true);        
     }
-
+        
     // Handler for edit selected client click event
     private void editSelectedClient(String currentFirstName, String currentLastName, String currentEmail, String currentPhoneNumber) throws ParseException {
         // Open the Edit Client Page and pass the selected client's information
@@ -373,7 +374,7 @@ public class DashboardsGui extends javax.swing.JFrame {
             Object selectedFirstName = myTableModel.getValueAt(table.getSelectedRow(), 0);
             Object selectedLastName = myTableModel.getValueAt(table.getSelectedRow(), 1);
             deleteSelectedClient((String) selectedPhoneNumber, (String) selectedFirstName, (String) selectedLastName);
-            myTableModel.remove();
+            myTableModel.refetchClients();
         }      
         
     } //end of ActionPane
@@ -388,6 +389,10 @@ public class DashboardsGui extends javax.swing.JFrame {
 
         public List<Clients> getData() {
             return data;
+        }
+        
+        public void setData(List<Clients> newData) {
+            this.data = newData;
         }
 
         @Override
@@ -463,10 +468,30 @@ public class DashboardsGui extends javax.swing.JFrame {
             fireTableRowsInserted(startIndex, getRowCount() - 1);
         }
 
-        public void remove() {
+        public void refetchClients() {
             data.clear();
             fireTableDataChanged();
             vetPortal.viewAllClients();
+        }
+        
+        // Handler for search clients button click event
+        private void executeClientSearch() {
+            List<Clients> clients = myTableModel.getData();
+            String searchName = cNameField.getText();
+            String searchEmail = cEmailField.getText();
+            String searchPhone = cNumberField.getText();
+            
+            // If all fields are empty, reset the table
+            if ("".equals(searchName) && "".equals(searchEmail) && "(   )    -    ".equals(searchPhone)) {
+                refetchClients();               
+            // If user supplied search terms
+            } else {                   
+                // Get the filtered list
+                List<Clients> matches = Search.searchClients(clients, searchName, searchEmail, searchPhone);
+                // Set the table to display only the matched rows
+                myTableModel.setData(matches);
+                fireTableDataChanged();
+            }          
         }
 
         @Override

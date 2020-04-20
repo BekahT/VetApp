@@ -8,7 +8,6 @@
 package vetportal;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -207,7 +206,7 @@ public class AddClient extends javax.swing.JFrame {
 	// Refresh the Clients Table in the Dashboard
         DashboardsGui dashboard = vetPortal.getDashboard();
         DashboardsGui.MyTableModel model = (DashboardsGui.MyTableModel) dashboard.getTable().getModel();
-        model.remove();       
+        model.refetchClients();       
     } //end of createNewClient()
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
