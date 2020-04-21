@@ -7,7 +7,6 @@
 
 package vetportal;
 
-import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.text.ParseException;
 
@@ -205,7 +204,7 @@ public class AddClient extends javax.swing.JFrame {
 	// Refresh the Clients Table in the Dashboard
         DashboardsGui dashboard = vetPortal.getDashboard();
         DashboardsGui.MyClientTableModel model = (DashboardsGui.MyClientTableModel) dashboard.getClientTable().getModel();
-        model.remove();       
+        model.refetchClients();       
     } //end of createNewClient()
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

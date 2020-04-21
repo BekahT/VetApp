@@ -11,7 +11,6 @@ import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
-import javax.swing.text.MaskFormatter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +18,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
+import javax.swing.text.MaskFormatter;
 
 public class DashboardsGui extends JFrame {
 
@@ -50,17 +50,17 @@ public class DashboardsGui extends JFrame {
         dashboardTabs = new JTabbedPane();
         appointmentsTab = new JPanel();
         aDateSeach = new javax.swing.JLabel();
-        createAppointmentBtn = new javax.swing.JButton();
+        createAppointmentBtn = new JButton(new ImageIcon(((new ImageIcon("icons/calendar-plus.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
         aClientSearch = new javax.swing.JLabel();
         aClientField = new javax.swing.JTextField();
         aDateField = new javax.swing.JTextField();
-        aSearchBtn = new javax.swing.JButton();
+        aSearchBtn = new JButton(new ImageIcon(((new ImageIcon("icons/search.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
         aPetSearch = new javax.swing.JLabel();
         appointmentTableScroll = new javax.swing.JScrollPane();
         appointmentsTable = new javax.swing.JTable();
         aPetField = new javax.swing.JTextField();
         petsTab = new JPanel();
-        createPetBtn = new javax.swing.JButton();
+        createPetBtn = new JButton(new ImageIcon(((new ImageIcon("icons/paw.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
         pNameSearch = new javax.swing.JLabel();
         pDOBSearch = new javax.swing.JLabel();
         pClientField = new javax.swing.JTextField();
@@ -69,7 +69,7 @@ public class DashboardsGui extends JFrame {
         petsTable = new javax.swing.JTable();
         pClientSearch = new javax.swing.JLabel();
         pDOBField = new javax.swing.JTextField();
-        pSearchBtn = new javax.swing.JButton();
+        pSearchBtn = new JButton(new ImageIcon(((new ImageIcon("icons/search.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
         clientsTab = new JPanel();
         clientTableScroll = new JScrollPane();
         clientsTable = new JTable();
@@ -80,7 +80,8 @@ public class DashboardsGui extends JFrame {
         cSearchBtn = new JButton(new ImageIcon(((new ImageIcon("icons/search.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
         cNameField = new JTextField();
         cEmailField = new JTextField();
-        cNumberField = new JTextField();
+        MaskFormatter phoneFormat = new MaskFormatter("(***) ***-****");
+        cNumberField = new javax.swing.JFormattedTextField(phoneFormat);;
         logoutBtn = new JButton(new ImageIcon(((new ImageIcon("icons/sign-out.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
 
         myClientTableModel = new MyClientTableModel();
@@ -108,7 +109,7 @@ public class DashboardsGui extends JFrame {
         aDateSeach.setText("Date:");
 
         createAppointmentBtn.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        createAppointmentBtn.setText("+ Create New Appointment");
+        createAppointmentBtn.setText("Create New Appointment");
         createAppointmentBtn.setToolTipText("");
 
         aClientSearch.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -206,7 +207,7 @@ public class DashboardsGui extends JFrame {
 
         petsTab.setBackground(new Color(255, 255, 255));
         createPetBtn.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        createPetBtn.setText("+ Create New Pet");
+        createPetBtn.setText("Create New Pet");
         createPetBtn.setToolTipText("");
 
         pNameSearch.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -363,9 +364,9 @@ public class DashboardsGui extends JFrame {
         cSearchBtn.setBackground(new Color(255, 255, 255));
         cSearchBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
         cSearchBtn.setText("Search");
-        cSearchBtn.addActionListener(event -> myTableModel.executeClientSearch());
-        
-        cNameField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        cSearchBtn.addActionListener(event -> myClientTableModel.executeClientSearch());
+
+        cNameField.setFont(new Font("Calibri", 0, 14)); // NOI18N
 
         cEmailField.setFont(new Font("Calibri", 0, 14)); // NOI18N
 
@@ -467,7 +468,7 @@ public class DashboardsGui extends JFrame {
         if (delete == 0) {
             // Delete the client
             vetPortal.deleteClient(phoneNumber, firstName, lastName);
-            myTableModel.refetchClients();
+            myClientTableModel.refetchClients();
         }
         // If No (1) was selected do nothing
 
@@ -488,7 +489,7 @@ public class DashboardsGui extends JFrame {
         addClientPage = new AddClient(vetPortal);
         addClientPage.setVisible(true);        
     }
-        
+
     // Handler for edit selected client click event
     private void editSelectedClient(String currentFirstName, String currentLastName, String currentEmail, String currentPhoneNumber) throws ParseException {
         // Open the Edit Client Page and pass the selected client's information
@@ -609,7 +610,7 @@ public class DashboardsGui extends JFrame {
             Object selectedFirstName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 0);
             Object selectedLastName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 1);
             deleteSelectedClient((String) selectedPhoneNumber, (String) selectedFirstName, (String) selectedLastName);
-            myTableModel.refetchClients();
+            myClientTableModel.refetchClients();
         }      
         
     } //end of ActionPane
@@ -626,8 +627,8 @@ public class DashboardsGui extends JFrame {
             return clientData;
         }
         
-        public void setData(List<Clients> newData) {
-            this.data = newData;
+        public void setClientData(List<Clients> newData) {
+            this.clientData = newData;
         }
 
         @Override
@@ -705,17 +706,24 @@ public class DashboardsGui extends JFrame {
         }
 
         public void refetchClients() {
-            data.clear();
+            clientData.clear();
             fireTableDataChanged();
             vetPortal.viewAllClients();
+        }
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return columnIndex == 4;
         }
         
         // Handler for search clients button click event
         private void executeClientSearch() {
-            List<Clients> clients = myTableModel.getData();
+            List<Clients> clients = myClientTableModel.getClientData();
             String searchName = cNameField.getText();
             String searchEmail = cEmailField.getText();
             String searchPhone = cNumberField.getText();
+            
+            refetchClients();
             
             // If all fields are empty, reset the table
             if ("".equals(searchName) && "".equals(searchEmail) && "(   )    -    ".equals(searchPhone)) {
@@ -725,15 +733,11 @@ public class DashboardsGui extends JFrame {
                 // Get the filtered list
                 List<Clients> matches = Search.searchClients(clients, searchName, searchEmail, searchPhone);
                 // Set the table to display only the matched rows
-                myTableModel.setData(matches);
+                myClientTableModel.setClientData(matches);
                 fireTableDataChanged();
             }          
         }
-
-        @Override
-        public boolean isCellEditable(int rowIndex, int columnIndex) {
-            return columnIndex == 4;
-        }
+        
     } //end of MyTableModel
 
     public class ClientActionRenderer extends DefaultTableCellRenderer {
