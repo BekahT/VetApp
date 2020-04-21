@@ -5,6 +5,8 @@
  * Purpose: This window displays the dashboards where users can view appointments, pets, and clients.
  */
 
+package vetportal;
+
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -16,8 +18,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class DashboardsGui extends JFrame {
 
@@ -65,7 +65,7 @@ public class DashboardsGui extends JFrame {
         pClientField = new javax.swing.JTextField();
         pNameField = new javax.swing.JTextField();
         petTableScroll = new javax.swing.JScrollPane();
-        petTable = new javax.swing.JTable();
+        petsTable = new javax.swing.JTable();
         pClientSearch = new javax.swing.JLabel();
         pDOBField = new javax.swing.JTextField();
         pSearchBtn = new javax.swing.JButton();
@@ -82,10 +82,14 @@ public class DashboardsGui extends JFrame {
         cNumberField = new JTextField();
         logoutBtn = new JButton(new ImageIcon(((new ImageIcon("icons/sign-out.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
 
-        myTableModel = new MyTableModel();
-        table = new JTable(myTableModel);
-        renderer = new ActionRenderer();
-        editor = new ActionEditor();
+        myClientTableModel = new MyClientTableModel();
+        clientTable = new JTable(myClientTableModel);
+        clientRenderer = new ClientActionRenderer();
+        clientEditor = new ClientActionEditor();
+        myPetTableModel = new MyPetTableModel();
+        petTable = new JTable(myPetTableModel);
+        petRenderer = new PetActionRenderer();
+        petEditor = new PetActionEditor();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -221,8 +225,8 @@ public class DashboardsGui extends JFrame {
 
         petTableScroll.setBackground(new java.awt.Color(255, 255, 255));
 
-        petTable.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        petTable.setModel(new javax.swing.table.DefaultTableModel(
+        petsTable.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        petsTable.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
                         {null, null, null, null, null, null},
                         {null, null, null, null, null, null},
@@ -241,15 +245,15 @@ public class DashboardsGui extends JFrame {
                 return canEdit [columnIndex];
             }
         });
-        petTable.setGridColor(new java.awt.Color(255, 255, 255));
+        petsTable.setGridColor(new java.awt.Color(255, 255, 255));
         petTableScroll.setViewportView(petTable);
-        if (petTable.getColumnModel().getColumnCount() > 0) {
-            petTable.getColumnModel().getColumn(0).setResizable(false);
-            petTable.getColumnModel().getColumn(1).setResizable(false);
-            petTable.getColumnModel().getColumn(2).setResizable(false);
-            petTable.getColumnModel().getColumn(3).setResizable(false);
-            petTable.getColumnModel().getColumn(4).setResizable(false);
-            petTable.getColumnModel().getColumn(5).setResizable(false);
+        if (petsTable.getColumnModel().getColumnCount() > 0) {
+            petsTable.getColumnModel().getColumn(0).setResizable(false);
+            petsTable.getColumnModel().getColumn(1).setResizable(false);
+            petsTable.getColumnModel().getColumn(2).setResizable(false);
+            petsTable.getColumnModel().getColumn(3).setResizable(false);
+            petsTable.getColumnModel().getColumn(4).setResizable(false);
+            petsTable.getColumnModel().getColumn(5).setResizable(false);
         }
 
         pClientSearch.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -311,9 +315,13 @@ public class DashboardsGui extends JFrame {
 
         clientsTab.setBackground(new Color(255, 255, 255));
 
-        table.getColumnModel().getColumn(4).setCellRenderer(renderer);
-        table.getColumnModel().getColumn(4).setCellEditor(editor);
-        table.setRowHeight(renderer.getTableCellRendererComponent(table, null, true, true, 0, 0).getPreferredSize().height);
+        clientTable.getColumnModel().getColumn(4).setCellRenderer(clientRenderer);
+        clientTable.getColumnModel().getColumn(4).setCellEditor(clientEditor);
+        clientTable.setRowHeight(clientRenderer.getTableCellRendererComponent(clientTable, null, true, true, 0, 0).getPreferredSize().height);
+
+        petTable.getColumnModel().getColumn(5).setCellRenderer(petRenderer);
+        petTable.getColumnModel().getColumn(5).setCellEditor(petEditor);
+        petTable.setRowHeight(petRenderer.getTableCellRendererComponent(petTable, null, true, true, 0, 0).getPreferredSize().height);
 
         clientTableScroll.setBackground(new Color(255, 255, 255));
 
@@ -333,7 +341,7 @@ public class DashboardsGui extends JFrame {
             }
         });
         clientsTable.setGridColor(new Color(255, 255, 255));
-        clientTableScroll.setViewportView(table);
+        clientTableScroll.setViewportView(clientTable);
         if (clientsTable.getColumnModel().getColumnCount() > 0) {
             clientsTable.getColumnModel().getColumn(0).setResizable(false);
             clientsTable.getColumnModel().getColumn(1).setResizable(false);
@@ -467,7 +475,7 @@ public class DashboardsGui extends JFrame {
         if (delete == 0) {
             // Delete the client
             vetPortal.deleteClient(phoneNumber, firstName, lastName);
-            myTableModel.remove();
+            myClientTableModel.remove();
         }
         // If No (1) was selected do nothing
 
@@ -500,8 +508,16 @@ public class DashboardsGui extends JFrame {
         return clientsTable;
     }
 
-    public JTable getTable() {
-        return table;
+    public JTable getClientTable() {
+        return clientTable;
+    }
+
+    public JTable getPetsTable() {
+        return petsTable;
+    }
+
+    public JTable getPetTable() {
+        return petTable;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -538,24 +554,31 @@ public class DashboardsGui extends JFrame {
     private javax.swing.JTextField pNameField;
     private javax.swing.JLabel pNameSearch;
     private javax.swing.JButton pSearchBtn;
-    private javax.swing.JTable petTable;
+    private javax.swing.JTable petsTable;
     private javax.swing.JScrollPane petTableScroll;
     private javax.swing.JPanel petsTab;
 
 
-    private MyTableModel myTableModel;
-    private JTable table;
-    private ActionRenderer renderer;
-    private ActionEditor editor;
+    //Objects for Client Table
+    private MyClientTableModel myClientTableModel;
+    private JTable clientTable;
+    private ClientActionRenderer clientRenderer;
+    private ClientActionEditor clientEditor;
+
+    //Objects for Pet Table
+    private MyPetTableModel myPetTableModel;
+    private JTable petTable;
+    private PetActionRenderer petRenderer;
+    private PetActionEditor petEditor;
     // End of variables declaration//GEN-END:variables
 
     // Action Pane for Clients Table
-    public class ActionPane extends JPanel {
+    public class ClientActionPane extends JPanel {
 
         private JButton editButton;
         private JButton deleteButton;
 
-        public ActionPane() {
+        public ClientActionPane() {
             setLayout(new GridBagLayout());
             // Add icons and tool tips to buttons
             editButton = new JButton(new ImageIcon(((new ImageIcon("icons/edit.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
@@ -577,10 +600,10 @@ public class DashboardsGui extends JFrame {
         
         private void edit() {
             // Get the information for the selected client
-            Object selectedFirstName = myTableModel.getValueAt(table.getSelectedRow(), 0);
-            Object selectedLastName = myTableModel.getValueAt(table.getSelectedRow(), 1);
-            Object selectedEmail = myTableModel.getValueAt(table.getSelectedRow(), 2);
-            Object selectedPhoneNumber = myTableModel.getValueAt(table.getSelectedRow(), 3);
+            Object selectedFirstName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 0);
+            Object selectedLastName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 1);
+            Object selectedEmail = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 2);
+            Object selectedPhoneNumber = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 3);
             try {
                 // Pass to the event handler
                 editSelectedClient((String) selectedFirstName, (String) selectedLastName, (String) selectedEmail, (String) selectedPhoneNumber);
@@ -590,25 +613,25 @@ public class DashboardsGui extends JFrame {
         }          
 
         private void delete() {
-            Object selectedPhoneNumber = myTableModel.getValueAt(table.getSelectedRow(), 3);
-            Object selectedFirstName = myTableModel.getValueAt(table.getSelectedRow(), 0);
-            Object selectedLastName = myTableModel.getValueAt(table.getSelectedRow(), 1);
+            Object selectedPhoneNumber = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 3);
+            Object selectedFirstName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 0);
+            Object selectedLastName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 1);
             deleteSelectedClient((String) selectedPhoneNumber, (String) selectedFirstName, (String) selectedLastName);
-            myTableModel.remove();
+            myClientTableModel.remove();
         }      
         
     } //end of ActionPane
 
-    public class MyTableModel extends AbstractTableModel {
+    public class MyClientTableModel extends AbstractTableModel {
 
-        private  List<Clients> data;
+        private  List<Clients> clientData;
 
-        public MyTableModel() {
-            data = new ArrayList<>(25);
+        public MyClientTableModel() {
+            clientData = new ArrayList<>(25);
         }
 
-        public List<Clients> getData() {
-            return data;
+        public List<Clients> getClientData() {
+            return clientData;
         }
 
         @Override
@@ -629,6 +652,7 @@ public class DashboardsGui extends JFrame {
                     break;
                 case 4:
                     value = "Actions";
+                    break;
             }
             return value;
         }
@@ -649,7 +673,7 @@ public class DashboardsGui extends JFrame {
 
         @Override
         public int getRowCount() {
-            return data.size();
+            return clientData.size();
         }
 
         @Override
@@ -659,7 +683,7 @@ public class DashboardsGui extends JFrame {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            Clients obj = data.get(rowIndex);
+            Clients obj = clientData.get(rowIndex);
             String value = null;
             switch (columnIndex) {
                 case 0:
@@ -680,12 +704,12 @@ public class DashboardsGui extends JFrame {
 
         public void add(Clients content) {
             int startIndex = getRowCount();
-            data.add(content);
+            clientData.add(content);
             fireTableRowsInserted(startIndex, getRowCount() - 1);
         }
 
         public void remove() {
-            data.clear();
+            clientData.clear();
             fireTableDataChanged();
             vetPortal.viewAllClients();
         }
@@ -696,27 +720,27 @@ public class DashboardsGui extends JFrame {
         }
     } //end of MyTableModel
 
-    public class ActionRenderer extends DefaultTableCellRenderer {
+    public class ClientActionRenderer extends DefaultTableCellRenderer {
 
-        private ActionPane actionPane;
+        private ClientActionPane clientActionPane;
 
-        public ActionRenderer() {
-            actionPane = new ActionPane();
+        public ClientActionRenderer() {
+            clientActionPane = new ClientActionPane();
         }
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            return actionPane;
+            return clientActionPane;
         }
     } //end of DefaultTableCellRenderer
 
-    public class ActionEditor extends AbstractCellEditor implements TableCellEditor {
+    public class ClientActionEditor extends AbstractCellEditor implements TableCellEditor {
 
-        private ActionPane actionPane;
+        private ClientActionPane clientActionPane;
 
-        public ActionEditor() {
-            actionPane = new ActionPane();
-            actionPane.addActionListener(new ActionListener() {
+        public ClientActionEditor() {
+            clientActionPane = new ClientActionPane();
+            clientActionPane.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     SwingUtilities.invokeLater(new Runnable() {
@@ -741,7 +765,204 @@ public class DashboardsGui extends JFrame {
 
         @Override
         public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-            return actionPane;
+            return clientActionPane;
+        }
+    } //end of AbstractCellEditor
+
+    //TODO: Finish code below here:
+
+    // Action Pane for Pets Table
+    public class PetActionPane extends JPanel {
+
+        private JButton editButton;
+        private JButton deleteButton;
+
+        public PetActionPane() {
+            setLayout(new GridBagLayout());
+            // Add icons and tool tips to buttons
+            editButton = new JButton(new ImageIcon(((new ImageIcon("icons/edit.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            editButton.setToolTipText("Edit Client");
+            deleteButton = new JButton(new ImageIcon(((new ImageIcon("icons/trash.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            deleteButton.setToolTipText("Delete Client");
+
+            add(editButton);
+            add(deleteButton);
+
+            editButton.addActionListener(event -> edit());
+            deleteButton.addActionListener(event -> delete());
+        } //end of constructor
+
+        public void addActionListener(ActionListener listener) {
+            editButton.addActionListener(listener);
+            deleteButton.addActionListener(listener);
+        }
+
+        private void edit() {
+
+        }
+
+        private void delete() {
+
+        }
+
+    } //end of ActionPane
+
+    public class MyPetTableModel extends AbstractTableModel {
+
+        private  List<Pets> petData;
+
+        public MyPetTableModel() {
+            petData = new ArrayList<>(25);
+        }
+
+        public List<Pets> getPetData() {
+            return petData;
+        }
+
+        @Override
+        public String getColumnName(int column) {
+            String value = null;
+            switch (column) {
+                case 0:
+                    value = "Pet Name";
+                    break;
+                case 1:
+                    value = "Species";
+                    break;
+                case 2:
+                    value = "Gender";
+                    break;
+                case 3:
+                    value = "Date of Birth";
+                    break;
+                case 4:
+                    value = "Client's Last Name";
+                    break;
+                case 5:
+                    value = "Actions";
+                    break;
+            }
+            return value;
+        }
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            Class value = Object.class;
+            switch (columnIndex) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    value = String.class;
+                    break;
+            }
+            return value;
+        }
+
+        @Override
+        public int getRowCount() {
+            return petData.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 6;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            Pets obj = petData.get(rowIndex);
+
+            int petOwnerID = obj.getPetOwner();
+            vetPortal.getVetDatabase().open();
+            String clientLastName = vetPortal.getVetDatabase().getClientLastName(petOwnerID);
+            vetPortal.getVetDatabase().close();
+
+            String value = null;
+            switch (columnIndex) {
+                case 0:
+                    value = obj.getPetName();
+                    break;
+                case 1:
+                    value = obj.getPetSpecies();
+                    break;
+                case 2:
+                    value = obj.getPetGender();
+                    break;
+                case 3:
+                    value = obj.getPetDateOfBirth();
+                    break;
+                case 4:
+                    value = clientLastName;
+            }
+            return value;
+        }
+
+        public void add(Pets content) {
+            int startIndex = getRowCount();
+            petData.add(content);
+            fireTableRowsInserted(startIndex, getRowCount() - 1);
+        }
+
+        public void remove() {
+            petData.clear();
+            fireTableDataChanged();
+            vetPortal.viewAllPets();
+        }
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return columnIndex == 5;
+        }
+    } //end of MyTableModel
+
+    public class PetActionRenderer extends DefaultTableCellRenderer {
+
+        private PetActionPane petActionPane;
+
+        public PetActionRenderer() {
+            petActionPane = new PetActionPane();
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            return petActionPane;
+        }
+    } //end of DefaultTableCellRenderer
+
+    public class PetActionEditor extends AbstractCellEditor implements TableCellEditor {
+
+        private PetActionPane petActionPane;
+
+        public PetActionEditor() {
+            petActionPane = new PetActionPane();
+            petActionPane.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            stopCellEditing();
+                        }
+                    });
+                }
+            });
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return null;
+        }
+
+        @Override
+        public boolean isCellEditable(EventObject e) {
+            return true;
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            return petActionPane;
         }
     } //end of AbstractCellEditor
 

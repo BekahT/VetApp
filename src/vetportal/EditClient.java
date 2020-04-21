@@ -7,11 +7,8 @@
 
 package vetportal;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import java.text.ParseException;
-import java.util.ArrayList;
 
 public class EditClient extends javax.swing.JFrame {
 
@@ -207,7 +204,7 @@ public class EditClient extends javax.swing.JFrame {
 
         // Refresh the Clients Table in the Dashboard
         DashboardsGui dashboard = vetPortal.getDashboard();
-        DashboardsGui.MyTableModel model = (DashboardsGui.MyTableModel) dashboard.getTable().getModel();
+        DashboardsGui.MyClientTableModel model = (DashboardsGui.MyClientTableModel) dashboard.getClientTable().getModel();
         model.remove(); 
     } //end of editSelectedClient()
 
