@@ -14,8 +14,6 @@ package vetportal;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -205,6 +203,10 @@ public class VetPortal extends JFrame {
     public static void main(String[] args) {
         vetPortal = new VetPortal();
         vetPortal.setVisible(true);
+
+        //TODO: Remove Testing:
+        vetPortal.createPet(new JLabel("Test"), "Jaeger", "Dog", "MN", "2017-03-18", 1);
+        vetPortal.deletePet("Jaeger", "Dog", "MN", "2017-03-18");
     } //end of main()
     
     // Validation functions for New Client Form Fields
@@ -275,6 +277,7 @@ public class VetPortal extends JFrame {
                 // Close the Login Page
                 vetPortal.setVisible(false);                
                 vetPortal.viewAllClients();
+                vetPortal.viewAllPets();
                 dashboard.setVisible(true);
             }
         // If user is locked out, display error
@@ -376,7 +379,7 @@ public class VetPortal extends JFrame {
         } else {
             // Loop through the clients and add them to the Clients Table              
             DefaultTableModel model = (DefaultTableModel) dashboard.getClientsTable().getModel();
-            DashboardsGui.MyTableModel newModel = (DashboardsGui.MyTableModel) dashboard.getTable().getModel();
+            DashboardsGui.MyClientTableModel newModel = (DashboardsGui.MyClientTableModel) dashboard.getClientTable().getModel();
             for (Clients client : allClients) {
                 Object[] row = {client.getClientFirstName(), client.getClientLastName(), client.getClientEmail(), client.getClientPhoneNumber()};
                 newModel.add(client);
@@ -432,5 +435,90 @@ public class VetPortal extends JFrame {
         vetDatabase.close();
         return false;
     } //end of editClient()
+
+    // Method to create a new pet, called from the AddPet.java file
+    public Boolean createPet(JLabel warnUser, String name, String species, String gender, String dob, int owner) {
+        System.out.println(dob);
+        // Verify no fields are empty
+        if ((name.isEmpty()) || (species.isEmpty()
+                || (gender.isEmpty()) || (dob.toString().isEmpty()))) {
+            warnUser.setText("All fields are required!");
+            return false;
+        }
+        // Verify the name is validly formatted
+        if (!(isValidName(name))) {
+            warnUser.setText("Name may not contain invalid characters!");
+            return false;
+        }
+
+        //TODO: might need to add validation checks on species, gender, and dob - depending on implementation
+
+        //Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return false;
+        }
+        // If INSERT into database fails
+        if (!vetDatabase.insertPet(name, species, gender, dob, owner)) {
+            // Display the error to the user
+            String errorMessage = vetDatabase.getErrorMessage();
+            warnUser.setText(errorMessage);
+            // If INSERT into database is successful
+        } else {
+            // Log the add client action
+            AuditLog.logWriter("successfulPetAdd", name + ", " + species + ", " + gender);
+            return true;
+        }
+        vetDatabase.close();
+        return false;
+    } //end of createPet()
+
+    // Method to delete an existing client
+    public void deletePet(String name, String species, String gender, String dob) {
+        //Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return;
+        }
+
+        // If no client was passed
+        if (!vetDatabase.deletePet(name, species, gender, dob)) {
+            // Display an error
+            String errorMessage = vetDatabase.getErrorMessage();
+            JOptionPane.showMessageDialog(null, errorMessage, "Error: No pet selected", JOptionPane.ERROR_MESSAGE);
+            // Delete the client
+        } else {
+            // Log the deletion
+            AuditLog.logWriter("successfulPetDelete", name + ", " + species + ", " + gender);
+        }
+        vetDatabase.close();
+    } //end of deleteClient()
+
+    //Method to view all pets that currently exist in the database
+    public void viewAllPets() {
+        // Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return;
+        }
+        // Add all the pets to an array
+        ArrayList<Pets> allPets = vetDatabase.selectAllPets();
+        // If the array is empty
+        if (allPets.isEmpty()) {
+            String errorMessage = vetDatabase.getErrorMessage();
+            JOptionPane.showMessageDialog(null, errorMessage, "Error: No pets exist", JOptionPane.ERROR_MESSAGE);
+            // If clients exist
+        } else {
+            // Loop through the pets and add them to the pets Table
+            DashboardsGui.MyPetTableModel newModel = (DashboardsGui.MyPetTableModel) dashboard.getPetTable().getModel();
+            for (Pets pet : allPets) {
+                newModel.add(pet);
+            }
+        }
+        vetDatabase.close();
+    } //end of viewAllClients()
 
 } //end of VetPortal
