@@ -6,7 +6,10 @@
 
 package vetportal;
 
-public class ViewClient extends javax.swing.JFrame {
+import javax.swing.*;
+import java.awt.*;
+
+public class ViewClient extends JFrame {
 
     /**
      * Creates new form ViewClient
@@ -24,132 +27,132 @@ public class ViewClient extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        viewClientPanel = new javax.swing.JPanel();
-        clientInfoTabs = new javax.swing.JTabbedPane();
-        clientPanel = new javax.swing.JPanel();
-        firstNameLabel = new javax.swing.JLabel();
-        firstNameField = new javax.swing.JTextField();
-        lastNameLabel = new javax.swing.JLabel();
-        lastNameField = new javax.swing.JTextField();
-        emailLabel = new javax.swing.JLabel();
-        emailField = new javax.swing.JTextField();
-        phoneNumberLabel = new javax.swing.JLabel();
-        phoneNumberField = new javax.swing.JTextField();
-        cCloseBtn = new javax.swing.JButton();
-        petsPanel = new javax.swing.JPanel();
-        cPetScrollPane = new javax.swing.JScrollPane();
-        cPetTable = new javax.swing.JTable();
-        pCloseBtn = new javax.swing.JButton();
-        appointmentsPanel = new javax.swing.JPanel();
-        cAppointmentsScrollPane = new javax.swing.JScrollPane();
-        cAppointmentsTable = new javax.swing.JTable();
-        aCloseBtn = new javax.swing.JButton();
+        viewClientPanel = new JPanel();
+        clientInfoTabs = new JTabbedPane();
+        clientPanel = new JPanel();
+        firstNameLabel = new JLabel();
+        firstNameField = new JTextField();
+        lastNameLabel = new JLabel();
+        lastNameField = new JTextField();
+        emailLabel = new JLabel();
+        emailField = new JTextField();
+        phoneNumberLabel = new JLabel();
+        phoneNumberField = new JTextField();
+        cCloseBtn = new JButton();
+        petsPanel = new JPanel();
+        cPetScrollPane = new JScrollPane();
+        cPetTable = new JTable();
+        pCloseBtn = new JButton();
+        appointmentsPanel = new JPanel();
+        cAppointmentsScrollPane = new JScrollPane();
+        cAppointmentsTable = new JTable();
+        aCloseBtn = new JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        viewClientPanel.setBackground(new java.awt.Color(255, 255, 255));
-        viewClientPanel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        viewClientPanel.setBackground(new Color(255, 255, 255));
+        viewClientPanel.setFont(new Font("Calibri", 0, 18)); // NOI18N
 
-        clientInfoTabs.setBackground(new java.awt.Color(255, 255, 255));
-        clientInfoTabs.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-        clientInfoTabs.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        clientInfoTabs.setBackground(new Color(255, 255, 255));
+        clientInfoTabs.setTabPlacement(JTabbedPane.LEFT);
+        clientInfoTabs.setFont(new Font("Calibri", 0, 18)); // NOI18N
 
-        clientPanel.setBackground(new java.awt.Color(255, 255, 255));
+        clientPanel.setBackground(new Color(255, 255, 255));
 
-        firstNameLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        firstNameLabel.setFont(new Font("Calibri", 0, 14)); // NOI18N
         firstNameLabel.setText("First Name");
 
         firstNameField.setEditable(false);
-        firstNameField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        firstNameField.setFont(new Font("Calibri", 0, 14)); // NOI18N
 
-        lastNameLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        lastNameLabel.setFont(new Font("Calibri", 0, 14)); // NOI18N
         lastNameLabel.setText("Last Name");
 
         lastNameField.setEditable(false);
-        lastNameField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        lastNameField.setFont(new Font("Calibri", 0, 14)); // NOI18N
 
-        emailLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        emailLabel.setFont(new Font("Calibri", 0, 14)); // NOI18N
         emailLabel.setText("Email Address");
 
         emailField.setEditable(false);
-        emailField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        emailField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        emailField.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        emailField.addActionListener(new event.ActionListener() {
+            public void actionPerformed(event.ActionEvent evt) {
                 emailFieldActionPerformed(evt);
             }
         });
 
-        phoneNumberLabel.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        phoneNumberLabel.setFont(new Font("Calibri", 0, 14)); // NOI18N
         phoneNumberLabel.setText("Phone Number");
 
         phoneNumberField.setEditable(false);
-        phoneNumberField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        phoneNumberField.setFont(new Font("Calibri", 0, 14)); // NOI18N
 
-        cCloseBtn.setBackground(new java.awt.Color(255, 255, 255));
-        cCloseBtn.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        cCloseBtn.setBackground(new Color(255, 255, 255));
+        cCloseBtn.setFont(new Font("Calibri", 0, 18)); // NOI18N
         cCloseBtn.setText("Close");
 
-        javax.swing.GroupLayout clientPanelLayout = new javax.swing.GroupLayout(clientPanel);
+        GroupLayout clientPanelLayout = new GroupLayout(clientPanel);
         clientPanel.setLayout(clientPanelLayout);
         clientPanelLayout.setHorizontalGroup(
-            clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            clientPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(clientPanelLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(clientPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                     .addGroup(clientPanelLayout.createSequentialGroup()
                         .addComponent(phoneNumberLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(phoneNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(phoneNumberField, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
                     .addGroup(clientPanelLayout.createSequentialGroup()
                         .addComponent(emailLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(emailField, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
                     .addGroup(clientPanelLayout.createSequentialGroup()
                         .addComponent(lastNameLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lastNameField, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
                     .addGroup(clientPanelLayout.createSequentialGroup()
                         .addComponent(firstNameLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(firstNameField, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(55, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, clientPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(GroupLayout.Alignment.TRAILING, clientPanelLayout.createSequentialGroup()
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(cCloseBtn)
                 .addContainerGap())
         );
         clientPanelLayout.setVerticalGroup(
-            clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            clientPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(clientPanelLayout.createSequentialGroup()
                 .addGap(44, 44, 44)
-                .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(clientPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(firstNameLabel)
-                    .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(firstNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(clientPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(lastNameLabel)
-                    .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lastNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(clientPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(emailLabel)
-                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(emailField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(clientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(clientPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(phoneNumberLabel)
-                    .addComponent(phoneNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
+                    .addComponent(phoneNumberField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 312, Short.MAX_VALUE)
                 .addComponent(cCloseBtn)
                 .addContainerGap())
         );
 
         clientInfoTabs.addTab("Client", clientPanel);
 
-        petsPanel.setBackground(new java.awt.Color(255, 255, 255));
+        petsPanel.setBackground(new Color(255, 255, 255));
 
-        cPetScrollPane.setBackground(new java.awt.Color(255, 255, 255));
+        cPetScrollPane.setBackground(new Color(255, 255, 255));
 
-        cPetTable.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        cPetTable.setModel(new javax.swing.table.DefaultTableModel(
+        cPetTable.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        cPetTable.setModel(new table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -167,41 +170,41 @@ public class ViewClient extends javax.swing.JFrame {
         });
         cPetScrollPane.setViewportView(cPetTable);
 
-        pCloseBtn.setBackground(new java.awt.Color(255, 255, 255));
-        pCloseBtn.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        pCloseBtn.setBackground(new Color(255, 255, 255));
+        pCloseBtn.setFont(new Font("Calibri", 0, 18)); // NOI18N
         pCloseBtn.setText("Close");
 
-        javax.swing.GroupLayout petsPanelLayout = new javax.swing.GroupLayout(petsPanel);
+        GroupLayout petsPanelLayout = new GroupLayout(petsPanel);
         petsPanel.setLayout(petsPanelLayout);
         petsPanelLayout.setHorizontalGroup(
-            petsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            petsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(petsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(petsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cPetScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, petsPanelLayout.createSequentialGroup()
+                .addGroup(petsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(cPetScrollPane, GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                    .addGroup(GroupLayout.Alignment.TRAILING, petsPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(pCloseBtn)))
                 .addContainerGap())
         );
         petsPanelLayout.setVerticalGroup(
-            petsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            petsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(petsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cPetScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cPetScrollPane, GroupLayout.PREFERRED_SIZE, 482, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pCloseBtn)
                 .addContainerGap())
         );
 
         clientInfoTabs.addTab("Pets", petsPanel);
 
-        appointmentsPanel.setBackground(new java.awt.Color(255, 255, 255));
+        appointmentsPanel.setBackground(new Color(255, 255, 255));
 
-        cAppointmentsScrollPane.setBackground(new java.awt.Color(255, 255, 255));
+        cAppointmentsScrollPane.setBackground(new Color(255, 255, 255));
 
-        cAppointmentsTable.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        cAppointmentsTable.setModel(new javax.swing.table.DefaultTableModel(
+        cAppointmentsTable.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        cAppointmentsTable.setModel(new table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -219,86 +222,86 @@ public class ViewClient extends javax.swing.JFrame {
         });
         cAppointmentsScrollPane.setViewportView(cAppointmentsTable);
 
-        aCloseBtn.setBackground(new java.awt.Color(255, 255, 255));
-        aCloseBtn.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        aCloseBtn.setBackground(new Color(255, 255, 255));
+        aCloseBtn.setFont(new Font("Calibri", 0, 18)); // NOI18N
         aCloseBtn.setText("Close");
 
-        javax.swing.GroupLayout appointmentsPanelLayout = new javax.swing.GroupLayout(appointmentsPanel);
+        GroupLayout appointmentsPanelLayout = new GroupLayout(appointmentsPanel);
         appointmentsPanel.setLayout(appointmentsPanelLayout);
         appointmentsPanelLayout.setHorizontalGroup(
-            appointmentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            appointmentsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(appointmentsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(appointmentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cAppointmentsScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, appointmentsPanelLayout.createSequentialGroup()
+                .addGroup(appointmentsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(cAppointmentsScrollPane, GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                    .addGroup(GroupLayout.Alignment.TRAILING, appointmentsPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(aCloseBtn)))
                 .addContainerGap())
         );
         appointmentsPanelLayout.setVerticalGroup(
-            appointmentsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            appointmentsPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(appointmentsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cAppointmentsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cAppointmentsScrollPane, GroupLayout.PREFERRED_SIZE, 482, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(aCloseBtn)
                 .addContainerGap())
         );
 
         clientInfoTabs.addTab("Appointments", appointmentsPanel);
 
-        javax.swing.GroupLayout viewClientPanelLayout = new javax.swing.GroupLayout(viewClientPanel);
+        GroupLayout viewClientPanelLayout = new GroupLayout(viewClientPanel);
         viewClientPanel.setLayout(viewClientPanelLayout);
         viewClientPanelLayout.setHorizontalGroup(
-            viewClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            viewClientPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(viewClientPanelLayout.createSequentialGroup()
-                .addComponent(clientInfoTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 509, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(clientInfoTabs, GroupLayout.PREFERRED_SIZE, 509, GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         viewClientPanelLayout.setVerticalGroup(
-            viewClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            viewClientPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addComponent(clientInfoTabs)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(viewClientPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(viewClientPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(viewClientPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(viewClientPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
+    private void emailFieldActionPerformed(event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailFieldActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton aCloseBtn;
-    private javax.swing.JPanel appointmentsPanel;
-    private javax.swing.JScrollPane cAppointmentsScrollPane;
-    private javax.swing.JTable cAppointmentsTable;
-    private javax.swing.JButton cCloseBtn;
-    private javax.swing.JScrollPane cPetScrollPane;
-    private javax.swing.JTable cPetTable;
-    private javax.swing.JTabbedPane clientInfoTabs;
-    private javax.swing.JPanel clientPanel;
-    private javax.swing.JTextField emailField;
-    private javax.swing.JLabel emailLabel;
-    private javax.swing.JTextField firstNameField;
-    private javax.swing.JLabel firstNameLabel;
-    private javax.swing.JTextField lastNameField;
-    private javax.swing.JLabel lastNameLabel;
-    private javax.swing.JButton pCloseBtn;
-    private javax.swing.JPanel petsPanel;
-    private javax.swing.JTextField phoneNumberField;
-    private javax.swing.JLabel phoneNumberLabel;
-    private javax.swing.JPanel viewClientPanel;
+    private JButton aCloseBtn;
+    private JPanel appointmentsPanel;
+    private JScrollPane cAppointmentsScrollPane;
+    private JTable cAppointmentsTable;
+    private JButton cCloseBtn;
+    private JScrollPane cPetScrollPane;
+    private JTable cPetTable;
+    private JTabbedPane clientInfoTabs;
+    private JPanel clientPanel;
+    private JTextField emailField;
+    private JLabel emailLabel;
+    private JTextField firstNameField;
+    private JLabel firstNameLabel;
+    private JTextField lastNameField;
+    private JLabel lastNameLabel;
+    private JButton pCloseBtn;
+    private JPanel petsPanel;
+    private JTextField phoneNumberField;
+    private JLabel phoneNumberLabel;
+    private JPanel viewClientPanel;
     // End of variables declaration//GEN-END:variables
 }

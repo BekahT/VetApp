@@ -12,6 +12,7 @@
 package vetportal;
 
 import javax.swing.*;
+import java.awt.*;
 import javax.swing.table.DefaultTableModel;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -71,44 +72,44 @@ public class VetPortal extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        loginPanel.setBackground(new java.awt.Color(122, 188, 255));
+        loginPanel.setBackground(new Color(122, 188, 255));
         loginPanel.setToolTipText("");
-        loginPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        loginPanel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
-        welcomePanel.setBackground(new java.awt.Color(255, 255, 255));
+        welcomePanel.setBackground(new Color(255, 255, 255));
 
-        welcomeLabel.setBackground(new java.awt.Color(122, 188, 255));
-        welcomeLabel.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        welcomeLabel.setForeground(new java.awt.Color(122, 188, 255));
+        welcomeLabel.setBackground(new Color(122, 188, 255));
+        welcomeLabel.setFont(new Font("Calibri", 1, 24)); // NOI18N
+        welcomeLabel.setForeground(new Color(122, 188, 255));
         welcomeLabel.setText("Welcome to the Vet Portal");
 
-        usernameLabel.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        usernameLabel.setForeground(new java.awt.Color(122, 188, 255));
+        usernameLabel.setFont(new Font("Calibri", 1, 18)); // NOI18N
+        usernameLabel.setForeground(new Color(122, 188, 255));
         usernameLabel.setText("Username");
 
-        passwordLabel.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        passwordLabel.setForeground(new java.awt.Color(122, 188, 255));
+        passwordLabel.setFont(new Font("Calibri", 1, 18)); // NOI18N
+        passwordLabel.setForeground(new Color(122, 188, 255));
         passwordLabel.setText("Password");
 
-        usernameField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        usernameField.setForeground(new java.awt.Color(41, 41, 41));
+        usernameField.setFont(new Font("Calibri", 0, 18)); // NOI18N
+        usernameField.setForeground(new Color(41, 41, 41));
         usernameField.setToolTipText("");
 
-        loginBtn.setBackground(new java.awt.Color(255, 255, 255));
-        loginBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        loginBtn.setForeground(new java.awt.Color(122, 188, 255));
+        loginBtn.setBackground(new Color(255, 255, 255));
+        loginBtn.setFont(new Font("Calibri", 1, 18)); // NOI18N
+        loginBtn.setForeground(new Color(122, 188, 255));
         loginBtn.setText("Login");
 
-        passwordField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        passwordField.setForeground(new java.awt.Color(41, 41, 41));
+        passwordField.setFont(new Font("Calibri", 0, 18)); // NOI18N
+        passwordField.setForeground(new Color(41, 41, 41));
 
-        exitBtn.setBackground(new java.awt.Color(255, 255, 255));
-        exitBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        exitBtn.setForeground(new java.awt.Color(122, 188, 255));
+        exitBtn.setBackground(new Color(255, 255, 255));
+        exitBtn.setFont(new Font("Calibri", 1, 18)); // NOI18N
+        exitBtn.setForeground(new Color(122, 188, 255));
         exitBtn.setText("Exit");
 
-        warningMsg.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        warningMsg.setForeground(new java.awt.Color(255, 0, 0));
+        warningMsg.setFont(new Font("Calibri", 0, 18)); // NOI18N
+        warningMsg.setForeground(new Color(255, 0, 0));
 
         GroupLayout welcomePanelLayout = new GroupLayout(welcomePanel);
         welcomePanel.setLayout(welcomePanelLayout);
