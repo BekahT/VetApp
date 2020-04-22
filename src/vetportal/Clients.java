@@ -5,7 +5,6 @@
  * Main POC: Brian Rease
  * Purpose: This class is used to create new Clients.
  */
-
 package vetportal;
 
 public class Clients {

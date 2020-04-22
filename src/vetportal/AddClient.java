@@ -4,14 +4,10 @@
  * @Author: Nour Debiat, Rebekah Qu
  * Purpose: This window allows the user to add new clients.
  */
-
 package vetportal;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import java.text.ParseException;
-import java.util.ArrayList;
 
 public class AddClient extends javax.swing.JFrame {
 
@@ -21,7 +17,7 @@ public class AddClient extends javax.swing.JFrame {
     /**
      * Creates new form AddClient
 	 * @param vetPortal
-     * @throws java.text.ParseException
+     * @throws ParseException
      */
     public AddClient(VetPortal vetPortal) throws ParseException {
         super("Add New Client Form");
@@ -206,8 +202,8 @@ public class AddClient extends javax.swing.JFrame {
 
 	// Refresh the Clients Table in the Dashboard
         DashboardsGui dashboard = vetPortal.getDashboard();
-        DashboardsGui.MyTableModel model = (DashboardsGui.MyTableModel) dashboard.getTable().getModel();
-        model.remove();       
+        DashboardsGui.MyClientTableModel model = (DashboardsGui.MyClientTableModel) dashboard.getClientTable().getModel();
+        model.refetchClients();       
     } //end of createNewClient()
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

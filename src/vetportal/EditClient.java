@@ -4,14 +4,10 @@
  * @Author: Nour Debiat, Rebekah Qu
  * Purpose: This window allows the user to edit existing clients.
  */
-
 package vetportal;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 import java.text.ParseException;
-import java.util.ArrayList;
 
 public class EditClient extends javax.swing.JFrame {
 
@@ -21,7 +17,7 @@ public class EditClient extends javax.swing.JFrame {
     /**
     * Creates new form EditClient
     * @param vetPortal
-    * @throws java.text.ParseException
+    * @throws ParseException
     */
     public EditClient(VetPortal vetPortal, String currentFirstName, String currentLastName, String currentEmail, String currentPhoneNumber) throws ParseException {
         super("Edit Client Form");
@@ -207,8 +203,8 @@ public class EditClient extends javax.swing.JFrame {
 
         // Refresh the Clients Table in the Dashboard
         DashboardsGui dashboard = vetPortal.getDashboard();
-        DashboardsGui.MyTableModel model = (DashboardsGui.MyTableModel) dashboard.getTable().getModel();
-        model.remove(); 
+        DashboardsGui.MyClientTableModel model = (DashboardsGui.MyClientTableModel) dashboard.getClientTable().getModel();
+        model.refetchClients(); 
     } //end of editSelectedClient()
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

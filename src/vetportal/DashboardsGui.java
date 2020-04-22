@@ -4,7 +4,6 @@
  * @Author: Nour Debiat, Brian Rease, Rebekah Qu
  * Purpose: This window displays the dashboards where users can view appointments, pets, and clients.
  */
-
 package vetportal;
 
 import javax.swing.*;
@@ -18,10 +17,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.text.MaskFormatter;
 
-public class DashboardsGui extends javax.swing.JFrame {
+public class DashboardsGui extends JFrame {
 
     // Create objects for pages
     VetPortal vetPortal;
@@ -30,7 +28,7 @@ public class DashboardsGui extends javax.swing.JFrame {
     /**
      * Creates new form DashboardsGui
 	 * @param vetPortal
-	 * @throws java.text.ParseException
+	 * @throws ParseException
      */
     public DashboardsGui(VetPortal vetPortal) throws ParseException {
         super("Vet Portal");
@@ -47,77 +45,278 @@ public class DashboardsGui extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() throws ParseException {
 
-        dashboardPanel = new javax.swing.JPanel();
-        dashboardTabs = new javax.swing.JTabbedPane();
-        appointmentsTab = new javax.swing.JPanel();
-        petsTab = new javax.swing.JPanel();
-        clientsTab = new javax.swing.JPanel();
-        clientTableScroll = new javax.swing.JScrollPane();
-        clientsTable = new javax.swing.JTable();
-        createClientBtn = new javax.swing.JButton();
-        cNameSearch = new javax.swing.JLabel();
-        cEmailSearch = new javax.swing.JLabel();
-        cNumberSearch = new javax.swing.JLabel();
-        cSearchBtn = new javax.swing.JButton();
-        cNameField = new javax.swing.JTextField();
-        cEmailField = new javax.swing.JTextField();
-        cNumberField = new javax.swing.JTextField();
-        logoutBtn = new javax.swing.JButton();
+        dashboardPanel = new JPanel();
+        dashboardTabs = new JTabbedPane();
+        appointmentsTab = new JPanel();
+        aDateSeach = new JLabel();
+        createAppointmentBtn = new JButton(new ImageIcon(((new ImageIcon("icons/calendar-plus.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+        aClientSearch = new JLabel();
+        aClientField = new JTextField();
+        aDateField = new JTextField();
+        aSearchBtn = new JButton(new ImageIcon(((new ImageIcon("icons/search.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+        aPetSearch = new JLabel();
+        appointmentTableScroll = new JScrollPane();
+        appointmentsTable = new JTable();
+        aPetField = new JTextField();
+        petsTab = new JPanel();
+        createPetBtn = new JButton(new ImageIcon(((new ImageIcon("icons/paw.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+        pNameSearch = new JLabel();
+        pDOBSearch = new JLabel();
+        pClientField = new JTextField();
+        pNameField = new JTextField();
+        petTableScroll = new JScrollPane();
+        petsTable = new JTable();
+        pClientSearch = new JLabel();
+        pDOBField = new JTextField();
+        pSearchBtn = new JButton(new ImageIcon(((new ImageIcon("icons/search.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+        clientsTab = new JPanel();
+        clientTableScroll = new JScrollPane();
+        clientsTable = new JTable();
+        createClientBtn = new JButton(new ImageIcon(((new ImageIcon("icons/user-plus.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+        cNameSearch = new JLabel();
+        cEmailSearch = new JLabel();
+        cNumberSearch = new JLabel();
+        cSearchBtn = new JButton(new ImageIcon(((new ImageIcon("icons/search.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+        cNameField = new JTextField();
+        cEmailField = new JTextField();
+        MaskFormatter phoneFormat = new MaskFormatter("(***) ***-****");
+        cNumberField = new JFormattedTextField(phoneFormat);;
+        logoutBtn = new JButton(new ImageIcon(((new ImageIcon("icons/sign-out.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
 
-        myTableModel = new MyTableModel();
-        table = new JTable(myTableModel);
-        renderer = new ActionRenderer();
-        editor = new ActionEditor();
+        myClientTableModel = new MyClientTableModel();
+        clientTable = new JTable(myClientTableModel);
+        clientRenderer = new ClientActionRenderer();
+        clientEditor = new ClientActionEditor();
+        myPetTableModel = new MyPetTableModel();
+        petTable = new JTable(myPetTableModel);
+        petRenderer = new PetActionRenderer();
+        petEditor = new PetActionEditor();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        dashboardPanel.setBackground(new java.awt.Color(255, 255, 255));
-        dashboardPanel.setForeground(new java.awt.Color(41, 41, 41));
+        dashboardPanel.setBackground(new Color(255, 255, 255));
+        dashboardPanel.setForeground(new Color(41, 41, 41));
 
-        dashboardTabs.setBackground(new java.awt.Color(255, 255, 255));
-        dashboardTabs.setForeground(new java.awt.Color(38, 38, 38));
-        dashboardTabs.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        dashboardTabs.setBackground(new Color(255, 255, 255));
+        dashboardTabs.setForeground(new Color(38, 38, 38));
+        dashboardTabs.setFont(new Font("Calibri", 1, 14)); // NOI18N
 
-        appointmentsTab.setBackground(new java.awt.Color(255, 255, 255));
-        appointmentsTab.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        appointmentsTab.setBackground(new Color(255, 255, 255));
+        appointmentsTab.setFont(new Font("Calibri", 0, 18)); // NOI18N
 
-        javax.swing.GroupLayout appointmentsTabLayout = new javax.swing.GroupLayout(appointmentsTab);
+        aDateSeach.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        aDateSeach.setText("Date:");
+
+        createAppointmentBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
+        createAppointmentBtn.setText("Create New Appointment");
+        createAppointmentBtn.setToolTipText("");
+
+        aClientSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        aClientSearch.setText("Client:");
+
+        aClientField.setFont(new Font("Calibri", 0, 14)); // NOI18N
+
+        aDateField.setFont(new Font("Calibri", 0, 14)); // NOI18N
+
+        aSearchBtn.setBackground(new Color(255, 255, 255));
+        aSearchBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
+        aSearchBtn.setText("Search");
+
+        aPetSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        aPetSearch.setText("Pet:");
+
+        appointmentTableScroll.setBackground(new Color(255, 255, 255));
+
+        appointmentsTable.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        appointmentsTable.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {},
+                new String [] {
+                        "Date", "Time", "Client", "Pet", "Reason for Visit", "Actions"
+                }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                    false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        appointmentsTable.setGridColor(new Color(255, 255, 255));
+        appointmentTableScroll.setViewportView(appointmentsTable);
+        if (appointmentsTable.getColumnModel().getColumnCount() > 0) {
+            appointmentsTable.getColumnModel().getColumn(0).setResizable(false);
+            appointmentsTable.getColumnModel().getColumn(1).setResizable(false);
+            appointmentsTable.getColumnModel().getColumn(2).setResizable(false);
+            appointmentsTable.getColumnModel().getColumn(3).setResizable(false);
+            appointmentsTable.getColumnModel().getColumn(4).setResizable(false);
+            appointmentsTable.getColumnModel().getColumn(5).setResizable(false);
+        }
+
+        aPetField.setFont(new Font("Calibri", 0, 14)); // NOI18N
+
+        GroupLayout appointmentsTabLayout = new GroupLayout(appointmentsTab);
         appointmentsTab.setLayout(appointmentsTabLayout);
         appointmentsTabLayout.setHorizontalGroup(
-            appointmentsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 695, Short.MAX_VALUE)
+                appointmentsTabLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(appointmentsTabLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(appointmentsTabLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addGroup(appointmentsTabLayout.createSequentialGroup()
+                                                .addGroup(appointmentsTabLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                                        .addComponent(createAppointmentBtn)
+                                                        .addGroup(appointmentsTabLayout.createSequentialGroup()
+                                                                .addComponent(aDateSeach)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(aDateField, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                .addComponent(aClientSearch)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(aClientField, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                                                .addComponent(aPetSearch)
+                                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(aPetField, GroupLayout.PREFERRED_SIZE, 175, GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(aSearchBtn)))
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(appointmentTableScroll, GroupLayout.Alignment.TRAILING))
+                                .addContainerGap())
         );
         appointmentsTabLayout.setVerticalGroup(
-            appointmentsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 419, Short.MAX_VALUE)
+                appointmentsTabLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(appointmentsTabLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(createAppointmentBtn)
+                                .addGap(18, 18, 18)
+                                .addGroup(appointmentsTabLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(aDateSeach)
+                                        .addComponent(aClientSearch)
+                                        .addComponent(aPetSearch)
+                                        .addComponent(aSearchBtn)
+                                        .addComponent(aDateField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(aClientField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(aPetField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(appointmentTableScroll, GroupLayout.PREFERRED_SIZE, 261, GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         dashboardTabs.addTab("Appointments", appointmentsTab);
 
-        petsTab.setBackground(new java.awt.Color(255, 255, 255));
+        petsTab.setBackground(new Color(255, 255, 255));
+        createPetBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
+        createPetBtn.setText("Create New Pet");
+        createPetBtn.setToolTipText("");
 
-        javax.swing.GroupLayout petsTabLayout = new javax.swing.GroupLayout(petsTab);
+        pNameSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        pNameSearch.setText("Pet Name:");
+
+        pDOBSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        pDOBSearch.setText("Date of Birth:");
+
+        pClientField.setFont(new Font("Calibri", 0, 14)); // NOI18N
+
+        pNameField.setFont(new Font("Calibri", 0, 14)); // NOI18N
+
+        petTableScroll.setBackground(new Color(255, 255, 255));
+
+        petsTable.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        petsTable.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {},
+                new String [] {
+                        "Pet Name", "Species", "Gender", "Date of Birth", "Client's Last Name", "Actions"
+                }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                    false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        petsTable.setGridColor(new Color(255, 255, 255));
+        petTableScroll.setViewportView(petTable);
+        if (petsTable.getColumnModel().getColumnCount() > 0) {
+            petsTable.getColumnModel().getColumn(0).setResizable(false);
+            petsTable.getColumnModel().getColumn(1).setResizable(false);
+            petsTable.getColumnModel().getColumn(2).setResizable(false);
+            petsTable.getColumnModel().getColumn(3).setResizable(false);
+            petsTable.getColumnModel().getColumn(4).setResizable(false);
+            petsTable.getColumnModel().getColumn(5).setResizable(false);
+        }
+
+        pClientSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        pClientSearch.setText("Client:");
+
+        pDOBField.setFont(new Font("Calibri", 0, 14)); // NOI18N
+
+        pSearchBtn.setBackground(new Color(255, 255, 255));
+        pSearchBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
+        pSearchBtn.setText("Search");
+
+        GroupLayout petsTabLayout = new GroupLayout(petsTab);
         petsTab.setLayout(petsTabLayout);
         petsTabLayout.setHorizontalGroup(
-            petsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 695, Short.MAX_VALUE)
+                petsTabLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(petsTabLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(petsTabLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        .addGroup(petsTabLayout.createSequentialGroup()
+                                                .addComponent(createPetBtn)
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addGroup(petsTabLayout.createSequentialGroup()
+                                                .addComponent(pNameSearch)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(pNameField, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(pClientSearch)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(pClientField, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(pDOBSearch)
+                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(pDOBField, GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(pSearchBtn))
+                                        .addComponent(petTableScroll, GroupLayout.Alignment.TRAILING))
+                                .addContainerGap())
         );
         petsTabLayout.setVerticalGroup(
-            petsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 419, Short.MAX_VALUE)
+                petsTabLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(petsTabLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(createPetBtn)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(petsTabLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(pNameSearch)
+                                        .addComponent(pClientSearch)
+                                        .addComponent(pDOBSearch)
+                                        .addComponent(pSearchBtn)
+                                        .addComponent(pNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(pClientField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(pDOBField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(petTableScroll, GroupLayout.PREFERRED_SIZE, 261, GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         dashboardTabs.addTab("Pets", petsTab);
 
-        clientsTab.setBackground(new java.awt.Color(255, 255, 255));
-        
-        table.getColumnModel().getColumn(4).setCellRenderer(renderer);
-        table.getColumnModel().getColumn(4).setCellEditor(editor);
-        table.setRowHeight(renderer.getTableCellRendererComponent(table, null, true, true, 0, 0).getPreferredSize().height);
+        clientsTab.setBackground(new Color(255, 255, 255));
 
-        clientTableScroll.setBackground(new java.awt.Color(255, 255, 255));
+        clientTable.getColumnModel().getColumn(4).setCellRenderer(clientRenderer);
+        clientTable.getColumnModel().getColumn(4).setCellEditor(clientEditor);
+        clientTable.setRowHeight(clientRenderer.getTableCellRendererComponent(clientTable, null, true, true, 0, 0).getPreferredSize().height);
 
-        clientsTable.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        petTable.getColumnModel().getColumn(5).setCellRenderer(petRenderer);
+        petTable.getColumnModel().getColumn(5).setCellEditor(petEditor);
+        petTable.setRowHeight(petRenderer.getTableCellRendererComponent(petTable, null, true, true, 0, 0).getPreferredSize().height);
+
+        clientTableScroll.setBackground(new Color(255, 255, 255));
+
+        clientsTable.setFont(new Font("Calibri", 0, 14)); // NOI18N
         clientsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {},
             new String [] {
@@ -132,8 +331,8 @@ public class DashboardsGui extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        clientsTable.setGridColor(new java.awt.Color(255, 255, 255));
-        clientTableScroll.setViewportView(table);
+        clientsTable.setGridColor(new Color(255, 255, 255));
+        clientTableScroll.setViewportView(clientTable);
         if (clientsTable.getColumnModel().getColumnCount() > 0) {
             clientsTable.getColumnModel().getColumn(0).setResizable(false);
             clientsTable.getColumnModel().getColumn(1).setResizable(false);
@@ -142,9 +341,8 @@ public class DashboardsGui extends javax.swing.JFrame {
             clientsTable.getColumnModel().getColumn(4).setResizable(false);
         }
 
-        createClientBtn.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-        createClientBtn.setText("+ Create New Client");
-        createClientBtn.setToolTipText("");
+        createClientBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
+        createClientBtn.setText("Create New Client");
         createClientBtn.addActionListener(event -> {
             try {
                 openCreateClient();
@@ -152,109 +350,110 @@ public class DashboardsGui extends javax.swing.JFrame {
                 // Do nothing
             }
         });
-        
-        cNameSearch.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        cNameSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
         cNameSearch.setText("Last Name:");
 
-        cEmailSearch.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        cEmailSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
         cEmailSearch.setText("Email:");
 
-        cNumberSearch.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        cNumberSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
         cNumberSearch.setText("Phone:");
 
-        cSearchBtn.setBackground(new java.awt.Color(255, 255, 255));
-        cSearchBtn.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        cSearchBtn.setBackground(new Color(255, 255, 255));
+        cSearchBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
         cSearchBtn.setText("Search");
+        cSearchBtn.addActionListener(event -> myClientTableModel.executeClientSearch());
 
-        cNameField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        cNameField.setFont(new Font("Calibri", 0, 14)); // NOI18N
 
-        cEmailField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        cEmailField.setFont(new Font("Calibri", 0, 14)); // NOI18N
 
-        cNumberField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        cNumberField.setFont(new Font("Calibri", 0, 14)); // NOI18N
 
-        javax.swing.GroupLayout clientsTabLayout = new javax.swing.GroupLayout(clientsTab);
+        GroupLayout clientsTabLayout = new GroupLayout(clientsTab);
         clientsTab.setLayout(clientsTabLayout);
         clientsTabLayout.setHorizontalGroup(
-            clientsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            clientsTabLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(clientsTabLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(clientsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(clientsTabLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addComponent(clientTableScroll)
                     .addGroup(clientsTabLayout.createSequentialGroup()
-                        .addGroup(clientsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(clientsTabLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(createClientBtn)
                             .addGroup(clientsTabLayout.createSequentialGroup()
                                 .addComponent(cNameSearch)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cNameField, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(cEmailSearch)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cEmailField, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(cNumberSearch)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cNumberField, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cNumberField, GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addComponent(cSearchBtn)))
                 .addContainerGap())
         );
         clientsTabLayout.setVerticalGroup(
-            clientsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            clientsTabLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(clientsTabLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(createClientBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(clientsTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(clientsTabLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(cNameSearch)
                     .addComponent(cEmailSearch)
                     .addComponent(cNumberSearch)
                     .addComponent(cSearchBtn)
-                    .addComponent(cNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cEmailField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cNumberField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
-                .addComponent(clientTableScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(clientTableScroll, GroupLayout.PREFERRED_SIZE, 261, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(74, Short.MAX_VALUE))
         );
 
         dashboardTabs.addTab("Clients", clientsTab);
 
-        logoutBtn.setBackground(new java.awt.Color(255, 255, 255));
-        logoutBtn.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+        logoutBtn.setBackground(new Color(255, 255, 255));
+        logoutBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
         logoutBtn.setText("Logout");
-        logoutBtn.addActionListener(event -> logout());        
+        logoutBtn.addActionListener(event -> logout());
 
-        javax.swing.GroupLayout dashboardPanelLayout = new javax.swing.GroupLayout(dashboardPanel);
+        GroupLayout dashboardPanelLayout = new GroupLayout(dashboardPanel);
         dashboardPanel.setLayout(dashboardPanelLayout);
         dashboardPanelLayout.setHorizontalGroup(
-            dashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dashboardTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashboardPanelLayout.createSequentialGroup()
+            dashboardPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(dashboardTabs, GroupLayout.PREFERRED_SIZE, 700, GroupLayout.PREFERRED_SIZE)
+            .addGroup(GroupLayout.Alignment.TRAILING, dashboardPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(logoutBtn)
                 .addContainerGap())
         );
         dashboardPanelLayout.setVerticalGroup(
-            dashboardPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashboardPanelLayout.createSequentialGroup()
+            dashboardPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(GroupLayout.Alignment.TRAILING, dashboardPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(logoutBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(dashboardTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(dashboardTabs, GroupLayout.PREFERRED_SIZE, 450, GroupLayout.PREFERRED_SIZE))
         );
 
         dashboardTabs.getAccessibleContext().setAccessibleName("");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dashboardPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(dashboardPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dashboardPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(dashboardPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -268,7 +467,7 @@ public class DashboardsGui extends javax.swing.JFrame {
         if (delete == 0) {
             // Delete the client
             vetPortal.deleteClient(phoneNumber, firstName, lastName);
-            myTableModel.remove();
+            myClientTableModel.refetchClients();
         }
         // If No (1) was selected do nothing
 
@@ -301,44 +500,83 @@ public class DashboardsGui extends javax.swing.JFrame {
         return clientsTable;
     }
 
-    public JTable getTable() {
-        return table;
+    public JTable getClientTable() {
+        return clientTable;
+    }
+
+    public JTable getPetsTable() {
+        return petsTable;
+    }
+
+    public JTable getPetTable() {
+        return petTable;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel appointmentsTab;
-    private javax.swing.JTextField cEmailField;
-    private javax.swing.JLabel cEmailSearch;
-    private javax.swing.JTextField cNameField;
-    private javax.swing.JLabel cNameSearch;
-    private javax.swing.JTextField cNumberField;
-    private javax.swing.JLabel cNumberSearch;
-    private javax.swing.JButton cSearchBtn;
-    private javax.swing.JScrollPane clientTableScroll;
-    private javax.swing.JPanel clientsTab;
-    private javax.swing.JTable clientsTable;
-    private javax.swing.JButton createClientBtn;
-    private javax.swing.JPanel dashboardPanel;
-    private javax.swing.JTabbedPane dashboardTabs;
-    private javax.swing.JButton logoutBtn;
-    private javax.swing.JPanel petsTab;
+    private JTextField aClientField;
+    private JLabel aClientSearch;
+    private JTextField aDateField;
+    private JLabel aDateSeach;
+    private JTextField aPetField;
+    private JLabel aPetSearch;
+    private JButton aSearchBtn;
+    private JScrollPane appointmentTableScroll;
+    private JPanel appointmentsTab;
+    private JTable appointmentsTable;
+    private JTextField cEmailField;
+    private JLabel cEmailSearch;
+    private JTextField cNameField;
+    private JLabel cNameSearch;
+    private JTextField cNumberField;
+    private JLabel cNumberSearch;
+    private JButton cSearchBtn;
+    private JScrollPane clientTableScroll;
+    private JPanel clientsTab;
+    private JTable clientsTable;
+    private JButton createAppointmentBtn;
+    private JButton createClientBtn;
+    private JButton createPetBtn;
+    private JPanel dashboardPanel;
+    private JTabbedPane dashboardTabs;
+    private JButton logoutBtn;
+    private JTextField pClientField;
+    private JLabel pClientSearch;
+    private JTextField pDOBField;
+    private JLabel pDOBSearch;
+    private JTextField pNameField;
+    private JLabel pNameSearch;
+    private JButton pSearchBtn;
+    private JTable petsTable;
+    private JScrollPane petTableScroll;
+    private JPanel petsTab;
 
-    private MyTableModel myTableModel;
-    private JTable table;
-    private ActionRenderer renderer;
-    private ActionEditor editor;
+
+    //Objects for Client Table
+    private MyClientTableModel myClientTableModel;
+    private JTable clientTable;
+    private ClientActionRenderer clientRenderer;
+    private ClientActionEditor clientEditor;
+
+    //Objects for Pet Table
+    private MyPetTableModel myPetTableModel;
+    private JTable petTable;
+    private PetActionRenderer petRenderer;
+    private PetActionEditor petEditor;
     // End of variables declaration//GEN-END:variables
 
     // Action Pane for Clients Table
-    public class ActionPane extends JPanel {
+    public class ClientActionPane extends JPanel {
 
         private JButton editButton;
         private JButton deleteButton;
 
-        public ActionPane() {
+        public ClientActionPane() {
             setLayout(new GridBagLayout());
-            editButton = new JButton("Edit");
-            deleteButton = new JButton("Delete");
+            // Add icons and tool tips to buttons
+            editButton = new JButton(new ImageIcon(((new ImageIcon("icons/edit.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            editButton.setToolTipText("Edit Client");
+            deleteButton = new JButton(new ImageIcon(((new ImageIcon("icons/trash.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            deleteButton.setToolTipText("Delete Client");
 
             add(editButton);
             add(deleteButton);
@@ -354,10 +592,10 @@ public class DashboardsGui extends javax.swing.JFrame {
         
         private void edit() {
             // Get the information for the selected client
-            Object selectedFirstName = myTableModel.getValueAt(table.getSelectedRow(), 0);
-            Object selectedLastName = myTableModel.getValueAt(table.getSelectedRow(), 1);
-            Object selectedEmail = myTableModel.getValueAt(table.getSelectedRow(), 2);
-            Object selectedPhoneNumber = myTableModel.getValueAt(table.getSelectedRow(), 3);
+            Object selectedFirstName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 0);
+            Object selectedLastName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 1);
+            Object selectedEmail = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 2);
+            Object selectedPhoneNumber = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 3);
             try {
                 // Pass to the event handler
                 editSelectedClient((String) selectedFirstName, (String) selectedLastName, (String) selectedEmail, (String) selectedPhoneNumber);
@@ -367,25 +605,29 @@ public class DashboardsGui extends javax.swing.JFrame {
         }          
 
         private void delete() {
-            Object selectedPhoneNumber = myTableModel.getValueAt(table.getSelectedRow(), 3);
-            Object selectedFirstName = myTableModel.getValueAt(table.getSelectedRow(), 0);
-            Object selectedLastName = myTableModel.getValueAt(table.getSelectedRow(), 1);
+            Object selectedPhoneNumber = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 3);
+            Object selectedFirstName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 0);
+            Object selectedLastName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 1);
             deleteSelectedClient((String) selectedPhoneNumber, (String) selectedFirstName, (String) selectedLastName);
-            myTableModel.remove();
+            myClientTableModel.refetchClients();
         }      
         
     } //end of ActionPane
 
-    public class MyTableModel extends AbstractTableModel {
+    public class MyClientTableModel extends AbstractTableModel {
 
-        private  List<Clients> data;
+        private  List<Clients> clientData;
 
-        public MyTableModel() {
-            data = new ArrayList<>(25);
+        public MyClientTableModel() {
+            clientData = new ArrayList<>(25);
         }
 
-        public List<Clients> getData() {
-            return data;
+        public List<Clients> getClientData() {
+            return clientData;
+        }
+        
+        public void setClientData(List<Clients> newData) {
+            this.clientData = newData;
         }
 
         @Override
@@ -406,6 +648,7 @@ public class DashboardsGui extends javax.swing.JFrame {
                     break;
                 case 4:
                     value = "Actions";
+                    break;
             }
             return value;
         }
@@ -426,7 +669,7 @@ public class DashboardsGui extends javax.swing.JFrame {
 
         @Override
         public int getRowCount() {
-            return data.size();
+            return clientData.size();
         }
 
         @Override
@@ -436,7 +679,7 @@ public class DashboardsGui extends javax.swing.JFrame {
 
         @Override
         public Object getValueAt(int rowIndex, int columnIndex) {
-            Clients obj = data.get(rowIndex);
+            Clients obj = clientData.get(rowIndex);
             String value = null;
             switch (columnIndex) {
                 case 0:
@@ -457,12 +700,12 @@ public class DashboardsGui extends javax.swing.JFrame {
 
         public void add(Clients content) {
             int startIndex = getRowCount();
-            data.add(content);
+            clientData.add(content);
             fireTableRowsInserted(startIndex, getRowCount() - 1);
         }
 
-        public void remove() {
-            data.clear();
+        public void refetchClients() {
+            clientData.clear();
             fireTableDataChanged();
             vetPortal.viewAllClients();
         }
@@ -471,29 +714,52 @@ public class DashboardsGui extends javax.swing.JFrame {
         public boolean isCellEditable(int rowIndex, int columnIndex) {
             return columnIndex == 4;
         }
+        
+        // Handler for search clients button click event
+        private void executeClientSearch() {
+            List<Clients> clients = myClientTableModel.getClientData();
+            String searchName = cNameField.getText();
+            String searchEmail = cEmailField.getText();
+            String searchPhone = cNumberField.getText();
+            
+            refetchClients();
+            
+            // If all fields are empty, reset the table
+            if ("".equals(searchName) && "".equals(searchEmail) && "(   )    -    ".equals(searchPhone)) {
+                refetchClients();               
+            // If user supplied search terms
+            } else {                   
+                // Get the filtered list
+                List<Clients> matches = Search.searchClients(clients, searchName, searchEmail, searchPhone);
+                // Set the table to display only the matched rows
+                myClientTableModel.setClientData(matches);
+                fireTableDataChanged();
+            }          
+        }
+        
     } //end of MyTableModel
 
-    public class ActionRenderer extends DefaultTableCellRenderer {
+    public class ClientActionRenderer extends DefaultTableCellRenderer {
 
-        private ActionPane actionPane;
+        private ClientActionPane clientActionPane;
 
-        public ActionRenderer() {
-            actionPane = new ActionPane();
+        public ClientActionRenderer() {
+            clientActionPane = new ClientActionPane();
         }
 
         @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            return actionPane;
+            return clientActionPane;
         }
     } //end of DefaultTableCellRenderer
 
-    public class ActionEditor extends AbstractCellEditor implements TableCellEditor {
+    public class ClientActionEditor extends AbstractCellEditor implements TableCellEditor {
 
-        private ActionPane actionPane;
+        private ClientActionPane clientActionPane;
 
-        public ActionEditor() {
-            actionPane = new ActionPane();
-            actionPane.addActionListener(new ActionListener() {
+        public ClientActionEditor() {
+            clientActionPane = new ClientActionPane();
+            clientActionPane.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     SwingUtilities.invokeLater(new Runnable() {
@@ -518,7 +784,204 @@ public class DashboardsGui extends javax.swing.JFrame {
 
         @Override
         public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
-            return actionPane;
+            return clientActionPane;
+        }
+    } //end of AbstractCellEditor
+
+    //TODO: Finish code below here:
+
+    // Action Pane for Pets Table
+    public class PetActionPane extends JPanel {
+
+        private JButton editButton;
+        private JButton deleteButton;
+
+        public PetActionPane() {
+            setLayout(new GridBagLayout());
+            // Add icons and tool tips to buttons
+            editButton = new JButton(new ImageIcon(((new ImageIcon("icons/edit.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            editButton.setToolTipText("Edit Client");
+            deleteButton = new JButton(new ImageIcon(((new ImageIcon("icons/trash.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            deleteButton.setToolTipText("Delete Client");
+
+            add(editButton);
+            add(deleteButton);
+
+            editButton.addActionListener(event -> edit());
+            deleteButton.addActionListener(event -> delete());
+        } //end of constructor
+
+        public void addActionListener(ActionListener listener) {
+            editButton.addActionListener(listener);
+            deleteButton.addActionListener(listener);
+        }
+
+        private void edit() {
+
+        }
+
+        private void delete() {
+
+        }
+
+    } //end of ActionPane
+
+    public class MyPetTableModel extends AbstractTableModel {
+
+        private  List<Pets> petData;
+
+        public MyPetTableModel() {
+            petData = new ArrayList<>(25);
+        }
+
+        public List<Pets> getPetData() {
+            return petData;
+        }
+
+        @Override
+        public String getColumnName(int column) {
+            String value = null;
+            switch (column) {
+                case 0:
+                    value = "Pet Name";
+                    break;
+                case 1:
+                    value = "Species";
+                    break;
+                case 2:
+                    value = "Gender";
+                    break;
+                case 3:
+                    value = "Date of Birth";
+                    break;
+                case 4:
+                    value = "Client's Last Name";
+                    break;
+                case 5:
+                    value = "Actions";
+                    break;
+            }
+            return value;
+        }
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            Class value = Object.class;
+            switch (columnIndex) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    value = String.class;
+                    break;
+            }
+            return value;
+        }
+
+        @Override
+        public int getRowCount() {
+            return petData.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 6;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            Pets obj = petData.get(rowIndex);
+
+            int petOwnerID = obj.getPetOwner();
+            vetPortal.getVetDatabase().open();
+            String clientLastName = vetPortal.getVetDatabase().getClientLastName(petOwnerID);
+            vetPortal.getVetDatabase().close();
+
+            String value = null;
+            switch (columnIndex) {
+                case 0:
+                    value = obj.getPetName();
+                    break;
+                case 1:
+                    value = obj.getPetSpecies();
+                    break;
+                case 2:
+                    value = obj.getPetGender();
+                    break;
+                case 3:
+                    value = obj.getPetDateOfBirth();
+                    break;
+                case 4:
+                    value = clientLastName;
+            }
+            return value;
+        }
+
+        public void add(Pets content) {
+            int startIndex = getRowCount();
+            petData.add(content);
+            fireTableRowsInserted(startIndex, getRowCount() - 1);
+        }
+
+        public void remove() {
+            petData.clear();
+            fireTableDataChanged();
+            vetPortal.viewAllPets();
+        }
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return columnIndex == 5;
+        }
+    } //end of MyTableModel
+
+    public class PetActionRenderer extends DefaultTableCellRenderer {
+
+        private PetActionPane petActionPane;
+
+        public PetActionRenderer() {
+            petActionPane = new PetActionPane();
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            return petActionPane;
+        }
+    } //end of DefaultTableCellRenderer
+
+    public class PetActionEditor extends AbstractCellEditor implements TableCellEditor {
+
+        private PetActionPane petActionPane;
+
+        public PetActionEditor() {
+            petActionPane = new PetActionPane();
+            petActionPane.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            stopCellEditing();
+                        }
+                    });
+                }
+            });
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return null;
+        }
+
+        @Override
+        public boolean isCellEditable(EventObject e) {
+            return true;
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            return petActionPane;
         }
     } //end of AbstractCellEditor
 

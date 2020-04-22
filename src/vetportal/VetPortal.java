@@ -9,13 +9,10 @@
  *
  * This specific class implements the GUI for the program and the main() method.
  */
-
 package vetportal;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
@@ -43,16 +40,16 @@ public class VetPortal extends JFrame {
     // Create object for Vet Portal (login page)
     private static VetPortal vetPortal;
     // Fields for the Login GUI
-    private javax.swing.JButton exitBtn;
-    private javax.swing.JButton loginBtn;
-    private javax.swing.JPanel loginPanel;
-    private javax.swing.JPasswordField passwordField;
-    private javax.swing.JLabel passwordLabel;
-    private javax.swing.JTextField usernameField;
-    private javax.swing.JLabel usernameLabel;
-    private javax.swing.JLabel warningMsg;
-    private javax.swing.JLabel welcomeLabel;
-    private javax.swing.JPanel welcomePanel;
+    private JButton exitBtn;
+    private JButton loginBtn;
+    private JPanel loginPanel;
+    private JPasswordField passwordField;
+    private JLabel passwordLabel;
+    private JTextField usernameField;
+    private JLabel usernameLabel;
+    private JLabel warningMsg;
+    private JLabel welcomeLabel;
+    private JPanel welcomePanel;
 
     //Create object for DashboardGui
     private static DashboardsGui dashboard;
@@ -61,16 +58,16 @@ public class VetPortal extends JFrame {
     public VetPortal() {
         super("Vet Portal");
 
-        loginPanel = new javax.swing.JPanel();
-        welcomePanel = new javax.swing.JPanel();
-        welcomeLabel = new javax.swing.JLabel();
-        usernameLabel = new javax.swing.JLabel();
-        passwordLabel = new javax.swing.JLabel();
-        usernameField = new javax.swing.JTextField();
-        loginBtn = new javax.swing.JButton();
-        passwordField = new javax.swing.JPasswordField();
-        exitBtn = new javax.swing.JButton();
-        warningMsg = new javax.swing.JLabel();
+        loginPanel = new JPanel();
+        welcomePanel = new JPanel();
+        welcomeLabel = new JLabel();
+        usernameLabel = new JLabel();
+        passwordLabel = new JLabel();
+        usernameField = new JTextField();
+        loginBtn = new JButton();
+        passwordField = new JPasswordField();
+        exitBtn = new JButton();
+        warningMsg = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -113,74 +110,74 @@ public class VetPortal extends JFrame {
         warningMsg.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         warningMsg.setForeground(new java.awt.Color(255, 0, 0));
 
-        javax.swing.GroupLayout welcomePanelLayout = new javax.swing.GroupLayout(welcomePanel);
+        GroupLayout welcomePanelLayout = new GroupLayout(welcomePanel);
         welcomePanel.setLayout(welcomePanelLayout);
         welcomePanelLayout.setHorizontalGroup(
-                welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                welcomePanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(welcomePanelLayout.createSequentialGroup()
-                                .addGroup(welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(welcomePanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addGroup(welcomePanelLayout.createSequentialGroup()
                                                 .addGap(180, 180, 180)
                                                 .addComponent(welcomeLabel))
                                         .addGroup(welcomePanelLayout.createSequentialGroup()
                                                 .addGap(135, 135, 135)
-                                                .addGroup(welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(usernameField, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                                                .addGroup(welcomePanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(usernameField, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                                                         .addComponent(passwordField)
                                                         .addComponent(passwordLabel)
                                                         .addComponent(usernameLabel)
                                                         .addGroup(welcomePanelLayout.createSequentialGroup()
                                                                 .addGap(18, 18, 18)
-                                                                .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(loginBtn, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(35, 35, 35)
-                                                                .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addComponent(warningMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                                                .addComponent(exitBtn, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(warningMsg, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addContainerGap(136, Short.MAX_VALUE))
         );
         welcomePanelLayout.setVerticalGroup(
-                welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                welcomePanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(welcomePanelLayout.createSequentialGroup()
                                 .addGap(43, 43, 43)
                                 .addComponent(welcomeLabel)
                                 .addGap(28, 28, 28)
                                 .addComponent(usernameLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
                                 .addGap(36, 36, 36)
                                 .addComponent(passwordLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(warningMsg)
                                 .addGap(19, 19, 19)
-                                .addGroup(welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(welcomePanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(loginBtn, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(exitBtn, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(151, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
+        GroupLayout loginPanelLayout = new GroupLayout(loginPanel);
         loginPanel.setLayout(loginPanelLayout);
         loginPanelLayout.setHorizontalGroup(
-                loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
+                loginPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
                                 .addGap(0, 75, Short.MAX_VALUE)
-                                .addComponent(welcomePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(welcomePanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         );
         loginPanelLayout.setVerticalGroup(
-                loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(welcomePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                loginPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(welcomePanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(loginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(loginPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(loginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(loginPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -205,6 +202,10 @@ public class VetPortal extends JFrame {
     public static void main(String[] args) {
         vetPortal = new VetPortal();
         vetPortal.setVisible(true);
+
+        //TODO: Remove Testing:
+        vetPortal.createPet(new JLabel("Test"), "Jaeger", "Dog", "MN", "2017-03-18", 1);
+        vetPortal.deletePet("Jaeger", "Dog", "MN", "2017-03-18");
     } //end of main()
     
     // Validation functions for New Client Form Fields
@@ -275,6 +276,7 @@ public class VetPortal extends JFrame {
                 // Close the Login Page
                 vetPortal.setVisible(false);                
                 vetPortal.viewAllClients();
+                vetPortal.viewAllPets();
                 dashboard.setVisible(true);
             }
         // If user is locked out, display error
@@ -376,7 +378,7 @@ public class VetPortal extends JFrame {
         } else {
             // Loop through the clients and add them to the Clients Table              
             DefaultTableModel model = (DefaultTableModel) dashboard.getClientsTable().getModel();
-            DashboardsGui.MyTableModel newModel = (DashboardsGui.MyTableModel) dashboard.getTable().getModel();
+            DashboardsGui.MyClientTableModel newModel = (DashboardsGui.MyClientTableModel) dashboard.getClientTable().getModel();
             for (Clients client : allClients) {
                 Object[] row = {client.getClientFirstName(), client.getClientLastName(), client.getClientEmail(), client.getClientPhoneNumber()};
                 newModel.add(client);
@@ -432,5 +434,90 @@ public class VetPortal extends JFrame {
         vetDatabase.close();
         return false;
     } //end of editClient()
+
+    // Method to create a new pet, called from the AddPet.java file
+    public Boolean createPet(JLabel warnUser, String name, String species, String gender, String dob, int owner) {
+        System.out.println(dob);
+        // Verify no fields are empty
+        if ((name.isEmpty()) || (species.isEmpty()
+                || (gender.isEmpty()) || (dob.toString().isEmpty()))) {
+            warnUser.setText("All fields are required!");
+            return false;
+        }
+        // Verify the name is validly formatted
+        if (!(isValidName(name))) {
+            warnUser.setText("Name may not contain invalid characters!");
+            return false;
+        }
+
+        //TODO: might need to add validation checks on species, gender, and dob - depending on implementation
+
+        //Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return false;
+        }
+        // If INSERT into database fails
+        if (!vetDatabase.insertPet(name, species, gender, dob, owner)) {
+            // Display the error to the user
+            String errorMessage = vetDatabase.getErrorMessage();
+            warnUser.setText(errorMessage);
+            // If INSERT into database is successful
+        } else {
+            // Log the add client action
+            AuditLog.logWriter("successfulPetAdd", name + ", " + species + ", " + gender);
+            return true;
+        }
+        vetDatabase.close();
+        return false;
+    } //end of createPet()
+
+    // Method to delete an existing client
+    public void deletePet(String name, String species, String gender, String dob) {
+        //Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return;
+        }
+
+        // If no client was passed
+        if (!vetDatabase.deletePet(name, species, gender, dob)) {
+            // Display an error
+            String errorMessage = vetDatabase.getErrorMessage();
+            JOptionPane.showMessageDialog(null, errorMessage, "Error: No pet selected", JOptionPane.ERROR_MESSAGE);
+            // Delete the client
+        } else {
+            // Log the deletion
+            AuditLog.logWriter("successfulPetDelete", name + ", " + species + ", " + gender);
+        }
+        vetDatabase.close();
+    } //end of deleteClient()
+
+    //Method to view all pets that currently exist in the database
+    public void viewAllPets() {
+        // Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return;
+        }
+        // Add all the pets to an array
+        ArrayList<Pets> allPets = vetDatabase.selectAllPets();
+        // If the array is empty
+        if (allPets.isEmpty()) {
+            String errorMessage = vetDatabase.getErrorMessage();
+            JOptionPane.showMessageDialog(null, errorMessage, "Error: No pets exist", JOptionPane.ERROR_MESSAGE);
+            // If clients exist
+        } else {
+            // Loop through the pets and add them to the pets Table
+            DashboardsGui.MyPetTableModel newModel = (DashboardsGui.MyPetTableModel) dashboard.getPetTable().getModel();
+            for (Pets pet : allPets) {
+                newModel.add(pet);
+            }
+        }
+        vetDatabase.close();
+    } //end of viewAllClients()
 
 } //end of VetPortal
