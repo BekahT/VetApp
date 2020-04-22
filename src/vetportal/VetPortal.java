@@ -487,8 +487,7 @@ public class VetPortal extends JFrame {
             JOptionPane.showMessageDialog(null, errorMessage, "Error: No pet selected", JOptionPane.ERROR_MESSAGE);
         // Delete the pet
         } else {
-            // Log the deletion
-            // TODO implement audit log for pets
+            // Log the deletion            
             AuditLog.logWriter("successfulPetDelete", name + ", " + species + ", " + gender);
         }
         vetDatabase.close();

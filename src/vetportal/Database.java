@@ -297,7 +297,6 @@ public class Database {
             pstmt.setString(4, dob);
             pstmt.execute();
             pstmt.close();
-            System.out.println("Deleted pet successfully: " + name);
             return true;
         } catch (SQLException e) {
             setErrorMessage("Unable to delete pet.");
