@@ -40,8 +40,12 @@ public class AuditLog {
                         + "- Outcome: Successful Client Edit - " + info + "\n");
                     break;
                 case ("successfulClientDelete"):
-                    writer.write(Instant.now() + " - Type: Delete Client - Location: VetPortal Client Dashboard " 
+                    writer.write(Instant.now() + " - Type: Delete Client - Location: VetPortal Clients Dashboard " 
                         + "- Outcome: Successful Client Delete - " + info + "\n");
+                    break;
+                case ("successfulPetDelete"):
+                    writer.write(Instant.now() + " - Type: Delete Pet - Location: VetPortal Pets Dashboard " 
+                        + "- Outcome: Successful Pet Delete - " + info + "\n");
                     break;
             }            
         // Catch errors

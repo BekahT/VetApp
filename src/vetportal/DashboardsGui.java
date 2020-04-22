@@ -470,6 +470,19 @@ public class DashboardsGui extends JFrame {
         // If No (1) was selected do nothing
 
     } //end of deleteSelectedClient()
+    
+    // Handler for deleting a pet
+    private void deleteSelectedPet(String petName, String petSpecies, String petGender, String petDOB){
+        // As the user to confirm the pet deletion
+        int delete = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + petName + "?", "Confirm Pet Deletion", JOptionPane.YES_NO_OPTION);
+        // If Yes (0) was selected
+        if (delete == 0) {
+            // Delete the client
+            vetPortal.deletePet(petName, petSpecies, petGender, petDOB);
+            myPetTableModel.refetchPets();
+        }
+        // If No (1) was selected do nothing
+    } // end of deleteSelectedPet()
 
     // Handler for logout button click event
     private void logout() {
@@ -607,7 +620,6 @@ public class DashboardsGui extends JFrame {
             Object selectedFirstName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 0);
             Object selectedLastName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 1);
             deleteSelectedClient((String) selectedPhoneNumber, (String) selectedFirstName, (String) selectedLastName);
-            myClientTableModel.refetchClients();
         }      
         
     } //end of ActionPane
@@ -786,8 +798,6 @@ public class DashboardsGui extends JFrame {
         }
     } //end of AbstractCellEditor
 
-    //TODO: Finish code below here:
-
     // Action Pane for Pets Table
     public class PetActionPane extends JPanel {
 
@@ -819,7 +829,13 @@ public class DashboardsGui extends JFrame {
         }
 
         private void delete() {
-
+            // Get the date for the selected pet
+            Object selectedPetName = myPetTableModel.getValueAt(petTable.getSelectedRow(), 0);
+            Object selectedPetSpecies = myPetTableModel.getValueAt(petTable.getSelectedRow(), 1);
+            Object selectedPetGender = myPetTableModel.getValueAt(petTable.getSelectedRow(), 2);
+            Object selectedPetDOB = myPetTableModel.getValueAt(petTable.getSelectedRow(), 3);
+            // Send the data to the delete function
+            deleteSelectedPet((String) selectedPetName, (String) selectedPetSpecies, (String) selectedPetGender, (String) selectedPetDOB);
         }
 
     } //end of ActionPane
@@ -922,7 +938,7 @@ public class DashboardsGui extends JFrame {
             fireTableRowsInserted(startIndex, getRowCount() - 1);
         }
 
-        public void remove() {
+        public void refetchPets() {
             petData.clear();
             fireTableDataChanged();
             vetPortal.viewAllPets();
