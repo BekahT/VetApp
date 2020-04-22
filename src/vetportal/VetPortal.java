@@ -14,8 +14,11 @@ package vetportal;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.table.DefaultTableModel;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 public class VetPortal extends JFrame {
@@ -557,5 +560,30 @@ public class VetPortal extends JFrame {
         vetDatabase.close();
         return false;
     } //end of editPet()
+
+    //Validate date of birth
+    public static Boolean validateDOB(String petDOB) throws ParseException {
+        //format date to match field input
+        DateFormat formatDate = new SimpleDateFormat("MM/dd/yy");
+        //get today's date
+        Date todayDate = new Date();
+        //correctly format today's date
+        Date cTodayDate = formatDate.parse(formatDate.format(todayDate));
+        //correctly format user input
+        Date cPetDOB = formatDate.parse(petDOB);
+
+        //compare the current date to input
+        //if today's date is after the pet's dob (pet's dob in past)
+        if (cTodayDate.compareTo(cPetDOB) > 0) {
+            //return true (valid DOB)
+            System.out.println("true");
+            return true;
+        }
+        //otherwise, return false (invalid dob)
+        else {
+            System.out.println("false");
+            return false;
+        }
+    }
 
 } //end of VetPortal
