@@ -109,7 +109,6 @@ public class DashboardsGui extends JFrame {
 
         createAppointmentBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
         createAppointmentBtn.setText("Create New Appointment");
-        createAppointmentBtn.setToolTipText("");
 
         aClientSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
         aClientSearch.setText("Client:");
@@ -207,7 +206,6 @@ public class DashboardsGui extends JFrame {
         petsTab.setBackground(new Color(255, 255, 255));
         createPetBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
         createPetBtn.setText("Create New Pet");
-        createPetBtn.setToolTipText("");
 
         pNameSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
         pNameSearch.setText("Pet Name:");

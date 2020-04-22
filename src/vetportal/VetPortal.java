@@ -204,9 +204,6 @@ public class VetPortal extends JFrame {
         vetPortal = new VetPortal();
         vetPortal.setVisible(true);
 
-        //TODO: Remove Testing:
-        vetPortal.createPet(new JLabel("Test"), "Jaeger", "Dog", "MN", "2017-03-18", 1);
-        vetPortal.deletePet("Jaeger", "Dog", "MN", "2017-03-18");
     } //end of main()
     
     // Validation functions for New Client Form Fields
@@ -317,13 +314,13 @@ public class VetPortal extends JFrame {
             return false;
         }
 
-		//Attempt to open a connection with the database
+	//Attempt to open a connection with the database
         vetDatabase = new Database();
         if (!vetDatabase.open()) {
             System.out.println("Can't connect to the database!");
             return false;
         }
-		// If INSERT into database fails
+	// If INSERT into database fails
         if (!vetDatabase.insertClient(firstName, lastName, phoneNumber, email)) { 
             // Display the error to the user
             String errorMessage = vetDatabase.getErrorMessage();
@@ -361,7 +358,7 @@ public class VetPortal extends JFrame {
         vetDatabase.close();
     } //end of deleteClient()
 
-// Method to view all clients that currently exist in the database
+    // Method to view all clients that currently exist in the database
     public void viewAllClients() {
         // Attempt to open a connection with the database
         vetDatabase = new Database();
@@ -441,7 +438,7 @@ public class VetPortal extends JFrame {
         System.out.println(dob);
         // Verify no fields are empty
         if ((name.isEmpty()) || (species.isEmpty()
-                || (gender.isEmpty()) || (dob.toString().isEmpty()))) {
+                || (gender.isEmpty()) || (dob.toString().isEmpty()))) { //TODO don't convert dob to string if it's already string
             warnUser.setText("All fields are required!");
             return false;
         }
@@ -474,7 +471,7 @@ public class VetPortal extends JFrame {
         return false;
     } //end of createPet()
 
-    // Method to delete an existing client
+    // Method to delete an existing pet from the database
     public void deletePet(String name, String species, String gender, String dob) {
         //Attempt to open a connection with the database
         vetDatabase = new Database();
@@ -483,14 +480,15 @@ public class VetPortal extends JFrame {
             return;
         }
 
-        // If no client was passed
+        // If no pet was passed
         if (!vetDatabase.deletePet(name, species, gender, dob)) {
             // Display an error
             String errorMessage = vetDatabase.getErrorMessage();
             JOptionPane.showMessageDialog(null, errorMessage, "Error: No pet selected", JOptionPane.ERROR_MESSAGE);
-            // Delete the client
+        // Delete the pet
         } else {
             // Log the deletion
+            // TODO implement audit log for pets
             AuditLog.logWriter("successfulPetDelete", name + ", " + species + ", " + gender);
         }
         vetDatabase.close();
@@ -510,7 +508,7 @@ public class VetPortal extends JFrame {
         if (allPets.isEmpty()) {
             String errorMessage = vetDatabase.getErrorMessage();
             JOptionPane.showMessageDialog(null, errorMessage, "Error: No pets exist", JOptionPane.ERROR_MESSAGE);
-            // If clients exist
+        // If pets exist
         } else {
             // Loop through the pets and add them to the pets Table
             DashboardsGui.MyPetTableModel newModel = (DashboardsGui.MyPetTableModel) dashboard.getPetTable().getModel();
@@ -519,6 +517,45 @@ public class VetPortal extends JFrame {
             }
         }
         vetDatabase.close();
-    } //end of viewAllClients()
+    } //end of viewAllPets()
+
+    // Method to edit information on existing pets
+    public Boolean editPet(JLabel warnUser, int petID, String updatedName, String updatedSpecies, String updatedGender, String updatedDateOfBirth) {
+        // Verify no fields are empty
+        if ((updatedName.isEmpty()) || (updatedSpecies.isEmpty()
+                || (updatedGender.isEmpty()) || (updatedDateOfBirth.isEmpty()))) {
+            warnUser.setText("All fields are required!");
+            return false;
+        }
+        // Verify the name is validly formatted
+        if (!(isValidName(updatedName))) {
+            warnUser.setText("Name may not contain invalid characters!");
+            return false;
+        }
+
+        //TODO: might need to add validation checks on species, gender, and dob - depending on implementation
+
+        // Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return false;
+        }
+
+        // If UPDATE in database fails
+        if (!vetDatabase.updatePet(petID, updatedName, updatedSpecies, updatedGender, updatedDateOfBirth)) {
+            // Show an error
+            String errorMessage = vetDatabase.getErrorMessage();
+            warnUser.setText(errorMessage);
+            // If UPDATE in database is successful
+        } else {
+            // Log successful pet edit
+            // TODO finish implementing audit log for pets
+            AuditLog.logWriter("successfulPetEdit", updatedName + ", " + updatedSpecies + ", " + updatedGender);
+            return true;
+        }
+        vetDatabase.close();
+        return false;
+    } //end of editPet()
 
 } //end of VetPortal
