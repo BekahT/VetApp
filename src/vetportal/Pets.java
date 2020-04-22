@@ -5,7 +5,6 @@
  * Main POC: Brian Rease
  * Purpose: This class is used to create new Pets.
  */
-
 package vetportal;
 
 import java.sql.Date;

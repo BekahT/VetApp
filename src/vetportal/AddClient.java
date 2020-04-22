@@ -4,13 +4,14 @@
  * @Author: Nour Debiat, Rebekah Qu
  * Purpose: This window allows the user to add new clients.
  */
-
 package vetportal;
 
+import javax.swing.*;
+import java.awt.*;
 import javax.swing.text.MaskFormatter;
 import java.text.ParseException;
 
-public class AddClient extends javax.swing.JFrame {
+public class AddClient extends JFrame {
 
     //Creating VetPortal object:
     VetPortal vetPortal;
@@ -18,7 +19,7 @@ public class AddClient extends javax.swing.JFrame {
     /**
      * Creates new form AddClient
 	 * @param vetPortal
-     * @throws java.text.ParseException
+     * @throws ParseException
      */
     public AddClient(VetPortal vetPortal) throws ParseException {
         super("Add New Client Form");
@@ -35,140 +36,140 @@ public class AddClient extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() throws ParseException {
 
-        addClientPanel = new javax.swing.JPanel();
-        cancelBtn = new javax.swing.JButton();
-        submitBtn = new javax.swing.JButton();
-        addClientLabel = new javax.swing.JLabel();
-        firstNameLabel = new javax.swing.JLabel();
-        lastNameLabel = new javax.swing.JLabel();
-        emailLabel = new javax.swing.JLabel();
-        phoneLabel = new javax.swing.JLabel();
-        firstNameField = new javax.swing.JTextField();
-        lastNameField = new javax.swing.JTextField();
-        emailField = new javax.swing.JTextField();
+        addClientPanel = new JPanel();
+        cancelBtn = new JButton();
+        submitBtn = new JButton();
+        addClientLabel = new JLabel();
+        firstNameLabel = new JLabel();
+        lastNameLabel = new JLabel();
+        emailLabel = new JLabel();
+        phoneLabel = new JLabel();
+        firstNameField = new JTextField();
+        lastNameField = new JTextField();
+        emailField = new JTextField();
         MaskFormatter phoneFormat = new MaskFormatter("(###) ###-####");
-        phoneField = new javax.swing.JFormattedTextField(phoneFormat);
-        cWarningMsg = new javax.swing.JLabel();
+        phoneField = new JFormattedTextField(phoneFormat);
+        cWarningMsg = new JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        addClientPanel.setBackground(new java.awt.Color(255, 255, 255));
+        addClientPanel.setBackground(new Color(255, 255, 255));
 
-        cancelBtn.setBackground(new java.awt.Color(255, 255, 255));
-        cancelBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-		cancelBtn.setForeground(new java.awt.Color(122, 188, 255));
+        cancelBtn.setBackground(new Color(255, 255, 255));
+        cancelBtn.setFont(new Font("Calibri", 1, 18)); // NOI18N
+		cancelBtn.setForeground(new Color(122, 188, 255));
         cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(event -> cancel());
 
-        submitBtn.setBackground(new java.awt.Color(255, 255, 255));
-        submitBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N   
-		submitBtn.setForeground(new java.awt.Color(122, 188, 255));		
+        submitBtn.setBackground(new Color(255, 255, 255));
+        submitBtn.setFont(new Font("Calibri", 1, 18)); // NOI18N   
+		submitBtn.setForeground(new Color(122, 188, 255));		
         submitBtn.setText("Submit");
         submitBtn.addActionListener(event -> submit());
         
-        addClientLabel.setBackground(new java.awt.Color(255, 255, 255));
-        addClientLabel.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        addClientLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        addClientLabel.setBackground(new Color(255, 255, 255));
+        addClientLabel.setFont(new Font("Calibri", 0, 20)); // NOI18N
+        addClientLabel.setHorizontalAlignment(SwingConstants.CENTER);
         addClientLabel.setText("<html>Fill out for the form below to add a new client <br>or cancel to return to the Clients Dashboard</html>");
 
-        firstNameLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        firstNameLabel.setFont(new Font("Calibri", 0, 18)); // NOI18N
         firstNameLabel.setText("First Name");
 
-        lastNameLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        lastNameLabel.setFont(new Font("Calibri", 0, 18)); // NOI18N
         lastNameLabel.setText("Last Name");
 
-        emailLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        emailLabel.setFont(new Font("Calibri", 0, 18)); // NOI18N
         emailLabel.setText("Email");
 
-        phoneLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        phoneLabel.setFont(new Font("Calibri", 0, 18)); // NOI18N
         phoneLabel.setText("Phone Number");
 
-        firstNameField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        firstNameField.setFont(new Font("Calibri", 0, 18)); // NOI18N
 
-        lastNameField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        lastNameField.setFont(new Font("Calibri", 0, 18)); // NOI18N
 
-        emailField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        emailField.setFont(new Font("Calibri", 0, 18)); // NOI18N
 
-        phoneField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        phoneField.setFont(new Font("Calibri", 0, 18)); // NOI18N
 
-        cWarningMsg.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        cWarningMsg.setForeground(new java.awt.Color(203, 0, 0));
-        cWarningMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cWarningMsg.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        cWarningMsg.setForeground(new Color(203, 0, 0));
+        cWarningMsg.setHorizontalAlignment(SwingConstants.CENTER);
 
-        javax.swing.GroupLayout addClientPanelLayout = new javax.swing.GroupLayout(addClientPanel);
+        GroupLayout addClientPanelLayout = new GroupLayout(addClientPanel);
         addClientPanel.setLayout(addClientPanelLayout);
         addClientPanelLayout.setHorizontalGroup(
-            addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            addClientPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(addClientPanelLayout.createSequentialGroup()
                 .addGap(70, 70, 70)
-                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(addClientPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                     .addComponent(lastNameLabel)
                     .addComponent(firstNameLabel)
                     .addComponent(emailLabel)
                     .addComponent(phoneLabel))
                 .addGap(18, 18, 18)
-                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(firstNameField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                .addGroup(addClientPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                    .addComponent(firstNameField, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                     .addComponent(lastNameField)
                     .addComponent(emailField)
-                    .addComponent(phoneField, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addClientPanelLayout.createSequentialGroup()
+                    .addComponent(phoneField, GroupLayout.Alignment.TRAILING))
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(GroupLayout.Alignment.TRAILING, addClientPanelLayout.createSequentialGroup()
                 .addGap(0, 36, Short.MAX_VALUE)
-                .addComponent(addClientLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addClientLabel, GroupLayout.PREFERRED_SIZE, 478, GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36))
             .addGroup(addClientPanelLayout.createSequentialGroup()
                 .addGap(130, 130, 130)
                 .addComponent(submitBtn)
                 .addGap(110, 110, 110)
                 .addComponent(cancelBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addClientPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cWarningMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(GroupLayout.Alignment.TRAILING, addClientPanelLayout.createSequentialGroup()
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cWarningMsg, GroupLayout.PREFERRED_SIZE, 385, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         addClientPanelLayout.setVerticalGroup(
-            addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            addClientPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(addClientPanelLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(addClientLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addClientLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
-                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addClientPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(firstNameLabel)
-                    .addComponent(firstNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(firstNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addClientPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(lastNameLabel)
-                    .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lastNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(addClientPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(emailField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(emailLabel))
                 .addGap(18, 18, 18)
-                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addClientPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(phoneLabel)
-                    .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(phoneField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(cWarningMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cWarningMsg, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(addClientPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addClientPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(submitBtn)
                     .addComponent(cancelBtn))
                 .addContainerGap(94, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(addClientPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addClientPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addClientPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(addClientPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -208,18 +209,18 @@ public class AddClient extends javax.swing.JFrame {
     } //end of createNewClient()
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel addClientLabel;
-    private javax.swing.JPanel addClientPanel;
-    private javax.swing.JLabel cWarningMsg;
-    private javax.swing.JButton cancelBtn;
-    private javax.swing.JTextField emailField;
-    private javax.swing.JLabel emailLabel;
-    private javax.swing.JTextField firstNameField;
-    private javax.swing.JLabel firstNameLabel;
-    private javax.swing.JTextField lastNameField;
-    private javax.swing.JLabel lastNameLabel;
-    private javax.swing.JTextField phoneField;
-    private javax.swing.JLabel phoneLabel;
-    private javax.swing.JButton submitBtn;
+    private JLabel addClientLabel;
+    private JPanel addClientPanel;
+    private JLabel cWarningMsg;
+    private JButton cancelBtn;
+    private JTextField emailField;
+    private JLabel emailLabel;
+    private JTextField firstNameField;
+    private JLabel firstNameLabel;
+    private JTextField lastNameField;
+    private JLabel lastNameLabel;
+    private JTextField phoneField;
+    private JLabel phoneLabel;
+    private JButton submitBtn;
     // End of variables declaration//GEN-END:variables
 }
