@@ -114,6 +114,29 @@ public class Database {
         }
     } //end of getClientID()
 
+    public int getPetID(String name, String species, String gender, String dob, int owner) {
+        String sql = "SELECT " + COLUMN_PET_ID
+                + " FROM " + TABLE_PETS + " WHERE "
+                + COLUMN_PET_NAME + "=?" + " AND "
+                + COLUMN_PET_SPECIES + "=?" + " AND "
+                + COLUMN_PET_GENDER + "=?" + " AND "
+                + COLUMN_PET_DATE_OF_BIRTH + "=DATE(?)" + " AND "
+                + COLUMN_PET_OWNER + "=?";
+
+        try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            pstmt.setString(2, species);
+            pstmt.setString(3, gender);
+            pstmt.setString(4, dob);
+            pstmt.setInt(5, owner);
+            ResultSet idResult = pstmt.executeQuery();
+            return idResult.getInt("pet_id");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
+    }
+
     /*
     This method uses the Apache commons codec to hash a given 'password' String with sha256.
     The hash is then compared to a password hash in the sqlite database
@@ -304,5 +327,29 @@ public class Database {
             return null;
         }
     } //end of selectAllPets()
+
+    // This method updates a pet with edited information in the pet table in the database
+    public boolean updatePet(int petID, String name, String species, String gender, String dob) {
+        String sql = "UPDATE " + TABLE_PETS
+                + " SET " + COLUMN_PET_NAME + "=?, "
+                + COLUMN_PET_SPECIES + "=?, "
+                + COLUMN_PET_GENDER + "=?, "
+                + COLUMN_PET_DATE_OF_BIRTH + "=? "
+                + "WHERE " + COLUMN_PET_ID + "=?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            pstmt.setString(2, species);
+            pstmt.setString(3, gender);
+            pstmt.setString(4, dob);
+            pstmt.setInt(5, petID);
+            pstmt.executeUpdate();
+            pstmt.close();
+            return true;
+        } catch (SQLException e)  {
+            setErrorMessage("Unable to update pet.");
+            System.out.println(e.getMessage());
+            return false;
+        }
+    } //end of updatePet()
 
 } //end of Database

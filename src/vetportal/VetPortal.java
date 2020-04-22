@@ -205,8 +205,9 @@ public class VetPortal extends JFrame {
         vetPortal.setVisible(true);
 
         //TODO: Remove Testing:
-        vetPortal.createPet(new JLabel("Test"), "Jaeger", "Dog", "MN", "2017-03-18", 1);
-        vetPortal.deletePet("Jaeger", "Dog", "MN", "2017-03-18");
+        //vetPortal.createPet(new JLabel("Test"), "Jaeger", "Dog", "MN", "2017-03-18", 1);
+        //vetPortal.deletePet("Jaeger", "Dog", "MN", "2017-03-18");
+        //vetPortal.editPet(new JLabel("Test"), 2,"Jaeger", "Dog", "MN", "2017-01-01");
     } //end of main()
     
     // Validation functions for New Client Form Fields
@@ -520,5 +521,43 @@ public class VetPortal extends JFrame {
         }
         vetDatabase.close();
     } //end of viewAllClients()
+
+    // Method to edit information on existing clients
+    public Boolean editPet(JLabel warnUser, int petID, String updatedName, String updatedSpecies, String updatedGender, String updatedDateOfBirth) {
+        // Verify no fields are empty
+        if ((updatedName.isEmpty()) || (updatedSpecies.isEmpty()
+                || (updatedGender.isEmpty()) || (updatedDateOfBirth.isEmpty()))) {
+            warnUser.setText("All fields are required!");
+            return false;
+        }
+        // Verify the name is validly formatted
+        if (!(isValidName(updatedName))) {
+            warnUser.setText("Name may not contain invalid characters!");
+            return false;
+        }
+
+        //TODO: might need to add validation checks on species, gender, and dob - depending on implementation
+
+        // Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return false;
+        }
+
+        // If UPDATE in database fails
+        if (!vetDatabase.updatePet(petID, updatedName, updatedSpecies, updatedGender, updatedDateOfBirth)) {
+            // Show an error
+            String errorMessage = vetDatabase.getErrorMessage();
+            warnUser.setText(errorMessage);
+            // If UPDATE in database is successful
+        } else {
+            // Log successful client edit
+            AuditLog.logWriter("successfulPetEdit", updatedName + ", " + updatedSpecies + ", " + updatedGender);
+            return true;
+        }
+        vetDatabase.close();
+        return false;
+    } //end of editClient()
 
 } //end of VetPortal
