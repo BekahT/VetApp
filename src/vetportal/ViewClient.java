@@ -76,8 +76,8 @@ public class ViewClient extends JFrame {
 
         emailField.setEditable(false);
         emailField.setFont(new Font("Calibri", 0, 14)); // NOI18N
-        emailField.addActionListener(new event.ActionListener() {
-            public void actionPerformed(event.ActionEvent evt) {
+        emailField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailFieldActionPerformed(evt);
             }
         });
@@ -152,7 +152,7 @@ public class ViewClient extends JFrame {
         cPetScrollPane.setBackground(new Color(255, 255, 255));
 
         cPetTable.setFont(new Font("Calibri", 0, 14)); // NOI18N
-        cPetTable.setModel(new table.DefaultTableModel(
+        cPetTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -204,7 +204,7 @@ public class ViewClient extends JFrame {
         cAppointmentsScrollPane.setBackground(new Color(255, 255, 255));
 
         cAppointmentsTable.setFont(new Font("Calibri", 0, 14)); // NOI18N
-        cAppointmentsTable.setModel(new table.DefaultTableModel(
+        cAppointmentsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -278,7 +278,7 @@ public class ViewClient extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void emailFieldActionPerformed(event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
+    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailFieldActionPerformed
 

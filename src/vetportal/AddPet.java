@@ -87,8 +87,8 @@ public class AddPet extends JFrame {
         speciesDropDown.setEditable(true);
         speciesDropDown.setFont(new Font("Calibri", 0, 18)); // NOI18N
         speciesDropDown.setModel(new DefaultComboBoxModel<>(new String[] { "Dog", "Cat", "Bird", "Small Mammal", "Fish", "Reptile" }));
-        speciesDropDown.addActionListener(new event.ActionListener() {
-            public void actionPerformed(event.ActionEvent evt) {
+        speciesDropDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 speciesDropDownActionPerformed(evt);
             }
         });
@@ -100,7 +100,7 @@ public class AddPet extends JFrame {
         dobLabel.setFont(new Font("Calibri", 0, 18)); // NOI18N
         dobLabel.setText("Date of Birth");
 
-        dobField.setFormatterFactory(new text.DefaultFormatterFactory(new text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        dobField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
         dobField.setFont(new Font("Calibri", 0, 18)); // NOI18N
 
         GroupLayout addPetPanelLayout = new GroupLayout(addPetPanel);
@@ -186,7 +186,7 @@ public class AddPet extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void speciesDropDownActionPerformed(event.ActionEvent evt) {//GEN-FIRST:event_speciesDropDownActionPerformed
+    private void speciesDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speciesDropDownActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_speciesDropDownActionPerformed
 

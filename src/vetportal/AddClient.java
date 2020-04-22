@@ -8,7 +8,7 @@ package vetportal;
 
 import javax.swing.*;
 import java.awt.*;
-import text.MaskFormatter;
+import javax.swing.text.MaskFormatter;
 import java.text.ParseException;
 
 public class AddClient extends JFrame {
