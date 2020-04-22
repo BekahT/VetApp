@@ -205,7 +205,7 @@ public class EditClient extends javax.swing.JFrame {
         // Refresh the Clients Table in the Dashboard
         DashboardsGui dashboard = vetPortal.getDashboard();
         DashboardsGui.MyClientTableModel model = (DashboardsGui.MyClientTableModel) dashboard.getClientTable().getModel();
-        model.remove(); 
+        model.refetchClients(); 
     } //end of editSelectedClient()
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
