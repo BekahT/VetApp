@@ -437,7 +437,7 @@ public class VetPortal extends JFrame {
     } //end of editClient()
 
     // Method to create a new pet, called from the AddPet.java file
-    public Boolean createPet(JLabel warnUser, String name, String species, String gender, String dob, int owner) {
+    public Boolean createPet(JLabel warnUser, String name, String species, String gender, String dob, int owner) throws ParseException {
         System.out.println(dob);
         // Verify no fields are empty
         if ((name.isEmpty()) || (species.isEmpty()
@@ -450,8 +450,11 @@ public class VetPortal extends JFrame {
             warnUser.setText("Name may not contain invalid characters!");
             return false;
         }
-
-        //TODO: might need to add validation checks on species, gender, and dob - depending on implementation
+        //Verify that the dob is a past date
+        if(validateDOB(dob)) {
+            warnUser.setText("Pet's date of birth cannot be in the future!");
+            return false;
+        }
 
         //Attempt to open a connection with the database
         vetDatabase = new Database();

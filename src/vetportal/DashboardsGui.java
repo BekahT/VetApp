@@ -25,6 +25,7 @@ public class DashboardsGui extends JFrame {
     VetPortal vetPortal;
     AddClient addClientPage;
     EditClient editClientPage;
+    AddPet addPetPage;
     /**
      * Creates new form DashboardsGui
 	 * @param vetPortal
@@ -206,6 +207,13 @@ public class DashboardsGui extends JFrame {
         petsTab.setBackground(new Color(255, 255, 255));
         createPetBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
         createPetBtn.setText("Create New Pet");
+        createPetBtn.addActionListener(event -> {
+            try {
+                openCreatePet();
+            } catch (ParseException ex) {
+                // Do nothing
+            }
+        });
 
         pNameSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
         pNameSearch.setText("Pet Name:");
@@ -521,6 +529,13 @@ public class DashboardsGui extends JFrame {
 
     public JTable getPetTable() {
         return petTable;
+    }
+
+    // Handler for create client button click event
+    private void openCreatePet() throws ParseException {
+        // Open the Add Client Page
+        addPetPage = new AddPet();
+        addPetPage.setVisible(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
