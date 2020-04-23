@@ -7,10 +7,17 @@ public class AddPet extends javax.swing.JFrame {
     // Create a new VetPortal instance
     VetPortal vetPortal;
 
+    //Variables to store Client's name:
+    String clientFirstName;
+    String clientLastName;
+
     /**
      * Creates new form AddClient
      */
-    public AddPet() {
+    public AddPet(VetPortal vetPortal, String clientFirstName, String clientLastName) {
+        this.vetPortal = vetPortal;
+        this.clientFirstName = clientFirstName;
+        this.clientLastName = clientLastName;
         initComponents();
     }
 
@@ -32,7 +39,7 @@ public class AddPet extends javax.swing.JFrame {
         speciesLabel = new javax.swing.JLabel();
         genderLabel = new javax.swing.JLabel();
         petNameField = new javax.swing.JTextField();
-        clientNameField = new javax.swing.JTextField();
+        clientNameField = new javax.swing.JTextField(clientFirstName + " " + clientLastName);
         cancelInstructionLabel = new javax.swing.JLabel();
         speciesDropDown = new javax.swing.JComboBox<>();
         genderDropDown = new javax.swing.JComboBox<>();
@@ -201,7 +208,8 @@ public class AddPet extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void speciesDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speciesDropDownActionPerformed
-        // TODO add your handling code here:
+        //TODO add your handling code here:
+        // EDIT - don't think I need this? Although should make the dropdown fields un-editable
     }//GEN-LAST:event_speciesDropDownActionPerformed
 
     // Submit pet information
@@ -213,7 +221,11 @@ public class AddPet extends javax.swing.JFrame {
     // Create a new pet function
     private void createNewPet() throws ParseException {
         //TODO: Need to change last value to select actual owner from table
-        Boolean createTF = vetPortal.createPet(warningField, petNameField.getText(), String.valueOf(speciesDropDown.getSelectedItem()), String.valueOf(genderDropDown.getSelectedItem()), dobField.getText(), 1);
+        // EDIT - I think you mean client_id?
+        Object clientPhoneNumber =  vetPortal.getDashboard().getMyClientTableModel().getValueAt(vetPortal.getDashboard().getClientTable().getSelectedRow(), 3);
+        vetPortal.getVetDatabase().open();
+        int client_id = vetPortal.getVetDatabase().getClientID((String)clientPhoneNumber);
+        Boolean createTF = vetPortal.createPet(warningField, petNameField.getText(), String.valueOf(speciesDropDown.getSelectedItem()), String.valueOf(genderDropDown.getSelectedItem()), dobField.getText(), client_id);
 
         // If creation was successful
         if(createTF) {
@@ -226,10 +238,10 @@ public class AddPet extends javax.swing.JFrame {
         }
         // If creation was not successful, cWarningMsg will convey any errors to the user
 
-        // Refresh the Clients Table in the Dashboard
+        // Refresh the Pets Table in the Dashboard
         DashboardsGui dashboard = vetPortal.getDashboard();
-        DashboardsGui.MyClientTableModel model = (DashboardsGui.MyClientTableModel) dashboard.getClientTable().getModel();
-        model.refetchClients();
+        DashboardsGui.MyPetTableModel model = (DashboardsGui.MyPetTableModel)dashboard.getPetTable().getModel();
+        model.refetchPets();
     }
 
     // Cancel button function

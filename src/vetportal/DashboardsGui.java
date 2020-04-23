@@ -528,10 +528,20 @@ public class DashboardsGui extends JFrame {
         return petTable;
     }
 
+    public MyClientTableModel getMyClientTableModel() {
+        return myClientTableModel;
+    }
+
+    public MyPetTableModel getMyPetTableModel() {
+        return myPetTableModel;
+    }
+
     // Create pet function
     private void openCreatePet() throws ParseException {
         // Open the Add Client Page
-        addPetPage = new AddPet();
+        Object firstName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 0);
+        Object lastName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 1);
+        addPetPage = new AddPet(vetPortal, (String)firstName, (String)lastName);
         addPetPage.setVisible(true);
     }
 
@@ -616,10 +626,10 @@ public class DashboardsGui extends JFrame {
             add(editButton);
             add(deleteButton);
             add(addPetButton);
-                    
+
             editButton.addActionListener(event -> edit());
             deleteButton.addActionListener(event -> delete());
-            addPetButton.addActionListener(event -> System.out.println("clicked add pet button"));
+            addPetButton.addActionListener(event -> addPet());
         } //end of constructor
 
         public void addActionListener(ActionListener listener) {
@@ -646,7 +656,15 @@ public class DashboardsGui extends JFrame {
             Object selectedFirstName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 0);
             Object selectedLastName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 1);
             deleteSelectedClient((String) selectedPhoneNumber, (String) selectedFirstName, (String) selectedLastName);
-        }      
+        }
+
+        private void addPet() {
+            try {
+                openCreatePet();
+            } catch (ParseException e) {
+                //TODO: do anything here?
+            }
+        }
         
     } //end of ActionPane
 

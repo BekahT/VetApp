@@ -442,20 +442,23 @@ public class VetPortal extends JFrame {
         System.out.println(dob);
         // Verify no fields are empty
         if ((name.isEmpty()) || (species.isEmpty()
-                || (gender.isEmpty()) || (dob.toString().isEmpty()))) { //TODO don't convert dob to string if it's already string
+                || (gender.isEmpty()) || (dob.isEmpty()))) { //TODO don't convert dob to string if it's already string
             warnUser.setText("All fields are required!");
             return false;
         }
+        System.out.println("Passed empty check");
         // Verify the name is validly formatted
         if (!(isValidName(name))) {
             warnUser.setText("Name may not contain invalid characters!");
             return false;
         }
+        System.out.println("Passed valid name check");
         //Verify that the dob is a past date
-        if(validateDOB(dob)) {
+        if(!(validateDOB(dob))) {
             warnUser.setText("Pet's date of birth cannot be in the future!");
             return false;
         }
+        System.out.println("Passed dob check");
 
         //Attempt to open a connection with the database
         vetDatabase = new Database();
@@ -566,13 +569,17 @@ public class VetPortal extends JFrame {
     //Validate date of birth
     public static Boolean validateDOB(String petDOB) throws ParseException {
         //format date to match field input
-        DateFormat formatDate = new SimpleDateFormat("MM/dd/yy");
+        DateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
         //get today's date
         Date todayDate = new Date();
         //correctly format today's date
         Date cTodayDate = formatDate.parse(formatDate.format(todayDate));
         //correctly format user input
         Date cPetDOB = formatDate.parse(petDOB);
+
+        //TODO: Remove println
+        System.out.println(cTodayDate);
+        System.out.println(cPetDOB);
 
         //compare the current date to input
         //if today's date is after the pet's dob (pet's dob in past)
