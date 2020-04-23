@@ -250,7 +250,8 @@ public class DashboardsGui extends JFrame {
         }
 
         pClientSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
-        pClientSearch.setText("Owner:");
+        pClientSearch.setText("Client:");
+        pClientSearch.setToolTipText("Enter the last name of the client who is the owner.");
 
         pDOBField.setFont(new Font("Calibri", 0, 14)); // NOI18N
         
@@ -538,7 +539,7 @@ public class DashboardsGui extends JFrame {
 
     // Create pet function
     private void openCreatePet() throws ParseException {
-        // Open the Add Client Page
+        // Open the Add Pet Page
         Object firstName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 0);
         Object lastName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 1);
         addPetPage = new AddPet(vetPortal, (String)firstName, (String)lastName);
@@ -548,7 +549,7 @@ public class DashboardsGui extends JFrame {
     // Move to Client tab
     private void moveToClientTab() {
         // Instruct user to select client
-        JOptionPane.showConfirmDialog(null, "Please select a client profile to add a pet to.", "Add Pet Instructions", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Please select a client and click the paw button to add a pet.", "Add Pet Instructions", JOptionPane.PLAIN_MESSAGE);
 
         // Move the user to the clients tab
         dashboardTabs.setSelectedIndex(2);
@@ -647,7 +648,7 @@ public class DashboardsGui extends JFrame {
                 // Pass to the event handler
                 editSelectedClient((String) selectedFirstName, (String) selectedLastName, (String) selectedEmail, (String) selectedPhoneNumber);
             } catch (ParseException ex) {
-                // DO nothing
+                // Do nothing
             }
         }          
 
@@ -661,8 +662,8 @@ public class DashboardsGui extends JFrame {
         private void addPet() {
             try {
                 openCreatePet();
-            } catch (ParseException e) {
-                //TODO: do anything here?
+            } catch (ParseException ex) {
+                // Do nothing
             }
         }
         

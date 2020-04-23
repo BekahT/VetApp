@@ -1,8 +1,17 @@
+/**
+ * File: AddPet.java
+ * Date: April 22, 2020
+ * @Author: Nour Debiat, Brian Rease, Rebekah Qu
+ * Purpose: This window displays the window where staff can add a new pet to a client.
+ */
+
 package vetportal;
 
 import java.text.ParseException;
+import javax.swing.*;
+import javax.swing.text.MaskFormatter;
 
-public class AddPet extends javax.swing.JFrame {
+public class AddPet extends JFrame {
 
     // Create a new VetPortal instance
     VetPortal vetPortal;
@@ -14,7 +23,7 @@ public class AddPet extends javax.swing.JFrame {
     /**
      * Creates new form AddClient
      */
-    public AddPet(VetPortal vetPortal, String clientFirstName, String clientLastName) {
+    public AddPet(VetPortal vetPortal, String clientFirstName, String clientLastName) throws ParseException {
         this.vetPortal = vetPortal;
         this.clientFirstName = clientFirstName;
         this.clientLastName = clientLastName;
@@ -28,26 +37,27 @@ public class AddPet extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() throws ParseException{
 
-        addPetPanel = new javax.swing.JPanel();
-        cancelBtn = new javax.swing.JButton();
-        submitBtn = new javax.swing.JButton();
-        addPetLabel = new javax.swing.JLabel();
-        petNameLabel = new javax.swing.JLabel();
-        clientNameLabel = new javax.swing.JLabel();
-        speciesLabel = new javax.swing.JLabel();
-        genderLabel = new javax.swing.JLabel();
-        petNameField = new javax.swing.JTextField();
-        clientNameField = new javax.swing.JTextField(clientFirstName + " " + clientLastName);
-        cancelInstructionLabel = new javax.swing.JLabel();
-        speciesDropDown = new javax.swing.JComboBox<>();
-        genderDropDown = new javax.swing.JComboBox<>();
-        dobLabel = new javax.swing.JLabel();
-        dobField = new javax.swing.JFormattedTextField();
-        warningField = new javax.swing.JLabel();
+        addPetPanel = new JPanel();
+        cancelBtn = new JButton();
+        submitBtn = new JButton();
+        addPetLabel = new JLabel();
+        petNameLabel = new JLabel();
+        clientNameLabel = new JLabel();
+        speciesLabel = new JLabel();
+        genderLabel = new JLabel();
+        petNameField = new JTextField();
+        clientNameField = new JTextField(clientFirstName + " " + clientLastName);
+        cancelInstructionLabel = new JLabel();
+        speciesDropDown = new JComboBox<>();
+        genderDropDown = new JComboBox<>();
+        dobLabel = new JLabel();
+        MaskFormatter petDOBFormat = new MaskFormatter("####-##-##");
+        dobField = new JFormattedTextField(petDOBFormat);
+        warningField = new JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         addPetPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -92,13 +102,13 @@ public class AddPet extends javax.swing.JFrame {
 
         cancelInstructionLabel.setBackground(new java.awt.Color(255, 255, 255));
         cancelInstructionLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        cancelInstructionLabel.setText("or cancel to return to Pets Dashboard");
+        cancelInstructionLabel.setText("or cancel to return to Clients Dashboard");
         cancelInstructionLabel.setMaximumSize(new java.awt.Dimension(74, 200));
         cancelInstructionLabel.setMinimumSize(new java.awt.Dimension(74, 200));
 
         speciesDropDown.setEditable(true);
         speciesDropDown.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        speciesDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dog", "Cat", "Bird", "Small Mammal", "Fish", "Reptile" }));
+        speciesDropDown.setModel(new DefaultComboBoxModel<>(new String[] { "Dog", "Cat", "Bird", "Small Mammal", "Fish", "Reptile" }));
         speciesDropDown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 speciesDropDownActionPerformed(evt);
@@ -107,7 +117,7 @@ public class AddPet extends javax.swing.JFrame {
 
         genderDropDown.setEditable(true);
         genderDropDown.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        genderDropDown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "F", "M", "FS", "MN" }));
+        genderDropDown.setModel(new DefaultComboBoxModel<>(new String[] { "F", "M", "FS", "MN" }));
 
         dobLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         dobLabel.setText("Date of Birth");
@@ -118,74 +128,74 @@ public class AddPet extends javax.swing.JFrame {
         warningField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         warningField.setForeground(new java.awt.Color(198, 0, 0));
 
-        javax.swing.GroupLayout addPetPanelLayout = new javax.swing.GroupLayout(addPetPanel);
+        GroupLayout addPetPanelLayout = new GroupLayout(addPetPanel);
         addPetPanel.setLayout(addPetPanelLayout);
         addPetPanelLayout.setHorizontalGroup(
-            addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(addPetPanelLayout.createSequentialGroup()
-                .addGroup(addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(addPetPanelLayout.createSequentialGroup()
                         .addGap(70, 70, 70)
-                        .addGroup(addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cancelInstructionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(addPetLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(cancelInstructionLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addPetLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                     .addGroup(addPetPanelLayout.createSequentialGroup()
                         .addGap(100, 100, 100)
                         .addComponent(submitBtn)
                         .addGap(54, 54, 54)
                         .addComponent(cancelBtn))
-                    .addGroup(addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                         .addGroup(addPetPanelLayout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(warningField, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, addPetPanelLayout.createSequentialGroup()
+                            .addComponent(warningField, GroupLayout.PREFERRED_SIZE, 273, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(GroupLayout.Alignment.LEADING, addPetPanelLayout.createSequentialGroup()
                             .addGap(70, 70, 70)
-                            .addGroup(addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                 .addComponent(clientNameLabel)
                                 .addComponent(petNameLabel)
                                 .addComponent(speciesLabel)
                                 .addComponent(genderLabel)
                                 .addComponent(dobLabel))
                             .addGap(18, 18, 18)
-                            .addGroup(addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(clientNameField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(petNameField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(speciesDropDown, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(genderDropDown, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(dobField, javax.swing.GroupLayout.Alignment.LEADING)))))
+                            .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(clientNameField, GroupLayout.Alignment.LEADING)
+                                .addComponent(petNameField, GroupLayout.Alignment.LEADING)
+                                .addComponent(speciesDropDown, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(genderDropDown, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dobField, GroupLayout.Alignment.LEADING)))))
                 .addContainerGap(100, Short.MAX_VALUE))
         );
         addPetPanelLayout.setVerticalGroup(
-            addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(addPetPanelLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(addPetLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cancelInstructionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addPetLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cancelInstructionLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addGroup(addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(petNameLabel)
-                    .addComponent(petNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(petNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(clientNameLabel)
-                    .addComponent(clientNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(clientNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                     .addComponent(speciesLabel)
-                    .addComponent(speciesDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(speciesDropDown, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(genderLabel)
-                    .addComponent(genderDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(genderDropDown, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(dobLabel)
-                    .addComponent(dobField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dobField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(warningField)
                 .addGap(28, 28, 28)
-                .addGroup(addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(submitBtn)
                     .addComponent(cancelBtn))
                 .addContainerGap(99, Short.MAX_VALUE))
@@ -193,15 +203,15 @@ public class AddPet extends javax.swing.JFrame {
 
         addPetLabel.getAccessibleContext().setAccessibleName("");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addPetPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(addPetPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addPetPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(addPetPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -251,21 +261,21 @@ public class AddPet extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel addPetLabel;
-    private javax.swing.JPanel addPetPanel;
-    private javax.swing.JButton cancelBtn;
-    private javax.swing.JLabel cancelInstructionLabel;
-    private javax.swing.JTextField clientNameField;
-    private javax.swing.JLabel clientNameLabel;
-    private javax.swing.JFormattedTextField dobField;
-    private javax.swing.JLabel dobLabel;
-    private javax.swing.JComboBox<String> genderDropDown;
-    private javax.swing.JLabel genderLabel;
-    private javax.swing.JTextField petNameField;
-    private javax.swing.JLabel petNameLabel;
-    private javax.swing.JComboBox<String> speciesDropDown;
-    private javax.swing.JLabel speciesLabel;
-    private javax.swing.JButton submitBtn;
-    private javax.swing.JLabel warningField;
+    private JLabel addPetLabel;
+    private JPanel addPetPanel;
+    private JButton cancelBtn;
+    private JLabel cancelInstructionLabel;
+    private JTextField clientNameField;
+    private JLabel clientNameLabel;
+    private JFormattedTextField dobField;
+    private JLabel dobLabel;
+    private JComboBox<String> genderDropDown;
+    private JLabel genderLabel;
+    private JTextField petNameField;
+    private JLabel petNameLabel;
+    private JComboBox<String> speciesDropDown;
+    private JLabel speciesLabel;
+    private JButton submitBtn;
+    private JLabel warningField;
     // End of variables declaration//GEN-END:variables
 }

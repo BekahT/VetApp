@@ -439,26 +439,25 @@ public class VetPortal extends JFrame {
 
     // Method to create a new pet, called from the AddPet.java file
     public Boolean createPet(JLabel warnUser, String name, String species, String gender, String dob, int owner) throws ParseException {
-        System.out.println(dob);
+
         // Verify no fields are empty
         if ((name.isEmpty()) || (species.isEmpty()
-                || (gender.isEmpty()) || (dob.isEmpty()))) { //TODO don't convert dob to string if it's already string
+                || (gender.isEmpty()) || (dob.isEmpty()))) {
             warnUser.setText("All fields are required!");
             return false;
         }
-        System.out.println("Passed empty check");
+        
         // Verify the name is validly formatted
         if (!(isValidName(name))) {
             warnUser.setText("Name may not contain invalid characters!");
             return false;
         }
-        System.out.println("Passed valid name check");
+        
         //Verify that the dob is a past date
         if(!(validateDOB(dob))) {
-            warnUser.setText("Pet's date of birth cannot be in the future!");
+            warnUser.setText("Date of birth must be in the past!");
             return false;
         }
-        System.out.println("Passed dob check");
 
         //Attempt to open a connection with the database
         vetDatabase = new Database();
@@ -473,7 +472,7 @@ public class VetPortal extends JFrame {
             warnUser.setText(errorMessage);
             // If INSERT into database is successful
         } else {
-            // Log the add client action
+            // Log the add pet action
             AuditLog.logWriter("successfulPetAdd", name + ", " + species + ", " + gender + ", " + dob);
             return true;
         }
@@ -577,20 +576,14 @@ public class VetPortal extends JFrame {
         //correctly format user input
         Date cPetDOB = formatDate.parse(petDOB);
 
-        //TODO: Remove println
-        System.out.println(cTodayDate);
-        System.out.println(cPetDOB);
-
         //compare the current date to input
         //if today's date is after the pet's dob (pet's dob in past)
         if (cTodayDate.compareTo(cPetDOB) > 0) {
             //return true (valid DOB)
-            System.out.println("true");
             return true;
         }
         //otherwise, return false (invalid dob)
         else {
-            System.out.println("false");
             return false;
         }
     }
