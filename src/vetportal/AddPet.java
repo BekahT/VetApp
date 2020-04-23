@@ -1,20 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * File: AddPet.java
+ * Date: April 22, 2020
+ * @Author: Nour Debiat, Brian Rease, Rebekah Qu
+ * Purpose: This window displays the window where staff can add a new pet to a client.
  */
 
 package vetportal;
 
+import java.text.ParseException;
 import javax.swing.*;
-import java.awt.*;
+import javax.swing.text.MaskFormatter;
 
 public class AddPet extends JFrame {
 
+    // Create a new VetPortal instance
+    VetPortal vetPortal;
+
+    //Variables to store Client's name:
+    String clientFirstName;
+    String clientLastName;
+
     /**
-     * Creates new form AddPet()
+     * Creates new form AddPet
      */
-    public AddPet() {
+    public AddPet(VetPortal vetPortal, String clientFirstName, String clientLastName) throws ParseException {
+        this.vetPortal = vetPortal;
+        this.clientFirstName = clientFirstName;
+        this.clientLastName = clientLastName;
         initComponents();
     }
 
@@ -25,7 +37,7 @@ public class AddPet extends JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() throws ParseException{
 
         addPetPanel = new JPanel();
         cancelBtn = new JButton();
@@ -36,72 +48,80 @@ public class AddPet extends JFrame {
         speciesLabel = new JLabel();
         genderLabel = new JLabel();
         petNameField = new JTextField();
-        clientNameField = new JTextField();
+        clientNameField = new JTextField(clientFirstName + " " + clientLastName);
         cancelInstructionLabel = new JLabel();
         speciesDropDown = new JComboBox<>();
         genderDropDown = new JComboBox<>();
         dobLabel = new JLabel();
-        dobField = new JFormattedTextField();
+        MaskFormatter petDOBFormat = new MaskFormatter("####-##-##");
+        dobField = new JFormattedTextField(petDOBFormat);
+        warningField = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        addPetPanel.setBackground(new Color(255, 255, 255));
+        addPetPanel.setBackground(new java.awt.Color(255, 255, 255));
 
-        cancelBtn.setBackground(new Color(255, 255, 255));
-        cancelBtn.setFont(new Font("Calibri", 1, 18)); // NOI18N
+        cancelBtn.setBackground(new java.awt.Color(255, 255, 255));
+        cancelBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         cancelBtn.setText("Cancel");
+        cancelBtn.addActionListener(event -> cancel());
 
-        submitBtn.setBackground(new Color(255, 255, 255));
-        submitBtn.setFont(new Font("Calibri", 1, 18)); // NOI18N
+        submitBtn.setBackground(new java.awt.Color(255, 255, 255));
+        submitBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         submitBtn.setText("Submit");
-
-        addPetLabel.setBackground(new Color(255, 255, 255));
-        addPetLabel.setFont(new Font("Calibri", 0, 18)); // NOI18N
-        addPetLabel.setText("Fill out the form below to add new pet");
-        addPetLabel.setMaximumSize(new Dimension(74, 200));
-        addPetLabel.setMinimumSize(new Dimension(74, 200));
-
-        petNameLabel.setFont(new Font("Calibri", 0, 18)); // NOI18N
-        petNameLabel.setText("Pet Name");
-
-        clientNameLabel.setFont(new Font("Calibri", 0, 18)); // NOI18N
-        clientNameLabel.setText("Client Name");
-
-        speciesLabel.setFont(new Font("Calibri", 0, 18)); // NOI18N
-        speciesLabel.setText("Species");
-
-        genderLabel.setFont(new Font("Calibri", 0, 18)); // NOI18N
-        genderLabel.setText("Gender");
-
-        petNameField.setFont(new Font("Calibri", 0, 18)); // NOI18N
-
-        clientNameField.setEditable(false);
-        clientNameField.setFont(new Font("Calibri", 0, 18)); // NOI18N
-
-        cancelInstructionLabel.setBackground(new Color(255, 255, 255));
-        cancelInstructionLabel.setFont(new Font("Calibri", 0, 18)); // NOI18N
-        cancelInstructionLabel.setText("or cancel to return to Pets Dashboard");
-        cancelInstructionLabel.setMaximumSize(new Dimension(74, 200));
-        cancelInstructionLabel.setMinimumSize(new Dimension(74, 200));
-
-        speciesDropDown.setEditable(true);
-        speciesDropDown.setFont(new Font("Calibri", 0, 18)); // NOI18N
-        speciesDropDown.setModel(new DefaultComboBoxModel<>(new String[] { "Dog", "Cat", "Bird", "Small Mammal", "Fish", "Reptile" }));
-        speciesDropDown.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                speciesDropDownActionPerformed(evt);
+        submitBtn.addActionListener(event -> {
+            try {
+                submit();
+            } catch (ParseException e) {
+                // Do nothing if error occurs
             }
         });
 
+        addPetLabel.setBackground(new java.awt.Color(255, 255, 255));
+        addPetLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        addPetLabel.setText("Fill out the form below to add new pet");
+        addPetLabel.setMaximumSize(new java.awt.Dimension(74, 200));
+        addPetLabel.setMinimumSize(new java.awt.Dimension(74, 200));
+
+        petNameLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        petNameLabel.setText("Pet Name");
+
+        clientNameLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        clientNameLabel.setText("Client Name");
+
+        speciesLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        speciesLabel.setText("Species");
+
+        genderLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        genderLabel.setText("Gender");
+
+        petNameField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+
+        clientNameField.setEditable(false);
+        clientNameField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+
+        cancelInstructionLabel.setBackground(new java.awt.Color(255, 255, 255));
+        cancelInstructionLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        cancelInstructionLabel.setText("or cancel to return to Clients Dashboard");
+        cancelInstructionLabel.setMaximumSize(new java.awt.Dimension(74, 200));
+        cancelInstructionLabel.setMinimumSize(new java.awt.Dimension(74, 200));
+
+        speciesDropDown.setEditable(true);
+        speciesDropDown.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        speciesDropDown.setModel(new DefaultComboBoxModel<>(new String[] { "Dog", "Cat", "Bird", "Small Mammal", "Fish", "Reptile" }));
+
         genderDropDown.setEditable(true);
-        genderDropDown.setFont(new Font("Calibri", 0, 18)); // NOI18N
+        genderDropDown.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         genderDropDown.setModel(new DefaultComboBoxModel<>(new String[] { "F", "M", "FS", "MN" }));
 
-        dobLabel.setFont(new Font("Calibri", 0, 18)); // NOI18N
+        dobLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         dobLabel.setText("Date of Birth");
 
-        dobField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-        dobField.setFont(new Font("Calibri", 0, 18)); // NOI18N
+        dobField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        dobField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+
+        warningField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        warningField.setForeground(new java.awt.Color(198, 0, 0));
 
         GroupLayout addPetPanelLayout = new GroupLayout(addPetPanel);
         addPetPanel.setLayout(addPetPanelLayout);
@@ -110,30 +130,34 @@ public class AddPet extends JFrame {
             .addGroup(addPetPanelLayout.createSequentialGroup()
                 .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(addPetPanelLayout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addComponent(submitBtn)
-                        .addGap(54, 54, 54)
-                        .addComponent(cancelBtn))
-                    .addGroup(addPetPanelLayout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                             .addComponent(cancelInstructionLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addComponent(addPetLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                     .addGroup(addPetPanelLayout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                            .addComponent(clientNameLabel)
-                            .addComponent(petNameLabel)
-                            .addComponent(speciesLabel)
-                            .addComponent(genderLabel)
-                            .addComponent(dobLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(clientNameField, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(petNameField, GroupLayout.Alignment.LEADING)
-                            .addComponent(speciesDropDown, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(genderDropDown, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(dobField, GroupLayout.Alignment.LEADING))))
+                        .addGap(100, 100, 100)
+                        .addComponent(submitBtn)
+                        .addGap(54, 54, 54)
+                        .addComponent(cancelBtn))
+                    .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                        .addGroup(addPetPanelLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(warningField, GroupLayout.PREFERRED_SIZE, 273, GroupLayout.PREFERRED_SIZE))
+                        .addGroup(GroupLayout.Alignment.LEADING, addPetPanelLayout.createSequentialGroup()
+                            .addGap(70, 70, 70)
+                            .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                .addComponent(clientNameLabel)
+                                .addComponent(petNameLabel)
+                                .addComponent(speciesLabel)
+                                .addComponent(genderLabel)
+                                .addComponent(dobLabel))
+                            .addGap(18, 18, 18)
+                            .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(clientNameField, GroupLayout.Alignment.LEADING)
+                                .addComponent(petNameField, GroupLayout.Alignment.LEADING)
+                                .addComponent(speciesDropDown, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(genderDropDown, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(dobField, GroupLayout.Alignment.LEADING)))))
                 .addContainerGap(100, Short.MAX_VALUE))
         );
         addPetPanelLayout.setVerticalGroup(
@@ -163,11 +187,13 @@ public class AddPet extends JFrame {
                 .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(dobLabel)
                     .addComponent(dobField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(warningField)
+                .addGap(28, 28, 28)
                 .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(submitBtn)
                     .addComponent(cancelBtn))
-                .addGap(126, 126, 126))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         addPetLabel.getAccessibleContext().setAccessibleName("");
@@ -186,9 +212,41 @@ public class AddPet extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void speciesDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speciesDropDownActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_speciesDropDownActionPerformed
+    // Submit pet information
+    private void submit() throws ParseException {
+        // Attempt to create a new pet
+        createNewPet();
+    }
+
+    // Create a new pet function
+    private void createNewPet() throws ParseException {
+        Object clientPhoneNumber =  vetPortal.getDashboard().getMyClientTableModel().getValueAt(vetPortal.getDashboard().getClientTable().getSelectedRow(), 3);
+        vetPortal.getVetDatabase().open();
+        int client_id = vetPortal.getVetDatabase().getClientID((String)clientPhoneNumber);
+        Boolean createTF = vetPortal.createPet(warningField, petNameField.getText(), String.valueOf(speciesDropDown.getSelectedItem()), String.valueOf(genderDropDown.getSelectedItem()), dobField.getText(), client_id);
+
+        // If creation was successful
+        if(createTF) {
+            // If success, reset the form
+            petNameField.setText(null);
+            clientNameField.setText(null);
+            dobField.setText(null);
+            // And close it
+            dispose();
+        }
+        // If creation was not successful, cWarningMsg will convey any errors to the user
+
+        // Refresh the Pets Table in the Dashboard
+        DashboardsGui dashboard = vetPortal.getDashboard();
+        DashboardsGui.MyPetTableModel model = (DashboardsGui.MyPetTableModel)dashboard.getPetTable().getModel();
+        model.refetchPets();
+    }
+
+    // Cancel button function
+    private void cancel() {
+        //close the window
+        dispose();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JLabel addPetLabel;
@@ -206,5 +264,6 @@ public class AddPet extends JFrame {
     private JComboBox<String> speciesDropDown;
     private JLabel speciesLabel;
     private JButton submitBtn;
+    private JLabel warningField;
     // End of variables declaration//GEN-END:variables
 }

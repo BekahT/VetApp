@@ -9,13 +9,17 @@
  *
  * This specific class implements the GUI for the program and the main() method.
  */
+
 package vetportal;
 
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.table.DefaultTableModel;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 public class VetPortal extends JFrame {
@@ -434,21 +438,26 @@ public class VetPortal extends JFrame {
     } //end of editClient()
 
     // Method to create a new pet, called from the AddPet.java file
-    public Boolean createPet(JLabel warnUser, String name, String species, String gender, String dob, int owner) {
-        System.out.println(dob);
+    public Boolean createPet(JLabel warnUser, String name, String species, String gender, String dob, int owner) throws ParseException {
+
         // Verify no fields are empty
         if ((name.isEmpty()) || (species.isEmpty()
-                || (gender.isEmpty()) || (dob.toString().isEmpty()))) { //TODO don't convert dob to string if it's already string
+                || (gender.isEmpty()) || (dob.isEmpty()))) {
             warnUser.setText("All fields are required!");
             return false;
         }
+        
         // Verify the name is validly formatted
         if (!(isValidName(name))) {
             warnUser.setText("Name may not contain invalid characters!");
             return false;
         }
-
-        //TODO: might need to add validation checks on species, gender, and dob - depending on implementation
+        
+        //Verify that the dob is a past date
+        if(!(validateDOB(dob))) {
+            warnUser.setText("Date of birth must be in the past!");
+            return false;
+        }
 
         //Attempt to open a connection with the database
         vetDatabase = new Database();
@@ -463,7 +472,7 @@ public class VetPortal extends JFrame {
             warnUser.setText(errorMessage);
             // If INSERT into database is successful
         } else {
-            // Log the add client action
+            // Log the add pet action
             AuditLog.logWriter("successfulPetAdd", name + ", " + species + ", " + gender + ", " + dob);
             return true;
         }
@@ -555,5 +564,28 @@ public class VetPortal extends JFrame {
         vetDatabase.close();
         return false;
     } //end of editPet()
+
+    //Validate date of birth
+    public static Boolean validateDOB(String petDOB) throws ParseException {
+        //format date to match field input
+        DateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        //get today's date
+        Date todayDate = new Date();
+        //correctly format today's date
+        Date cTodayDate = formatDate.parse(formatDate.format(todayDate));
+        //correctly format user input
+        Date cPetDOB = formatDate.parse(petDOB);
+
+        //compare the current date to input
+        //if today's date is after the pet's dob (pet's dob in past)
+        if (cTodayDate.compareTo(cPetDOB) > 0) {
+            //return true (valid DOB)
+            return true;
+        }
+        //otherwise, return false (invalid dob)
+        else {
+            return false;
+        }
+    }
 
 } //end of VetPortal

@@ -4,6 +4,7 @@
  * @Author: Nour Debiat, Brian Rease, Rebekah Qu
  * Purpose: This window displays the dashboards where users can view appointments, pets, and clients.
  */
+
 package vetportal;
 
 import javax.swing.*;
@@ -25,6 +26,7 @@ public class DashboardsGui extends JFrame {
     VetPortal vetPortal;
     AddClient addClientPage;
     EditClient editClientPage;
+    AddPet addPetPage;
     /**
      * Creates new form DashboardsGui
 	 * @param vetPortal
@@ -207,6 +209,7 @@ public class DashboardsGui extends JFrame {
         petsTab.setBackground(new Color(255, 255, 255));
         createPetBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
         createPetBtn.setText("Create New Pet");
+        createPetBtn.addActionListener(event -> moveToClientTab());
 
         pNameSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
         pNameSearch.setText("Pet Name:");
@@ -247,7 +250,8 @@ public class DashboardsGui extends JFrame {
         }
 
         pClientSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
-        pClientSearch.setText("Owner:");
+        pClientSearch.setText("Client:");
+        pClientSearch.setToolTipText("Enter the last name of the client who is the owner.");
 
         pDOBField.setFont(new Font("Calibri", 0, 14)); // NOI18N
         
@@ -525,6 +529,32 @@ public class DashboardsGui extends JFrame {
         return petTable;
     }
 
+    public MyClientTableModel getMyClientTableModel() {
+        return myClientTableModel;
+    }
+
+    public MyPetTableModel getMyPetTableModel() {
+        return myPetTableModel;
+    }
+
+    // Create pet function
+    private void openCreatePet() throws ParseException {
+        // Open the Add Pet Page
+        Object firstName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 0);
+        Object lastName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 1);
+        addPetPage = new AddPet(vetPortal, (String)firstName, (String)lastName);
+        addPetPage.setVisible(true);
+    }
+
+    // Move to Client tab
+    private void moveToClientTab() {
+        // Instruct user to select client
+        JOptionPane.showMessageDialog(null, "Please select a client and click the paw button to add a pet.", "Add Pet Instructions", JOptionPane.PLAIN_MESSAGE);
+
+        // Move the user to the clients tab
+        dashboardTabs.setSelectedIndex(2);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JTextField aClientField;
     private JLabel aClientSearch;
@@ -582,6 +612,7 @@ public class DashboardsGui extends JFrame {
 
         private JButton editButton;
         private JButton deleteButton;
+        private JButton addPetButton;
 
         public ClientActionPane() {
             setLayout(new GridBagLayout());
@@ -590,12 +621,16 @@ public class DashboardsGui extends JFrame {
             editButton.setToolTipText("Edit Client");
             deleteButton = new JButton(new ImageIcon(((new ImageIcon("icons/trash.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
             deleteButton.setToolTipText("Delete Client");
+            addPetButton = new JButton(new ImageIcon(((new ImageIcon("icons/paw.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            addPetButton.setToolTipText("Add Pet");
 
             add(editButton);
             add(deleteButton);
-                    
+            add(addPetButton);
+
             editButton.addActionListener(event -> edit());
-            deleteButton.addActionListener(event -> delete());            
+            deleteButton.addActionListener(event -> delete());
+            addPetButton.addActionListener(event -> addPet());
         } //end of constructor
 
         public void addActionListener(ActionListener listener) {
@@ -613,7 +648,7 @@ public class DashboardsGui extends JFrame {
                 // Pass to the event handler
                 editSelectedClient((String) selectedFirstName, (String) selectedLastName, (String) selectedEmail, (String) selectedPhoneNumber);
             } catch (ParseException ex) {
-                // DO nothing
+                // Do nothing
             }
         }          
 
@@ -622,7 +657,15 @@ public class DashboardsGui extends JFrame {
             Object selectedFirstName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 0);
             Object selectedLastName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 1);
             deleteSelectedClient((String) selectedPhoneNumber, (String) selectedFirstName, (String) selectedLastName);
-        }      
+        }
+
+        private void addPet() {
+            try {
+                openCreatePet();
+            } catch (ParseException ex) {
+                // Do nothing
+            }
+        }
         
     } //end of ActionPane
 
