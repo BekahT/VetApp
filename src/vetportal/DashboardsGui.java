@@ -582,6 +582,7 @@ public class DashboardsGui extends JFrame {
 
         private JButton editButton;
         private JButton deleteButton;
+        private JButton addPetButton;
 
         public ClientActionPane() {
             setLayout(new GridBagLayout());
@@ -590,12 +591,16 @@ public class DashboardsGui extends JFrame {
             editButton.setToolTipText("Edit Client");
             deleteButton = new JButton(new ImageIcon(((new ImageIcon("icons/trash.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
             deleteButton.setToolTipText("Delete Client");
+            addPetButton = new JButton(new ImageIcon(((new ImageIcon("icons/paw.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            addPetButton.setToolTipText("Add Pet");
 
             add(editButton);
             add(deleteButton);
+            add(addPetButton);
                     
             editButton.addActionListener(event -> edit());
-            deleteButton.addActionListener(event -> delete());            
+            deleteButton.addActionListener(event -> delete());
+            addPetButton.addActionListener(event -> System.out.println("clicked add pet button"));
         } //end of constructor
 
         public void addActionListener(ActionListener listener) {
