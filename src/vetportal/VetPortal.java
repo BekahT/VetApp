@@ -9,6 +9,7 @@
  *
  * This specific class implements the GUI for the program and the main() method.
  */
+
 package vetportal;
 
 import javax.swing.*;

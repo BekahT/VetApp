@@ -4,6 +4,7 @@
  * @Author: Nour Debiat, Brian Rease, Rebekah Qu
  * Purpose: This window displays the dashboards where users can view appointments, pets, and clients.
  */
+
 package vetportal;
 
 import javax.swing.*;
@@ -207,13 +208,7 @@ public class DashboardsGui extends JFrame {
         petsTab.setBackground(new Color(255, 255, 255));
         createPetBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
         createPetBtn.setText("Create New Pet");
-        createPetBtn.addActionListener(event -> {
-            try {
-                openCreatePet();
-            } catch (ParseException ex) {
-                // Do nothing
-            }
-        });
+        createPetBtn.addActionListener(event -> moveToClientTab());
 
         pNameSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
         pNameSearch.setText("Pet Name:");
@@ -531,11 +526,20 @@ public class DashboardsGui extends JFrame {
         return petTable;
     }
 
-    // Handler for create client button click event
+    // Create pet function
     private void openCreatePet() throws ParseException {
         // Open the Add Client Page
         addPetPage = new AddPet();
         addPetPage.setVisible(true);
+    }
+
+    // Move to Client tab
+    private void moveToClientTab() {
+        // Instruct user to select client
+        JOptionPane.showConfirmDialog(null, "Please select a client profile to add a pet to.", "Add Pet Instructions", JOptionPane.PLAIN_MESSAGE);
+
+        // Move the user to the clients tab
+        dashboardTabs.setSelectedIndex(2);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

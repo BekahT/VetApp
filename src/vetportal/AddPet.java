@@ -1,6 +1,11 @@
 package vetportal;
 
+import java.text.ParseException;
+
 public class AddPet extends javax.swing.JFrame {
+
+    // Create a new VetPortal instance
+    VetPortal vetPortal;
 
     /**
      * Creates new form AddClient
@@ -42,10 +47,18 @@ public class AddPet extends javax.swing.JFrame {
         cancelBtn.setBackground(new java.awt.Color(255, 255, 255));
         cancelBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         cancelBtn.setText("Cancel");
+        cancelBtn.addActionListener(event -> cancel());
 
         submitBtn.setBackground(new java.awt.Color(255, 255, 255));
         submitBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         submitBtn.setText("Submit");
+        submitBtn.addActionListener(event -> {
+            try {
+                submit();
+            } catch (ParseException e) {
+                // Do nothing if error occurs
+            }
+        });
 
         addPetLabel.setBackground(new java.awt.Color(255, 255, 255));
         addPetLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -190,6 +203,40 @@ public class AddPet extends javax.swing.JFrame {
     private void speciesDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speciesDropDownActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_speciesDropDownActionPerformed
+
+    // Submit pet information
+    private void submit() throws ParseException {
+        // Attempt to create a new pet
+        createNewPet();
+    }
+
+    // Create a new pet function
+    private void createNewPet() throws ParseException {
+        //TODO: Need to change last value to select actual owner from table
+        Boolean createTF = vetPortal.createPet(warningField, petNameField.getText(), String.valueOf(speciesDropDown.getSelectedItem()), String.valueOf(genderDropDown.getSelectedItem()), dobField.getText(), 1);
+
+        // If creation was successful
+        if(createTF) {
+            // If success, reset the form
+            petNameField.setText(null);
+            clientNameField.setText(null);
+            dobField.setText(null);
+            // And close it
+            dispose();
+        }
+        // If creation was not successful, cWarningMsg will convey any errors to the user
+
+        // Refresh the Clients Table in the Dashboard
+        DashboardsGui dashboard = vetPortal.getDashboard();
+        DashboardsGui.MyClientTableModel model = (DashboardsGui.MyClientTableModel) dashboard.getClientTable().getModel();
+        model.refetchClients();
+    }
+
+    // Cancel button function
+    private void cancel() {
+        //close the window
+        dispose();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addPetLabel;
