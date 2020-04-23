@@ -21,7 +21,7 @@ public class AddPet extends JFrame {
     String clientLastName;
 
     /**
-     * Creates new form AddClient
+     * Creates new form AddPet
      */
     public AddPet(VetPortal vetPortal, String clientFirstName, String clientLastName) throws ParseException {
         this.vetPortal = vetPortal;
@@ -109,11 +109,6 @@ public class AddPet extends JFrame {
         speciesDropDown.setEditable(true);
         speciesDropDown.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         speciesDropDown.setModel(new DefaultComboBoxModel<>(new String[] { "Dog", "Cat", "Bird", "Small Mammal", "Fish", "Reptile" }));
-        speciesDropDown.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                speciesDropDownActionPerformed(evt);
-            }
-        });
 
         genderDropDown.setEditable(true);
         genderDropDown.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -217,11 +212,6 @@ public class AddPet extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void speciesDropDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_speciesDropDownActionPerformed
-        //TODO add your handling code here:
-        // EDIT - don't think I need this? Although should make the dropdown fields un-editable
-    }//GEN-LAST:event_speciesDropDownActionPerformed
-
     // Submit pet information
     private void submit() throws ParseException {
         // Attempt to create a new pet
@@ -230,8 +220,6 @@ public class AddPet extends JFrame {
 
     // Create a new pet function
     private void createNewPet() throws ParseException {
-        //TODO: Need to change last value to select actual owner from table
-        // EDIT - I think you mean client_id?
         Object clientPhoneNumber =  vetPortal.getDashboard().getMyClientTableModel().getValueAt(vetPortal.getDashboard().getClientTable().getSelectedRow(), 3);
         vetPortal.getVetDatabase().open();
         int client_id = vetPortal.getVetDatabase().getClientID((String)clientPhoneNumber);
