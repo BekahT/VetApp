@@ -9,7 +9,43 @@ package vetportal;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Search {
+public class Search {   
+    
+    // Search for pets based on any of the three criteria, missing criteria is passed an empty string
+    // Returns the list of pets that were matched
+    public static List<Pets> searchPets(List<Pets> pets, String petName, String petDOB) {       
+        
+        // TODO Search on Pet Name, Owner Name, and Pet Date of Birth        
+        
+        // TODO Search on Pet Name and Owner Name
+        
+        // Search on Pet Name and Pet Date of Birth        
+        if (!"".equals(petName) && !"".equals(petDOB)) {
+            List<Pets> matches = pets.stream()
+                    .filter(p -> p.getPetName().equalsIgnoreCase(petName) && p.getPetDateOfBirth().equalsIgnoreCase(petDOB))
+                    .collect(Collectors.toList());
+            return matches;   
+        
+        // TODO Search on Owner Name and Pet Date of Birth        
+        
+        // Search on Pet Name only    
+        } else if (!"".equals(petName) && "".equals(petDOB)) {
+            List<Pets> matches = pets.stream()
+                    .filter(p -> p.getPetName().equalsIgnoreCase(petName))
+                    .collect(Collectors.toList());
+            return matches; 
+        
+        // TODO Search on Owner Name only        
+        
+        // Search on Pet Date of Birth only
+        } else if ("".equals(petName) && !"".equals(petDOB)) {
+            List<Pets> matches = pets.stream()
+                    .filter(p -> p.getPetDateOfBirth().equalsIgnoreCase(petDOB))
+                    .collect(Collectors.toList());
+            return matches; 
+        }           
+        return null;
+    }
     
     // Search for clients based on any of the three criteria, missing criteria is passed as an empty string
     // Returns the list of clients that were matched
