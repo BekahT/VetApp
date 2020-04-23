@@ -43,6 +43,14 @@ public class AuditLog {
                     writer.write(Instant.now() + " - Type: Delete Client - Location: VetPortal Clients Dashboard " 
                         + "- Outcome: Successful Client Delete - " + info + "\n");
                     break;
+                case ("successfulPetAdd"):
+                    writer.write(Instant.now() + " - Type: Add Pet - Location: VetPortal New Pet " 
+                        + "- Outcome: Successful New Pet Creation - " + info + "\n");
+                    break;
+                case ("successfulPetEdit"):
+                    writer.write(Instant.now() + " - Type: Edit Pet - Location: VetPortal Edit Pet " 
+                        + "- Outcome: Successful Pet Edit - " + info + "\n");
+                    break;
                 case ("successfulPetDelete"):
                     writer.write(Instant.now() + " - Type: Delete Pet - Location: VetPortal Pets Dashboard " 
                         + "- Outcome: Successful Pet Delete - " + info + "\n");
