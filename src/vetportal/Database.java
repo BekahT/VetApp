@@ -329,27 +329,6 @@ public class Database {
             return null;
         }
     } //end of selectAllPets()
-// TODO Delete if the above works    
-//    public ArrayList<Pets> selectAllPets() {
-//        try {
-//            statement = conn.createStatement();
-//            ArrayList<Pets> allPets;
-//            try (ResultSet results = statement.executeQuery("SELECT * FROM " + TABLE_PETS)) {
-//                allPets = new ArrayList<>();
-//                while (results.next()) {
-//                    Pets pet = new Pets(results.getInt(COLUMN_PET_ID), results.getString(COLUMN_PET_NAME),
-//                            results.getString(COLUMN_PET_SPECIES), results.getString(COLUMN_PET_GENDER),
-//                            results.getString(COLUMN_PET_DATE_OF_BIRTH), results.getInt(COLUMN_PET_OWNER));
-//                    allPets.add(pet);
-//                }
-//            }
-//            statement.close();
-//            return allPets;
-//        } catch (SQLException e) {
-//            setErrorMessage("Could not find any pets.");
-//            return null;
-//        }
-//    } //end of selectAllPets()
 
     // This method updates a pet with edited information in the pet table in the database
     public boolean updatePet(int petID, String name, String species, String gender, String dob) {
