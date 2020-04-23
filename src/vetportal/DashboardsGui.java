@@ -511,6 +511,14 @@ public class DashboardsGui extends JFrame {
         editClientPage = new EditClient(vetPortal, currentFirstName, currentLastName, currentEmail, currentPhoneNumber);
         editClientPage.setVisible(true);
     }
+
+    // Handler for edit selected pet click event
+    private void editSelectedPet(String currentName, String currentSpecies, String currentGender, String currentDateOfBirth) throws ParseException {
+        // Open the Edit Pet Page and pass the selected pets's information
+        //TODO: Change the 2 commented out lines below to call the EditPet page
+//        editClientPage = new EditClient(vetPortal, currentFirstName, currentLastName, currentEmail, currentPhoneNumber);
+//        editClientPage.setVisible(true);
+    }
     
     public JTable getClientsTable() {
         return clientsTable;
@@ -869,7 +877,17 @@ public class DashboardsGui extends JFrame {
         }
 
         private void edit() {
-
+            // Get the information for the selected pet
+            Object selectedName = myPetTableModel.getValueAt(petTable.getSelectedRow(), 0);
+            Object selectedSpecies = myPetTableModel.getValueAt(petTable.getSelectedRow(), 1);
+            Object selectedGender = myPetTableModel.getValueAt(petTable.getSelectedRow(), 2);
+            Object selectedDateOfBirth = myPetTableModel.getValueAt(petTable.getSelectedRow(), 3);
+            try {
+                // Pass to the event handler
+                editSelectedPet((String)selectedName, (String)selectedSpecies, (String)selectedGender, (String)selectedDateOfBirth);
+            } catch (ParseException ex) {
+                // DO nothing
+            }
         }
 
         private void delete() {
