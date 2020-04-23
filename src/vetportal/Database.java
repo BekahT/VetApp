@@ -310,12 +310,15 @@ public class Database {
         try {
             statement = conn.createStatement();
             ArrayList<Pets> allPets;
-            try (ResultSet results = statement.executeQuery("SELECT * FROM " + TABLE_PETS)) {
+            // Select all pets and join the client last name on client id / owner id to get the owner last name
+            try (ResultSet results = statement.executeQuery("SELECT " + TABLE_PETS + ".*, " + TABLE_CLIENTS + ".last_name FROM " 
+                    + TABLE_PETS + " INNER JOIN " + TABLE_CLIENTS + " ON " + TABLE_PETS + "." + COLUMN_PET_OWNER 
+                    + "=" + TABLE_CLIENTS + "." + COLUMN_CLIENT_ID)) {
                 allPets = new ArrayList<>();
                 while (results.next()) {
                     Pets pet = new Pets(results.getInt(COLUMN_PET_ID), results.getString(COLUMN_PET_NAME),
                             results.getString(COLUMN_PET_SPECIES), results.getString(COLUMN_PET_GENDER),
-                            results.getString(COLUMN_PET_DATE_OF_BIRTH), results.getInt(COLUMN_PET_OWNER));
+                            results.getString(COLUMN_PET_DATE_OF_BIRTH), results.getString(COLUMN_CLIENT_LAST_NAME));
                     allPets.add(pet);
                 }
             }
@@ -326,6 +329,27 @@ public class Database {
             return null;
         }
     } //end of selectAllPets()
+// TODO Delete if the above works    
+//    public ArrayList<Pets> selectAllPets() {
+//        try {
+//            statement = conn.createStatement();
+//            ArrayList<Pets> allPets;
+//            try (ResultSet results = statement.executeQuery("SELECT * FROM " + TABLE_PETS)) {
+//                allPets = new ArrayList<>();
+//                while (results.next()) {
+//                    Pets pet = new Pets(results.getInt(COLUMN_PET_ID), results.getString(COLUMN_PET_NAME),
+//                            results.getString(COLUMN_PET_SPECIES), results.getString(COLUMN_PET_GENDER),
+//                            results.getString(COLUMN_PET_DATE_OF_BIRTH), results.getInt(COLUMN_PET_OWNER));
+//                    allPets.add(pet);
+//                }
+//            }
+//            statement.close();
+//            return allPets;
+//        } catch (SQLException e) {
+//            setErrorMessage("Could not find any pets.");
+//            return null;
+//        }
+//    } //end of selectAllPets()
 
     // This method updates a pet with edited information in the pet table in the database
     public boolean updatePet(int petID, String name, String species, String gender, String dob) {

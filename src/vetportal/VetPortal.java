@@ -471,7 +471,7 @@ public class VetPortal extends JFrame {
             // If INSERT into database is successful
         } else {
             // Log the add client action
-            AuditLog.logWriter("successfulPetAdd", name + ", " + species + ", " + gender);
+            AuditLog.logWriter("successfulPetAdd", name + ", " + species + ", " + gender + ", " + dob);
             return true;
         }
         vetDatabase.close();
@@ -556,8 +556,7 @@ public class VetPortal extends JFrame {
             // If UPDATE in database is successful
         } else {
             // Log successful pet edit
-            // TODO finish implementing audit log for pets
-            AuditLog.logWriter("successfulPetEdit", updatedName + ", " + updatedSpecies + ", " + updatedGender);
+            AuditLog.logWriter("successfulPetEdit", updatedName + ", " + updatedSpecies + ", " + updatedGender + ", " + updatedDateOfBirth);
             return true;
         }
         vetDatabase.close();

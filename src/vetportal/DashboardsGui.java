@@ -69,7 +69,8 @@ public class DashboardsGui extends JFrame {
         petTableScroll = new JScrollPane();
         petsTable = new JTable();
         pClientSearch = new JLabel();
-        pDOBField = new JTextField();
+        MaskFormatter petDOBFormat = new MaskFormatter("****-**-**");
+        pDOBField = new JFormattedTextField(petDOBFormat);
         pSearchBtn = new JButton(new ImageIcon(((new ImageIcon("icons/search.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
         clientsTab = new JPanel();
         clientTableScroll = new JScrollPane();
@@ -82,7 +83,7 @@ public class DashboardsGui extends JFrame {
         cNameField = new JTextField();
         cEmailField = new JTextField();
         MaskFormatter phoneFormat = new MaskFormatter("(***) ***-****");
-        cNumberField = new JFormattedTextField(phoneFormat);;
+        cNumberField = new JFormattedTextField(phoneFormat);
         logoutBtn = new JButton(new ImageIcon(((new ImageIcon("icons/sign-out.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
 
         myClientTableModel = new MyClientTableModel();
@@ -249,13 +250,14 @@ public class DashboardsGui extends JFrame {
         }
 
         pClientSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
-        pClientSearch.setText("Client:");
+        pClientSearch.setText("Owner:");
 
         pDOBField.setFont(new Font("Calibri", 0, 14)); // NOI18N
-
+        
         pSearchBtn.setBackground(new Color(255, 255, 255));
         pSearchBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
         pSearchBtn.setText("Search");
+        pSearchBtn.addActionListener(event -> myPetTableModel.executePetSearch());
 
         GroupLayout petsTabLayout = new GroupLayout(petsTab);
         petsTab.setLayout(petsTabLayout);
@@ -764,9 +766,9 @@ public class DashboardsGui extends JFrame {
                 myClientTableModel.setClientData(matches);
                 fireTableDataChanged();
             }          
-        }
+        } // end of executeClientSearch()
         
-    } //end of MyTableModel
+    } //end of MyClientTableModel
 
     public class ClientActionRenderer extends DefaultTableCellRenderer {
 
@@ -870,6 +872,10 @@ public class DashboardsGui extends JFrame {
         public List<Pets> getPetData() {
             return petData;
         }
+        
+        public void setPetData(List<Pets> newData) {
+            this.petData = newData;
+        }
 
         @Override
         public String getColumnName(int column) {
@@ -926,11 +932,6 @@ public class DashboardsGui extends JFrame {
         public Object getValueAt(int rowIndex, int columnIndex) {
             Pets obj = petData.get(rowIndex);
 
-            int petOwnerID = obj.getPetOwner();
-            vetPortal.getVetDatabase().open();
-            String clientLastName = vetPortal.getVetDatabase().getClientLastName(petOwnerID);
-            vetPortal.getVetDatabase().close();
-
             String value = null;
             switch (columnIndex) {
                 case 0:
@@ -946,7 +947,7 @@ public class DashboardsGui extends JFrame {
                     value = obj.getPetDateOfBirth();
                     break;
                 case 4:
-                    value = clientLastName;
+                    value = obj.getPetOwner();
             }
             return value;
         }
@@ -967,7 +968,29 @@ public class DashboardsGui extends JFrame {
         public boolean isCellEditable(int rowIndex, int columnIndex) {
             return columnIndex == 5;
         }
-    } //end of MyTableModel
+        
+        // Handler for search pets button click event
+        private void executePetSearch() {
+            List<Pets> pets = myPetTableModel.getPetData();
+            String searchName = pNameField.getText();
+            String searchOwner = pClientField.getText();
+            String searchDOB = pDOBField.getText();
+            
+            refetchPets();
+            
+            // If all fields are empty, reset the table
+            if ("".equals(searchName) && "".equals(searchOwner) && "    -  -  ".equals(searchDOB)) {
+                refetchPets();              
+            // If user supplied search terms
+            } else {                   
+                // Get the filtered list
+                List<Pets> matches = Search.searchPets(pets, searchName, searchOwner, searchDOB);
+                // Set the table to display only the matched rows
+                myPetTableModel.setPetData(matches);
+                fireTableDataChanged();
+            }          
+        } // end of executeClientSearch()
+    } //end of MyPetTableModel
 
     public class PetActionRenderer extends DefaultTableCellRenderer {
 
