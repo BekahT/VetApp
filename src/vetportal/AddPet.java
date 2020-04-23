@@ -1,3 +1,5 @@
+package vetportal;
+
 public class AddPet extends javax.swing.JFrame {
 
     /**
