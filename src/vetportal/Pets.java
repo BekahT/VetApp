@@ -16,10 +16,9 @@ public class Pets {
     private String petSpecies;
     private String petGender;
     private String petDateOfBirth; //TODO: figure out implementation and possibly change to java.sql.Date vs java.util.Date?
-    private int petOwner;
+    private String petOwner;
 
-    //TODO in Phase II: add petID and petDateOfBirth
-    public Pets(int petID, String petName, String petSpecies, String petGender, String petDateOfBirth, int petOwner) {
+    public Pets(int petID, String petName, String petSpecies, String petGender, String petDateOfBirth, String petOwner) {
         this.petID = petID;
         this.petName = petName;
         this.petSpecies = petSpecies;
@@ -48,7 +47,7 @@ public class Pets {
         return petDateOfBirth;
     }
 
-    public int getPetOwner() {
+    public String getPetOwner() {
         return petOwner;
     }
 } //end of Pets

@@ -13,32 +13,51 @@ public class Search {
     
     // Search for pets based on any of the three criteria, missing criteria is passed an empty string
     // Returns the list of pets that were matched
-    public static List<Pets> searchPets(List<Pets> pets, String petName, String petDOB) {       
+    public static List<Pets> searchPets(List<Pets> pets, String petName, String petOwner, String petDOB) {       
+        // Search on Pet Name, Owner Name, and Pet Date of Birth        
+        if (!"".equals(petName) && !"".equals(petOwner) && !"    -  -  ".equals(petDOB)) {
+            List<Pets> matches = pets.stream()
+                    .filter(p -> p.getPetName().equalsIgnoreCase(petName) && p.getPetOwner().equalsIgnoreCase(petOwner) && p.getPetDateOfBirth().equalsIgnoreCase(petDOB))
+                    .collect(Collectors.toList());
+            return matches;
         
-        // TODO Search on Pet Name, Owner Name, and Pet Date of Birth        
-        
-        // TODO Search on Pet Name and Owner Name
-        
+        // Search on Pet Name and Owner Name
+        } else if (!"".equals(petName) && !"".equals(petOwner) && "    -  -  ".equals(petDOB)) {
+            List<Pets> matches = pets.stream()
+                .filter(p -> p.getPetName().equalsIgnoreCase(petName) && p.getPetOwner().equalsIgnoreCase(petOwner))
+                .collect(Collectors.toList());
+            return matches;
+            
         // Search on Pet Name and Pet Date of Birth        
-        if (!"".equals(petName) && !"".equals(petDOB)) {
+        } else if (!"".equals(petName) && "".equals(petOwner) && !"    -  -  ".equals(petDOB)) {
             List<Pets> matches = pets.stream()
                     .filter(p -> p.getPetName().equalsIgnoreCase(petName) && p.getPetDateOfBirth().equalsIgnoreCase(petDOB))
                     .collect(Collectors.toList());
             return matches;   
         
-        // TODO Search on Owner Name and Pet Date of Birth        
+        // Search on Owner Name and Pet Date of Birth    
+        } else if ("".equals(petName) && !"".equals(petOwner) && !"    -  -  ".equals(petDOB)) {
+            List<Pets> matches = pets.stream()
+                    .filter(p -> p.getPetOwner().equalsIgnoreCase(petOwner) && p.getPetDateOfBirth().equalsIgnoreCase(petDOB))
+                    .collect(Collectors.toList());
+            return matches;
         
         // Search on Pet Name only    
-        } else if (!"".equals(petName) && "".equals(petDOB)) {
+        } else if (!"".equals(petName) && "".equals(petOwner) && "    -  -  ".equals(petDOB)) {
             List<Pets> matches = pets.stream()
                     .filter(p -> p.getPetName().equalsIgnoreCase(petName))
                     .collect(Collectors.toList());
             return matches; 
         
-        // TODO Search on Owner Name only        
-        
+        // Search on Owner Name only        
+        } else if ("".equals(petName) && !"".equals(petOwner) && "    -  -  ".equals(petDOB)){
+            List<Pets> matches = pets.stream()
+                    .filter(p -> p.getPetOwner().equalsIgnoreCase(petOwner))
+                    .collect(Collectors.toList());
+            return matches; 
+            
         // Search on Pet Date of Birth only
-        } else if ("".equals(petName) && !"".equals(petDOB)) {
+        } else if ("".equals(petName) && !"    -  -  ".equals(petDOB)) {
             List<Pets> matches = pets.stream()
                     .filter(p -> p.getPetDateOfBirth().equalsIgnoreCase(petDOB))
                     .collect(Collectors.toList());

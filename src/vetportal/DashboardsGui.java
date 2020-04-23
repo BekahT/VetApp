@@ -913,11 +913,6 @@ public class DashboardsGui extends JFrame {
         public Object getValueAt(int rowIndex, int columnIndex) {
             Pets obj = petData.get(rowIndex);
 
-            int petOwnerID = obj.getPetOwner();
-            vetPortal.getVetDatabase().open();
-            String clientLastName = vetPortal.getVetDatabase().getClientLastName(petOwnerID);
-            vetPortal.getVetDatabase().close();
-
             String value = null;
             switch (columnIndex) {
                 case 0:
@@ -933,7 +928,7 @@ public class DashboardsGui extends JFrame {
                     value = obj.getPetDateOfBirth();
                     break;
                 case 4:
-                    value = clientLastName;
+                    value = obj.getPetOwner();
             }
             return value;
         }
@@ -965,13 +960,12 @@ public class DashboardsGui extends JFrame {
             refetchPets();
             
             // If all fields are empty, reset the table
-            if ("".equals(searchName) && "".equals(searchOwner) && "".equals(searchDOB)) {
+            if ("".equals(searchName) && "".equals(searchOwner) && "    -  -  ".equals(searchDOB)) {
                 refetchPets();              
             // If user supplied search terms
             } else {                   
                 // Get the filtered list
-                // TODO ADD OWNER
-                List<Pets> matches = Search.searchPets(pets, searchName, searchDOB);
+                List<Pets> matches = Search.searchPets(pets, searchName, searchOwner, searchDOB);
                 // Set the table to display only the matched rows
                 myPetTableModel.setPetData(matches);
                 fireTableDataChanged();
