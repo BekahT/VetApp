@@ -4,9 +4,9 @@
  * @Author: Nour Debiat, Brian Rease, Rebekah Qu
  * Purpose: This window displays the window where staff can add a new pet to a client.
  */
-
 package vetportal;
 
+import java.awt.*;
 import java.text.ParseException;
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
@@ -62,11 +62,13 @@ public class AddPet extends JFrame {
         addPetPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         cancelBtn.setBackground(new java.awt.Color(255, 255, 255));
+        cancelBtn.setForeground(new Color(122, 188, 255));
         cancelBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(event -> cancel());
 
         submitBtn.setBackground(new java.awt.Color(255, 255, 255));
+        submitBtn.setForeground(new Color(122, 188, 255));
         submitBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         submitBtn.setText("Submit");
         submitBtn.addActionListener(event -> {
@@ -117,7 +119,8 @@ public class AddPet extends JFrame {
         dobLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         dobLabel.setText("Date of Birth");
 
-        dobField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        MaskFormatter dobFormat = new MaskFormatter("####-##-##");
+        dobField = new JFormattedTextField(dobFormat);
         dobField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         warningField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
