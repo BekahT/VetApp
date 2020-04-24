@@ -127,7 +127,6 @@ public class Database {
             pstmt.setString(2, species);
             pstmt.setString(3, gender);
             pstmt.setString(4, dob);
-            //pstmt.setInt(5, owner);
             ResultSet idResult = pstmt.executeQuery();
             return idResult.getInt("pet_id");
         } catch (SQLException e) {

@@ -38,7 +38,7 @@ public class AddPet extends JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() throws ParseException{
-      
+
         addPetPanel = new JPanel();
         cancelBtn = new JButton();
         submitBtn = new JButton();
@@ -126,12 +126,12 @@ public class AddPet extends JFrame {
         warningField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         warningField.setForeground(new java.awt.Color(198, 0, 0));
 
-        javax.swing.GroupLayout addPetPanelLayout = new javax.swing.GroupLayout(addPetPanel);
+        GroupLayout addPetPanelLayout = new GroupLayout(addPetPanel);
         addPetPanel.setLayout(addPetPanelLayout);
         addPetPanelLayout.setHorizontalGroup(
-            addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(addPetPanelLayout.createSequentialGroup()
-                .addGroup(addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(addPetPanelLayout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
@@ -164,30 +164,30 @@ public class AddPet extends JFrame {
                 .addContainerGap(100, Short.MAX_VALUE))
         );
         addPetPanelLayout.setVerticalGroup(
-            addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(addPetPanelLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(addPetLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cancelInstructionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addPetLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cancelInstructionLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addGroup(addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(petNameLabel)
-                    .addComponent(petNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(petNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(clientNameLabel)
-                    .addComponent(clientNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(clientNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                     .addComponent(speciesLabel)
-                    .addComponent(speciesDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(speciesDropDown, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(genderLabel)
-                    .addComponent(genderDropDown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(addPetPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(genderDropDown, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(dobLabel)
                     .addComponent(dobField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -201,15 +201,15 @@ public class AddPet extends JFrame {
 
         addPetLabel.getAccessibleContext().setAccessibleName("");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addPetPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(addPetPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addPetPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(addPetPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
