@@ -271,7 +271,6 @@ public class Database {
             pstmt.setInt(5, owner);
             pstmt.executeUpdate();
             pstmt.close();
-            System.out.println("Created pet successfully: " + name);
             return true;
         } catch (SQLException e) {
             setErrorMessage("Unable to create new pet.");
