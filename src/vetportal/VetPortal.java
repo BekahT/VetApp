@@ -510,7 +510,7 @@ public class VetPortal extends JFrame {
         // Delete the pet
         } else {
             // Log the deletion            
-            AuditLog.logWriter("successfulPetDelete", name + ", " + species + ", " + gender);
+            AuditLog.logWriter("successfulPetDelete", name + ", " + species + ", " + gender + ", " + dob);
         }
         vetDatabase.close();
     } //end of deleteClient()
@@ -584,7 +584,7 @@ public class VetPortal extends JFrame {
             // If UPDATE in database is successful
         } else {
             // Log successful pet edit
-            AuditLog.logWriter("successfulPetEdit", updatedName + ", " + updatedSpecies + ", " + updatedGender + ", " + updatedDateOfBirth);
+            AuditLog.logWriter("successfulPetEdit", updatedName + ", " + updatedSpecies + ", " + updatedGender + ", " + updatedDateOfBirth);            
             return true;
         }
         vetDatabase.close();
