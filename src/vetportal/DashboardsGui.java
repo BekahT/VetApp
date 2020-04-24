@@ -65,14 +65,11 @@ public class DashboardsGui extends JFrame {
         petsTab = new JPanel();
         createPetBtn = new JButton(new ImageIcon(((new ImageIcon("icons/paw.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
         pNameSearch = new JLabel();
-        pDOBSearch = new JLabel();
         pClientField = new JTextField();
         pNameField = new JTextField();
         petTableScroll = new JScrollPane();
         petsTable = new JTable();
         pClientSearch = new JLabel();
-        MaskFormatter petDOBFormat = new MaskFormatter("****-**-**");
-        pDOBField = new JFormattedTextField(petDOBFormat);
         pSearchBtn = new JButton(new ImageIcon(((new ImageIcon("icons/search.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
         clientsTab = new JPanel();
         clientTableScroll = new JScrollPane();
@@ -176,12 +173,12 @@ public class DashboardsGui extends JFrame {
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                                                 .addComponent(aClientSearch)
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(aClientField, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(aClientField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                                                 .addComponent(aPetSearch)
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(aPetField, GroupLayout.PREFERRED_SIZE, 175, GroupLayout.PREFERRED_SIZE)
-                                                                .addGap(18, 18, 18)
+                                                                .addComponent(aPetField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(50, 50, 50)
                                                                 .addComponent(aSearchBtn)))
                                                 .addGap(0, 0, Short.MAX_VALUE))
                                         .addComponent(appointmentTableScroll, GroupLayout.Alignment.TRAILING))
@@ -216,9 +213,6 @@ public class DashboardsGui extends JFrame {
         pNameSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
         pNameSearch.setText("Pet Name:");
 
-        pDOBSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
-        pDOBSearch.setText("Date of Birth:");
-
         pClientField.setFont(new Font("Calibri", 0, 14)); // NOI18N
 
         pNameField.setFont(new Font("Calibri", 0, 14)); // NOI18N
@@ -252,10 +246,7 @@ public class DashboardsGui extends JFrame {
         }
 
         pClientSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
-        pClientSearch.setText("Client:");
-        pClientSearch.setToolTipText("Enter the last name of the client who is the owner.");
-
-        pDOBField.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        pClientSearch.setText("Client's Last Name:");
         
         pSearchBtn.setBackground(new Color(255, 255, 255));
         pSearchBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
@@ -280,11 +271,7 @@ public class DashboardsGui extends JFrame {
                                                 .addComponent(pClientSearch)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(pClientField, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)
-                                                .addComponent(pDOBSearch)
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(pDOBField, GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                                                .addGap(18, 18, 18)
+                                                .addGap(50, 50, 50)
                                                 .addComponent(pSearchBtn))
                                         .addComponent(petTableScroll, GroupLayout.Alignment.TRAILING))
                                 .addContainerGap())
@@ -298,11 +285,9 @@ public class DashboardsGui extends JFrame {
                                 .addGroup(petsTabLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(pNameSearch)
                                         .addComponent(pClientSearch)
-                                        .addComponent(pDOBSearch)
                                         .addComponent(pSearchBtn)
                                         .addComponent(pNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(pClientField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(pDOBField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(pClientField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(petTableScroll, GroupLayout.PREFERRED_SIZE, 261, GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(75, Short.MAX_VALUE))
@@ -593,8 +578,6 @@ public class DashboardsGui extends JFrame {
     private JButton logoutBtn;
     private JTextField pClientField;
     private JLabel pClientSearch;
-    private JTextField pDOBField;
-    private JLabel pDOBSearch;
     private JTextField pNameField;
     private JLabel pNameSearch;
     private JButton pSearchBtn;
@@ -1023,17 +1006,16 @@ public class DashboardsGui extends JFrame {
             List<Pets> pets = myPetTableModel.getPetData();
             String searchName = pNameField.getText();
             String searchOwner = pClientField.getText();
-            String searchDOB = pDOBField.getText();
             
             refetchPets();
             
             // If all fields are empty, reset the table
-            if ("".equals(searchName) && "".equals(searchOwner) && "    -  -  ".equals(searchDOB)) {
+            if ("".equals(searchName) && "".equals(searchOwner)) {
                 refetchPets();              
             // If user supplied search terms
             } else {                   
                 // Get the filtered list
-                List<Pets> matches = Search.searchPets(pets, searchName, searchOwner, searchDOB);
+                List<Pets> matches = Search.searchPets(pets, searchName, searchOwner);
                 // If there are matches, show them in the table
                 if (matches.size() > 0) {
                     // Set the table to display only the matched rows
