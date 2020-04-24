@@ -795,9 +795,15 @@ public class DashboardsGui extends JFrame {
             } else {                   
                 // Get the filtered list
                 List<Clients> matches = Search.searchClients(clients, searchName, searchEmail, searchPhone);
-                // Set the table to display only the matched rows
-                myClientTableModel.setClientData(matches);
-                fireTableDataChanged();
+                // If matches were found
+                if (matches.size() > 0) {
+                    // Set the table to display only the matched rows
+                    myClientTableModel.setClientData(matches);
+                    fireTableDataChanged();
+                // If no matches were found, notify the user and don't change the table
+                } else {
+                    JOptionPane.showMessageDialog(null, "The search returned no results.", "No Search Results", JOptionPane.WARNING_MESSAGE);
+                }                
             }          
         } // end of executeClientSearch()
         
@@ -1028,9 +1034,15 @@ public class DashboardsGui extends JFrame {
             } else {                   
                 // Get the filtered list
                 List<Pets> matches = Search.searchPets(pets, searchName, searchOwner, searchDOB);
-                // Set the table to display only the matched rows
-                myPetTableModel.setPetData(matches);
-                fireTableDataChanged();
+                // If there are matches, show them in the table
+                if (matches.size() > 0) {
+                    // Set the table to display only the matched rows
+                    myPetTableModel.setPetData(matches);
+                    fireTableDataChanged();
+                // If no matches were found, notify the user and don't change the table
+                } else {
+                    JOptionPane.showMessageDialog(null, "The search returned no results.", "No Search Results", JOptionPane.WARNING_MESSAGE);
+                }                   
             }          
         } // end of executeClientSearch()
     } //end of MyPetTableModel
