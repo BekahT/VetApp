@@ -42,6 +42,12 @@ public class VetPortal extends JFrame {
     // Validate phone number is exactly 10 digits
     private final String phoneRegex = "^\\(\\d{3}\\)\\s+\\d{3}\\-\\d{4}$";
     private final Pattern phonePattern = Pattern.compile(phoneRegex);
+    
+    // Validate date is in correct format
+    private final String dateRegex = "^\\d{4}\\-\\d{2}\\-\\d{2}$";
+    private final Pattern datePattern = Pattern.compile(dateRegex);
+    
+    
     // Create object for Vet Portal (login page)
     private static VetPortal vetPortal;
     // Fields for the Login GUI
@@ -207,10 +213,9 @@ public class VetPortal extends JFrame {
     public static void main(String[] args) {
         vetPortal = new VetPortal();
         vetPortal.setVisible(true);
-
     } //end of main()
     
-    // Validation functions for New Client Form Fields
+    // Validation functions for New Client and Pet Form Fields
     private boolean isValidName(String name) {
         return namePattern.matcher(name).matches();
     }
@@ -220,6 +225,10 @@ public class VetPortal extends JFrame {
     private boolean isValidPhone(String phoneNumber) {
         return phonePattern.matcher(phoneNumber).matches();
     }
+    
+    private boolean isValidDate(String date) {
+        return datePattern.matcher(date).matches();
+    }    
         
     // Getter Functions
     public DashboardsGui getDashboard() {
@@ -453,6 +462,10 @@ public class VetPortal extends JFrame {
             return false;
         }
         
+        if(!(isValidDate(dob))) {
+            warnUser.setText("DOB must be in yyyy-mm-dd format!");
+        }
+        
         //Verify that the dob is a past date
         if(!(validateDOB(dob))) {
             warnUser.setText("Date of birth must be in the past!");
@@ -539,6 +552,19 @@ public class VetPortal extends JFrame {
         if (!(isValidName(updatedName))) {
             warnUser.setText("Name may not contain invalid characters!");
             return false;
+        }
+        
+        if(!(isValidDate(updatedDateOfBirth))) {
+            warnUser.setText("DOB must be in yyyy-mm-dd format!");
+        }
+
+        //Verify the date of birth is valid
+        try {
+            if (!(validateDOB(updatedDateOfBirth))) {
+                warnUser.setText("Invalid date of birth!");
+            }
+        } catch (ParseException e) {
+            e.getMessage();
         }
 
         //TODO: might need to add validation checks on species, gender, and dob - depending on implementation
