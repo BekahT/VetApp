@@ -208,6 +208,8 @@ public class VetPortal extends JFrame {
         vetPortal = new VetPortal();
         vetPortal.setVisible(true);
 
+//        EditPet page = new EditPet(vetPortal, "sunshine", "Cat", "MN", "2015-12-12");
+//        page.setVisible(true);
     } //end of main()
     
     // Validation functions for New Client Form Fields
@@ -542,6 +544,15 @@ public class VetPortal extends JFrame {
             return false;
         }
 
+        //Verify the date of birth is valid
+        try {
+            if (!(validateDOB(updatedDateOfBirth))) {
+                warnUser.setText("Invalid date of birth!");
+            }
+        } catch (ParseException e) {
+            e.getMessage();
+        }
+
         //TODO: might need to add validation checks on species, gender, and dob - depending on implementation
 
         // Attempt to open a connection with the database
@@ -576,10 +587,6 @@ public class VetPortal extends JFrame {
         Date cTodayDate = formatDate.parse(formatDate.format(todayDate));
         //correctly format user input
         Date cPetDOB = formatDate.parse(petDOB);
-
-        //TODO: Remove println
-        System.out.println(cTodayDate);
-        System.out.println(cPetDOB);
 
         //compare the current date to input
         //if today's date is after the pet's dob (pet's dob in past)

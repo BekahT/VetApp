@@ -114,21 +114,20 @@ public class Database {
         }
     } //end of getClientID()
 
-    public int getPetID(String name, String species, String gender, String dob, int owner) {
+    public int getPetID(String name, String species, String gender, String dob) {
         String sql = "SELECT " + COLUMN_PET_ID
                 + " FROM " + TABLE_PETS + " WHERE "
                 + COLUMN_PET_NAME + "=?" + " AND "
                 + COLUMN_PET_SPECIES + "=?" + " AND "
                 + COLUMN_PET_GENDER + "=?" + " AND "
-                + COLUMN_PET_DATE_OF_BIRTH + "=DATE(?)" + " AND "
-                + COLUMN_PET_OWNER + "=?";
+                + COLUMN_PET_DATE_OF_BIRTH + "=DATE(?)";
 
         try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, name);
             pstmt.setString(2, species);
             pstmt.setString(3, gender);
             pstmt.setString(4, dob);
-            pstmt.setInt(5, owner);
+            //pstmt.setInt(5, owner);
             ResultSet idResult = pstmt.executeQuery();
             return idResult.getInt("pet_id");
         } catch (SQLException e) {

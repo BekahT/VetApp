@@ -27,6 +27,8 @@ public class DashboardsGui extends JFrame {
     AddClient addClientPage;
     EditClient editClientPage;
     AddPet addPetPage;
+    EditPet editPetPage;
+
     /**
      * Creates new form DashboardsGui
 	 * @param vetPortal
@@ -518,6 +520,8 @@ public class DashboardsGui extends JFrame {
         //TODO: Change the 2 commented out lines below to call the EditPet page
 //        editClientPage = new EditClient(vetPortal, currentFirstName, currentLastName, currentEmail, currentPhoneNumber);
 //        editClientPage.setVisible(true);
+        editPetPage = new EditPet(vetPortal, currentName, currentSpecies, currentGender, currentDateOfBirth);
+        editPetPage.setVisible(true);
     }
     
     public JTable getClientsTable() {
