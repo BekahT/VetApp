@@ -555,12 +555,14 @@ public class VetPortal extends JFrame {
         
         if(!(isValidDate(updatedDateOfBirth))) {
             warnUser.setText("DOB must be in yyyy-mm-dd format!");
+            return false;
         }
 
         //Verify the date of birth is valid
         try {
             if (!(validateDOB(updatedDateOfBirth))) {
-                warnUser.setText("Invalid date of birth!");
+                warnUser.setText("Date of birth must be in the past!");
+                return false;
             }
         } catch (ParseException e) {
             e.getMessage();
