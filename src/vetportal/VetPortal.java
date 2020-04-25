@@ -10,8 +10,6 @@
  * This specific class implements the GUI for the program and the main() method.
  */
 
-package vetportal;
-
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.table.DefaultTableModel;
@@ -603,7 +601,7 @@ public class VetPortal extends JFrame {
 
         //compare the current date to input
         //if today's date is after the pet's dob (pet's dob in past)
-        if (cTodayDate.compareTo(cPetDOB) > 0) {
+        if (cTodayDate.compareTo(cPetDOB) >= 0) {
             //return true (valid DOB)
             return true;
         }
