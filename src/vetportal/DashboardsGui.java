@@ -555,7 +555,7 @@ public class DashboardsGui extends JFrame {
     public void moveToPetTab(boolean showAddApptMessage) {
         if (showAddApptMessage) {
             // Notify the user of redirection and instruct user to select pet
-            JOptionPane.showMessageDialog(null, "Please select a pet and click the Add Appontment button to create a new appontment.", "Add Appointment Instructions", JOptionPane.PLAIN_MESSAGE);    
+            JOptionPane.showMessageDialog(null, "Please select a pet and click the Add Appiontment button to create a new appiontment.", "Add Appointment Instructions", JOptionPane.PLAIN_MESSAGE);    
         }
         dashboardTabs.setSelectedIndex(1);
     }
