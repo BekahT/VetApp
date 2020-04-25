@@ -59,13 +59,13 @@ public class EditClient extends JFrame {
 
         cancelBtn.setBackground(new Color(255, 255, 255));
         cancelBtn.setFont(new Font("Calibri", 1, 18)); // NOI18N
-		cancelBtn.setForeground(new Color(122, 188, 255));
+	cancelBtn.setForeground(new Color(122, 188, 255));
         cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(event -> cancel());        
 
         submitBtn.setBackground(new Color(255, 255, 255));
         submitBtn.setFont(new Font("Calibri", 1, 18)); // NOI18N   
-		submitBtn.setForeground(new Color(122, 188, 255));		
+	submitBtn.setForeground(new Color(122, 188, 255));		
         submitBtn.setText("Submit");
         submitBtn.addActionListener(event -> submit(userID));
         

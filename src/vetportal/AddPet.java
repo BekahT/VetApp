@@ -24,6 +24,7 @@ public class AddPet extends JFrame {
      * Creates new form AddPet
      */
     public AddPet(VetPortal vetPortal, String clientFirstName, String clientLastName) throws ParseException {
+        super("Add New Pet Form");
         this.vetPortal = vetPortal;
         this.clientFirstName = clientFirstName;
         this.clientLastName = clientLastName;
@@ -123,7 +124,7 @@ public class AddPet extends JFrame {
         dobField = new JFormattedTextField(dobFormat);
         dobField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
-        warningField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        warningField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         warningField.setForeground(new java.awt.Color(198, 0, 0));
 
         GroupLayout addPetPanelLayout = new GroupLayout(addPetPanel);
@@ -243,6 +244,8 @@ public class AddPet extends JFrame {
         DashboardsGui dashboard = vetPortal.getDashboard();
         DashboardsGui.MyPetTableModel model = (DashboardsGui.MyPetTableModel)dashboard.getPetTable().getModel();
         model.refetchPets();
+        // Redirect the user to the pets tab
+        dashboard.moveToPetTab(false);
     }
 
     // Cancel button function
