@@ -22,7 +22,7 @@ public class EditPet extends JFrame {
     /**
      * Creates new form AddPet
      */
-    public EditPet(VetPortal vetPortal, String currentName, String currentSpecies, String currentGender, String currentDateOfBirth) {
+    public EditPet(VetPortal vetPortal, String currentName, String currentSpecies, String currentGender, String currentDateOfBirth) throws ParseException {
         super("Edit Pet Form");
         this.vetPortal = vetPortal;
         this.currentName = currentName;
@@ -39,7 +39,7 @@ public class EditPet extends JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents() throws ParseException {
         addPetPanel = new JPanel();
         cancelBtn = new JButton();
         submitBtn = new JButton();
@@ -52,11 +52,8 @@ public class EditPet extends JFrame {
         speciesDropDown = new JComboBox<>();
         genderDropDown = new JComboBox<>();
         dobLabel = new JLabel();
-        try {
-            dobField = new JFormattedTextField(new MaskFormatter("####-##-##"));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        MaskFormatter petDOBFormat = new MaskFormatter("####-##-##");
+        dobField = new JFormattedTextField(petDOBFormat);        
         warningField = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -103,7 +100,8 @@ public class EditPet extends JFrame {
         dobLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         dobLabel.setText("Date of Birth");
 
-        dobField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
+        MaskFormatter dobFormat = new MaskFormatter("####-##-##");
+        dobField = new JFormattedTextField(dobFormat);
         dobField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         warningField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
