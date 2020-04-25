@@ -291,7 +291,7 @@ public class ViewClient extends JFrame {
         columnModel.getColumn(1).setPreferredWidth(120);
         DefaultTableModel model = (DefaultTableModel)cPetTable.getModel();
         if (allOwnedPets.isEmpty()) {
-            String[] emptyFields = {"N/A", "N/A", "N/A", "N/A"};
+            String[] emptyFields = {"", "", "", ""};
             model.addRow(emptyFields);
         } else {
             for (Pets pet : allOwnedPets) {

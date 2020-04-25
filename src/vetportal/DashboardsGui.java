@@ -636,16 +636,15 @@ public class DashboardsGui extends JFrame {
         public ClientActionPane() {
             setLayout(new GridBagLayout());
             // Add icons and tool tips to buttons
-            editButton = new JButton(new ImageIcon(((new ImageIcon("icons/edit.png")).getImage()).getScaledInstance(10, 16, Image.SCALE_SMOOTH)));
+            editButton = new JButton(new ImageIcon(((new ImageIcon("icons/edit.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
             editButton.setToolTipText("Edit Client");
-            deleteButton = new JButton(new ImageIcon(((new ImageIcon("icons/trash.png")).getImage()).getScaledInstance(10, 16, Image.SCALE_SMOOTH)));
+            deleteButton = new JButton(new ImageIcon(((new ImageIcon("icons/trash.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
             deleteButton.setToolTipText("Delete Client");
-            addPetButton = new JButton(new ImageIcon(((new ImageIcon("icons/paw.png")).getImage()).getScaledInstance(10, 16, Image.SCALE_SMOOTH)));
+            addPetButton = new JButton(new ImageIcon(((new ImageIcon("icons/paw.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
             addPetButton.setToolTipText("Add Pet");
-            viewClientButton = new JButton(new ImageIcon(((new ImageIcon("icons/paw.png")).getImage()).getScaledInstance(10, 16, Image.SCALE_SMOOTH)));
+            viewClientButton = new JButton(new ImageIcon(((new ImageIcon("icons/link-open.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
             viewClientButton.setToolTipText("View Client Info");
 
-            //add(viewClientButton);
             add(editButton);
             add(deleteButton);
             add(addPetButton);
