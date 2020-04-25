@@ -190,7 +190,7 @@ public class VetPortal extends JFrame {
                         .addComponent(loginPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        pack(); // Set the size of the jframe according to the contents
         
         // Login Button Event Action
         loginBtn.addActionListener(event -> {
