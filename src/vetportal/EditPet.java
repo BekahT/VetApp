@@ -107,7 +107,8 @@ public class EditPet extends JFrame {
         dobField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         warningField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        warningField.setForeground(new java.awt.Color(198, 0, 0));
+        warningField.setForeground(new java.awt.Color(203, 0, 0));
+        warningField.setHorizontalAlignment(SwingConstants.CENTER);
 
         GroupLayout addPetPanelLayout = new GroupLayout(addPetPanel);
         addPetPanel.setLayout(addPetPanelLayout);
@@ -128,7 +129,7 @@ public class EditPet extends JFrame {
                                         .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                                 .addGroup(addPetPanelLayout.createSequentialGroup()
                                                         .addContainerGap()
-                                                        .addComponent(warningField, GroupLayout.PREFERRED_SIZE, 273, GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(warningField, GroupLayout.PREFERRED_SIZE, 385, GroupLayout.PREFERRED_SIZE))
                                                 .addGroup(GroupLayout.Alignment.LEADING, addPetPanelLayout.createSequentialGroup()
                                                         .addGap(70, 70, 70)
                                                         .addGroup(addPetPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
