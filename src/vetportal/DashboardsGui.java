@@ -642,7 +642,7 @@ public class DashboardsGui extends JFrame {
             deleteButton.setToolTipText("Delete Client");
             addPetButton = new JButton(new ImageIcon(((new ImageIcon("icons/paw.png")).getImage()).getScaledInstance(10, 16, Image.SCALE_SMOOTH)));
             addPetButton.setToolTipText("Add Pet");
-            viewClientButton = new JButton(new ImageIcon(((new ImageIcon("icons/paw.png")).getImage()).getScaledInstance(10, 16, Image.SCALE_SMOOTH)));
+            viewClientButton = new JButton(new ImageIcon(((new ImageIcon("icons/link-open.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
             viewClientButton.setToolTipText("View Client Info");
 
             //add(viewClientButton);
