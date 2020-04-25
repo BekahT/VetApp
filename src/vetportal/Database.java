@@ -135,6 +135,30 @@ public class Database {
         }
     }
 
+    public ArrayList<Pets> getPetsByOwnerID(int ownerID) {
+            ArrayList<Pets> allPetsOwned;
+            String sql = "SELECT * FROM " + TABLE_PETS + " WHERE "
+                    + COLUMN_PET_OWNER + "=?";
+
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, ownerID);
+                ResultSet petResults = pstmt.executeQuery();
+                allPetsOwned = new ArrayList<>();
+                while (petResults.next()) {
+                    Pets pet = new Pets(petResults.getInt(COLUMN_PET_ID), petResults.getString(COLUMN_PET_NAME),
+                                        petResults.getString(COLUMN_PET_SPECIES), petResults.getString(COLUMN_PET_GENDER),
+                                        petResults.getString(COLUMN_PET_DATE_OF_BIRTH), petResults.getString(COLUMN_PET_OWNER));
+                    allPetsOwned.add(pet);
+                }
+                pstmt.close();
+                return allPetsOwned;
+        } catch (SQLException e) {
+            setErrorMessage("Could not find any pets.");
+            ArrayList<Pets> emptyPets = new ArrayList<>();
+            return emptyPets;
+        }
+    }
+
     /*
     This method uses the Apache commons codec to hash a given 'password' String with sha256.
     The hash is then compared to a password hash in the sqlite database
