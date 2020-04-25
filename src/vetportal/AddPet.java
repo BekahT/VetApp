@@ -238,15 +238,16 @@ public class AddPet extends JFrame {
             dobField.setText(null);
             // And close it
             dispose();
+            
+             // Refresh the Pets Table in the Dashboard
+            DashboardsGui dashboard = vetPortal.getDashboard();
+            DashboardsGui.MyPetTableModel model = (DashboardsGui.MyPetTableModel)dashboard.getPetTable().getModel();
+            model.refetchPets();
+            // Redirect the user to the pets tab
+            dashboard.moveToPetTab(false);
         }
         // If creation was not successful, cWarningMsg will convey any errors to the user
 
-        // Refresh the Pets Table in the Dashboard
-        DashboardsGui dashboard = vetPortal.getDashboard();
-        DashboardsGui.MyPetTableModel model = (DashboardsGui.MyPetTableModel)dashboard.getPetTable().getModel();
-        model.refetchPets();
-        // Redirect the user to the pets tab
-        dashboard.moveToPetTab(false);
     }
 
     // Cancel button function
