@@ -208,7 +208,7 @@ public class DashboardsGui extends JFrame {
         petsTab.setBackground(new Color(255, 255, 255));
         createPetBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
         createPetBtn.setText("Create New Pet");
-        createPetBtn.addActionListener(event -> moveToClientTab());
+        createPetBtn.addActionListener(event -> moveToClientTab(true));
 
         pNameSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
         pNameSearch.setText("Pet Name:");
@@ -541,12 +541,29 @@ public class DashboardsGui extends JFrame {
     }
 
     // Move to Client tab
-    private void moveToClientTab() {
-        // Instruct user to select client
-        JOptionPane.showMessageDialog(null, "Please select a client and click the paw button to add a pet.", "Add Pet Instructions", JOptionPane.PLAIN_MESSAGE);
-
-        // Move the user to the clients tab
+    public void moveToClientTab(boolean showAddPetMessage) {
+        // If the user clicked from the Add New Pet button, show the redirection message
+        if (showAddPetMessage) {
+            // Notify the user of redirection and instruct user to select client
+            JOptionPane.showMessageDialog(null, "Please select a client and click the Add Pet button (paw icon) to create a new pet.", "Add Pet Instructions", JOptionPane.PLAIN_MESSAGE);
+        } 
+		// Move to the clients tab
         dashboardTabs.setSelectedIndex(2);
+    }
+    
+    // Move to Pet tab
+    public void moveToPetTab(boolean showAddApptMessage) {
+        if (showAddApptMessage) {
+            // Notify the user of redirection and instruct user to select pet
+            JOptionPane.showMessageDialog(null, "Please select a pet and click the Add Appointment button to create a new appointment.", "Add Appointment Instructions", JOptionPane.PLAIN_MESSAGE);    
+        }
+		// Move to the pets tab
+        dashboardTabs.setSelectedIndex(1);
+    }
+    
+    // Move to Appointments tab
+    public void moveToApptTab() {
+        dashboardTabs.setSelectedIndex(0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -7,6 +7,7 @@
 
 package vetportal;
 
+import java.awt.Color;
 import javax.swing.*;
 import javax.swing.text.MaskFormatter;
 import java.text.ParseException;
@@ -64,10 +65,12 @@ public class EditPet extends JFrame {
 
         cancelBtn.setBackground(new java.awt.Color(255, 255, 255));
         cancelBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
+        cancelBtn.setForeground(new Color(122, 188, 255));
         cancelBtn.setText("Cancel");
         cancelBtn.addActionListener(event -> cancel());
 
         submitBtn.setBackground(new java.awt.Color(255, 255, 255));
+        submitBtn.setForeground(new Color(122, 188, 255));
         submitBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
         submitBtn.setText("Submit");
         submitBtn.addActionListener(event -> editSelectedPet());
@@ -100,11 +103,10 @@ public class EditPet extends JFrame {
         dobLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         dobLabel.setText("Date of Birth");
 
-        //dobField.setFormatterFactory(new text.DefaultFormatterFactory(new text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
-
+        dobField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
         dobField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
-        warningField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        warningField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         warningField.setForeground(new java.awt.Color(198, 0, 0));
 
         GroupLayout addPetPanelLayout = new GroupLayout(addPetPanel);
