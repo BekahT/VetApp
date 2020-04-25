@@ -203,7 +203,7 @@ public class DashboardsGui extends JFrame {
                                 .addContainerGap(70, Short.MAX_VALUE))
         );
 
-        dashboardTabs.addTab("Appointments", appointmentsTab);
+        dashboardTabs.addTab("Appointments", appointmentsTab);        
 
         petsTab.setBackground(new Color(255, 255, 255));
         createPetBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
@@ -459,6 +459,7 @@ public class DashboardsGui extends JFrame {
             // Delete the client
             vetPortal.deleteClient(phoneNumber, firstName, lastName);
             myClientTableModel.refetchClients();
+            myPetTableModel.refetchPets();
         }
         // If No (1) was selected do nothing
 
@@ -547,7 +548,6 @@ public class DashboardsGui extends JFrame {
             // Notify the user of redirection and instruct user to select client
             JOptionPane.showMessageDialog(null, "Please select a client and click the Add Pet button (paw icon) to create a new pet.", "Add Pet Instructions", JOptionPane.PLAIN_MESSAGE);
         } 
-		// Move to the clients tab
         dashboardTabs.setSelectedIndex(2);
     }
     
@@ -557,7 +557,6 @@ public class DashboardsGui extends JFrame {
             // Notify the user of redirection and instruct user to select pet
             JOptionPane.showMessageDialog(null, "Please select a pet and click the Add Appointment button to create a new appointment.", "Add Appointment Instructions", JOptionPane.PLAIN_MESSAGE);    
         }
-		// Move to the pets tab
         dashboardTabs.setSelectedIndex(1);
     }
     
