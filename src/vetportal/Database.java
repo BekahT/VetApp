@@ -93,7 +93,6 @@ public class Database {
             ResultSet idResult = pstmt.executeQuery();
             return idResult.getInt("client_id");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             return -1;
         }
     } //end of getClientID()
@@ -109,7 +108,6 @@ public class Database {
             ResultSet idResult = pstmt.executeQuery();
             return idResult.getString("last_name");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             return null;
         }
     } //end of getClientID()
@@ -130,7 +128,6 @@ public class Database {
             ResultSet idResult = pstmt.executeQuery();
             return idResult.getInt("pet_id");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             return -1;
         }
     }
@@ -182,7 +179,6 @@ public class Database {
                 return false;
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             return false;
         }
     } //end of authenticate()
@@ -208,7 +204,6 @@ public class Database {
                 setErrorMessage("The phone number you entered is already in the database!");
             } else {
                 setErrorMessage("Unable to create new client.");
-                System.out.println(e.getMessage());
             }
             return false;
         }
@@ -226,7 +221,6 @@ public class Database {
             return true;
         } catch (SQLException e) {
             setErrorMessage("Unable to delete client.");
-            System.out.println(e.getMessage());
             return false;
         }
     } //end of deleteClient()
@@ -272,7 +266,6 @@ public class Database {
             return true;
         } catch (SQLException e)  {
             setErrorMessage("Unable to update client.");
-            System.out.println(e.getMessage());
             return false;
         }
     } //end of updateClient()
@@ -297,7 +290,6 @@ public class Database {
             return true;
         } catch (SQLException e) {
             setErrorMessage("Unable to create new pet.");
-            System.out.println(e.getMessage());
             return false;
         }
     } //end of insertPet()
@@ -321,7 +313,6 @@ public class Database {
             return true;
         } catch (SQLException e) {
             setErrorMessage("Unable to delete pet.");
-            System.out.println(e.getMessage());
             return false;
         }
     } //end of deletePet()
@@ -370,7 +361,6 @@ public class Database {
             return true;
         } catch (SQLException e)  {
             setErrorMessage("Unable to update pet.");
-            System.out.println(e.getMessage());
             return false;
         }
     } //end of updatePet()
