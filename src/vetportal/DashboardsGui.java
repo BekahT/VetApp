@@ -547,6 +547,7 @@ public class DashboardsGui extends JFrame {
             // Notify the user of redirection and instruct user to select client
             JOptionPane.showMessageDialog(null, "Please select a client and click the Add Pet button (paw icon) to create a new pet.", "Add Pet Instructions", JOptionPane.PLAIN_MESSAGE);
         } 
+		// Move to the clients tab
         dashboardTabs.setSelectedIndex(2);
     }
     
@@ -554,8 +555,9 @@ public class DashboardsGui extends JFrame {
     public void moveToPetTab(boolean showAddApptMessage) {
         if (showAddApptMessage) {
             // Notify the user of redirection and instruct user to select pet
-            JOptionPane.showMessageDialog(null, "Please select a pet and click the Add Appontment button to create a new appontment.", "Add Appointment Instructions", JOptionPane.PLAIN_MESSAGE);    
+            JOptionPane.showMessageDialog(null, "Please select a pet and click the Add Appointment button to create a new appointment.", "Add Appointment Instructions", JOptionPane.PLAIN_MESSAGE);    
         }
+		// Move to the pets tab
         dashboardTabs.setSelectedIndex(1);
     }
     
