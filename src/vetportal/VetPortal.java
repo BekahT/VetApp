@@ -463,6 +463,7 @@ public class VetPortal extends JFrame {
         
         if(!(isValidDate(dob))) {
             warnUser.setText("DOB must be in yyyy-mm-dd format!");
+            return false;
         }
         
         //Verify that the dob is a past date
