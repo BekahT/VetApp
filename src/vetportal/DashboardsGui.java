@@ -114,7 +114,7 @@ public class DashboardsGui extends JFrame {
         createAppointmentBtn.setText("Create New Appointment");
 
         aClientSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
-        aClientSearch.setText("Client:");
+        aClientSearch.setText("Client's Last Name:");
 
         aClientField.setFont(new Font("Calibri", 0, 14)); // NOI18N
 
@@ -125,7 +125,7 @@ public class DashboardsGui extends JFrame {
         aSearchBtn.setText("Search");
 
         aPetSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
-        aPetSearch.setText("Pet:");
+        aPetSearch.setText("Pet's Name:");
 
         appointmentTableScroll.setBackground(new Color(255, 255, 255));
 
@@ -133,7 +133,7 @@ public class DashboardsGui extends JFrame {
         appointmentsTable.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {},
                 new String [] {
-                        "Date", "Time", "Client", "Pet", "Reason for Visit", "Actions"
+                        "Date", "Time", "Client's Last Name", "Pet", "Reason for Visit", "Actions"
                 }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -170,15 +170,15 @@ public class DashboardsGui extends JFrame {
                                                         .addGroup(appointmentsTabLayout.createSequentialGroup()
                                                                 .addComponent(aDateSeach)
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(aDateField, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(aDateField, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                                                 .addComponent(aClientSearch)
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(aClientField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(aClientField, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                                                 .addComponent(aPetSearch)
                                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(aPetField, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(aPetField, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(50, 50, 50)
                                                                 .addComponent(aSearchBtn)))
                                                 .addGap(0, 0, Short.MAX_VALUE))
@@ -200,7 +200,7 @@ public class DashboardsGui extends JFrame {
                                         .addComponent(aClientField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(aPetField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(appointmentTableScroll, GroupLayout.PREFERRED_SIZE, 261, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(appointmentTableScroll, GroupLayout.PREFERRED_SIZE, 330, GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(70, Short.MAX_VALUE))
         );
 
@@ -212,7 +212,7 @@ public class DashboardsGui extends JFrame {
         createPetBtn.addActionListener(event -> moveToClientTab(true));
 
         pNameSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
-        pNameSearch.setText("Pet Name:");
+        pNameSearch.setText("Pet's Name:");
 
         pClientField.setFont(new Font("Calibri", 0, 14)); // NOI18N
 
@@ -267,11 +267,11 @@ public class DashboardsGui extends JFrame {
                                         .addGroup(petsTabLayout.createSequentialGroup()
                                                 .addComponent(pNameSearch)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(pNameField, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(pNameField, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
                                                 .addGap(18, 18, 18)
                                                 .addComponent(pClientSearch)
                                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(pClientField, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(pClientField, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
                                                 .addGap(50, 50, 50)
                                                 .addComponent(pSearchBtn))
                                         .addComponent(petTableScroll, GroupLayout.Alignment.TRAILING))
@@ -290,7 +290,7 @@ public class DashboardsGui extends JFrame {
                                         .addComponent(pNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                         .addComponent(pClientField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(petTableScroll, GroupLayout.PREFERRED_SIZE, 261, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(petTableScroll, GroupLayout.PREFERRED_SIZE, 330, GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(75, Short.MAX_VALUE))
         );
 
@@ -381,16 +381,16 @@ public class DashboardsGui extends JFrame {
                             .addGroup(clientsTabLayout.createSequentialGroup()
                                 .addComponent(cNameSearch)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cNameField, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cNameField, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(cEmailSearch)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cEmailField, GroupLayout.PREFERRED_SIZE, 133, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cEmailField, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(cNumberSearch)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cNumberField, GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
+                                .addComponent(cNumberField, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)))
+                        .addGap(50, 50, 50)
                         .addComponent(cSearchBtn)))
                 .addContainerGap())
         );
@@ -409,7 +409,7 @@ public class DashboardsGui extends JFrame {
                     .addComponent(cEmailField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addComponent(cNumberField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
-                .addComponent(clientTableScroll, GroupLayout.PREFERRED_SIZE, 261, GroupLayout.PREFERRED_SIZE)
+                .addComponent(clientTableScroll, GroupLayout.PREFERRED_SIZE, 330, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(74, Short.MAX_VALUE))
         );
 
@@ -424,7 +424,7 @@ public class DashboardsGui extends JFrame {
         dashboardPanel.setLayout(dashboardPanelLayout);
         dashboardPanelLayout.setHorizontalGroup(
             dashboardPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(dashboardTabs, GroupLayout.PREFERRED_SIZE, 700, GroupLayout.PREFERRED_SIZE)
+            .addComponent(dashboardTabs, GroupLayout.PREFERRED_SIZE, 1100, GroupLayout.PREFERRED_SIZE)
             .addGroup(GroupLayout.Alignment.TRAILING, dashboardPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(logoutBtn)
@@ -436,7 +436,7 @@ public class DashboardsGui extends JFrame {
                 .addContainerGap()
                 .addComponent(logoutBtn)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(dashboardTabs, GroupLayout.PREFERRED_SIZE, 450, GroupLayout.PREFERRED_SIZE))
+                .addComponent(dashboardTabs, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE))
         );
 
         dashboardTabs.getAccessibleContext().setAccessibleName("");
@@ -452,7 +452,7 @@ public class DashboardsGui extends JFrame {
             .addComponent(dashboardPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        pack(); // Set the size of the jframe according to the contents
     }// </editor-fold>//GEN-END:initComponents
 
     // Handler for deleteing a client
