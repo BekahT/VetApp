@@ -28,6 +28,7 @@ public class DashboardsGui extends JFrame {
     EditClient editClientPage;
     AddPet addPetPage;
     EditPet editPetPage;
+    ViewClient viewClientPage;
 
     /**
      * Creates new form DashboardsGui
@@ -300,6 +301,10 @@ public class DashboardsGui extends JFrame {
         clientTable.getColumnModel().getColumn(4).setCellRenderer(clientRenderer);
         clientTable.getColumnModel().getColumn(4).setCellEditor(clientEditor);
         clientTable.setRowHeight(clientRenderer.getTableCellRendererComponent(clientTable, null, true, true, 0, 0).getPreferredSize().height);
+        clientTable.getColumnModel().getColumn(0).setPreferredWidth(60);
+        clientTable.getColumnModel().getColumn(1).setPreferredWidth(60);
+        clientTable.getColumnModel().getColumn(2).setPreferredWidth(100);
+        clientTable.getColumnModel().getColumn(4).setPreferredWidth(120);
 
         petTable.getColumnModel().getColumn(5).setCellRenderer(petRenderer);
         petTable.getColumnModel().getColumn(5).setCellEditor(petEditor);
@@ -494,6 +499,11 @@ public class DashboardsGui extends JFrame {
         addClientPage.setVisible(true);        
     }
 
+    private void openViewClient(ArrayList<Pets> clientOwnedPets, String currentFirstName, String currentLastName, String currentEmail, String currentPhoneNumber) {
+        viewClientPage = new ViewClient(clientOwnedPets ,currentFirstName, currentLastName, currentEmail, currentPhoneNumber);
+        viewClientPage.setVisible(true);
+    }
+
     // Handler for edit selected client click event
     private void editSelectedClient(String currentFirstName, String currentLastName, String currentEmail, String currentPhoneNumber) throws ParseException {
         // Open the Edit Client Page and pass the selected client's information
@@ -621,24 +631,30 @@ public class DashboardsGui extends JFrame {
         private JButton editButton;
         private JButton deleteButton;
         private JButton addPetButton;
+        private JButton viewClientButton;
 
         public ClientActionPane() {
             setLayout(new GridBagLayout());
             // Add icons and tool tips to buttons
-            editButton = new JButton(new ImageIcon(((new ImageIcon("icons/edit.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            editButton = new JButton(new ImageIcon(((new ImageIcon("icons/edit.png")).getImage()).getScaledInstance(10, 16, Image.SCALE_SMOOTH)));
             editButton.setToolTipText("Edit Client");
-            deleteButton = new JButton(new ImageIcon(((new ImageIcon("icons/trash.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            deleteButton = new JButton(new ImageIcon(((new ImageIcon("icons/trash.png")).getImage()).getScaledInstance(10, 16, Image.SCALE_SMOOTH)));
             deleteButton.setToolTipText("Delete Client");
-            addPetButton = new JButton(new ImageIcon(((new ImageIcon("icons/paw.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            addPetButton = new JButton(new ImageIcon(((new ImageIcon("icons/paw.png")).getImage()).getScaledInstance(10, 16, Image.SCALE_SMOOTH)));
             addPetButton.setToolTipText("Add Pet");
+            viewClientButton = new JButton(new ImageIcon(((new ImageIcon("icons/paw.png")).getImage()).getScaledInstance(10, 16, Image.SCALE_SMOOTH)));
+            viewClientButton.setToolTipText("View Client Info");
 
+            //add(viewClientButton);
             add(editButton);
             add(deleteButton);
             add(addPetButton);
+            add(viewClientButton);
 
             editButton.addActionListener(event -> edit());
             deleteButton.addActionListener(event -> delete());
             addPetButton.addActionListener(event -> addPet());
+            viewClientButton.addActionListener(event -> viewClientInfo());
         } //end of constructor
 
         public void addActionListener(ActionListener listener) {
@@ -673,6 +689,19 @@ public class DashboardsGui extends JFrame {
             } catch (ParseException ex) {
                 // Do nothing
             }
+        }
+
+        private void viewClientInfo() {
+            Object selectedFirstName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 0);
+            Object selectedLastName = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 1);
+            Object selectedEmail = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 2);
+            Object selectedPhoneNumber = myClientTableModel.getValueAt(clientTable.getSelectedRow(), 3);
+
+            vetPortal.getVetDatabase().open();
+            int ownerID = vetPortal.getVetDatabase().getClientID((String)selectedPhoneNumber);
+            ArrayList<Pets> clientOwnedPets = vetPortal.getVetDatabase().getPetsByOwnerID(ownerID);
+
+            openViewClient(clientOwnedPets, (String)selectedFirstName, (String)selectedLastName, (String)selectedEmail, (String)selectedPhoneNumber);
         }
         
     } //end of ActionPane

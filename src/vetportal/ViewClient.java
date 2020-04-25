@@ -7,14 +7,26 @@
 package vetportal;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ViewClient extends JFrame {
+
+    private String clientFirstName, clientLastName, clientEmail, clientPhoneNumber;
+    private ArrayList<Pets> allOwnedPets;
 
     /**
      * Creates new form ViewClient
      */
-    public ViewClient() {
+    public ViewClient(ArrayList<Pets> allOwnedPets,String clientFirstName, String clientLastName, String clientEmail, String clientPhoneNumber) {
+        super("View Client Information");
+        this.allOwnedPets = allOwnedPets;
+        this.clientFirstName = clientFirstName;
+        this.clientLastName = clientLastName;
+        this.clientEmail = clientEmail;
+        this.clientPhoneNumber = clientPhoneNumber;
         initComponents();
     }
 
@@ -31,13 +43,13 @@ public class ViewClient extends JFrame {
         clientInfoTabs = new JTabbedPane();
         clientPanel = new JPanel();
         firstNameLabel = new JLabel();
-        firstNameField = new JTextField();
+        firstNameField = new JTextField(clientFirstName);
         lastNameLabel = new JLabel();
-        lastNameField = new JTextField();
+        lastNameField = new JTextField(clientLastName);
         emailLabel = new JLabel();
-        emailField = new JTextField();
+        emailField = new JTextField(clientEmail);
         phoneNumberLabel = new JLabel();
-        phoneNumberField = new JTextField();
+        phoneNumberField = new JTextField(clientPhoneNumber);
         cCloseBtn = new JButton();
         petsPanel = new JPanel();
         cPetScrollPane = new JScrollPane();
@@ -275,12 +287,35 @@ public class ViewClient extends JFrame {
             .addComponent(viewClientPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        TableColumnModel columnModel = cPetTable.getColumnModel();
+        columnModel.getColumn(1).setPreferredWidth(120);
+        DefaultTableModel model = (DefaultTableModel)cPetTable.getModel();
+        if (allOwnedPets.isEmpty()) {
+            String[] emptyFields = {"N/A", "N/A", "N/A", "N/A"};
+            model.addRow(emptyFields);
+        } else {
+            for (Pets pet : allOwnedPets) {
+                String[] petRow = {pet.getPetName(), pet.getPetDateOfBirth(), pet.getPetSpecies(), pet.getPetGender()};
+                model.addRow(petRow);
+            }
+        }
+
+        aCloseBtn.addActionListener(event -> close());
+        cCloseBtn.addActionListener(event -> close());
+        pCloseBtn.addActionListener(event -> close());
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailFieldActionPerformed
+
+    // Close button function
+    private void close() {
+        //close the window
+        dispose();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton aCloseBtn;
