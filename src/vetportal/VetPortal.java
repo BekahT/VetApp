@@ -13,11 +13,13 @@
 package vetportal;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
+import javax.swing.table.DefaultTableModel;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 public class VetPortal extends JFrame {
@@ -40,19 +42,25 @@ public class VetPortal extends JFrame {
     // Validate phone number is exactly 10 digits
     private final String phoneRegex = "^\\(\\d{3}\\)\\s+\\d{3}\\-\\d{4}$";
     private final Pattern phonePattern = Pattern.compile(phoneRegex);
+    
+    // Validate date is in correct format
+    private final String dateRegex = "^\\d{4}\\-\\d{2}\\-\\d{2}$";
+    private final Pattern datePattern = Pattern.compile(dateRegex);
+    
+    
     // Create object for Vet Portal (login page)
     private static VetPortal vetPortal;
     // Fields for the Login GUI
-    private javax.swing.JButton exitBtn;
-    private javax.swing.JButton loginBtn;
-    private javax.swing.JPanel loginPanel;
-    private javax.swing.JPasswordField passwordField;
-    private javax.swing.JLabel passwordLabel;
-    private javax.swing.JTextField usernameField;
-    private javax.swing.JLabel usernameLabel;
-    private javax.swing.JLabel warningMsg;
-    private javax.swing.JLabel welcomeLabel;
-    private javax.swing.JPanel welcomePanel;
+    private JButton exitBtn;
+    private JButton loginBtn;
+    private JPanel loginPanel;
+    private JPasswordField passwordField;
+    private JLabel passwordLabel;
+    private JTextField usernameField;
+    private JLabel usernameLabel;
+    private JLabel warningMsg;
+    private JLabel welcomeLabel;
+    private JPanel welcomePanel;
 
     //Create object for DashboardGui
     private static DashboardsGui dashboard;
@@ -61,129 +69,128 @@ public class VetPortal extends JFrame {
     public VetPortal() {
         super("Vet Portal");
 
-        loginPanel = new javax.swing.JPanel();
-        welcomePanel = new javax.swing.JPanel();
-        welcomeLabel = new javax.swing.JLabel();
-        usernameLabel = new javax.swing.JLabel();
-        passwordLabel = new javax.swing.JLabel();
-        usernameField = new javax.swing.JTextField();
-        loginBtn = new javax.swing.JButton();
-        passwordField = new javax.swing.JPasswordField();
-        exitBtn = new javax.swing.JButton();
-        warningMsg = new javax.swing.JLabel();
+        loginPanel = new JPanel();
+        welcomePanel = new JPanel();
+        welcomeLabel = new JLabel();
+        usernameLabel = new JLabel();
+        passwordLabel = new JLabel();
+        usernameField = new JTextField();
+        loginBtn = new JButton();
+        passwordField = new JPasswordField();
+        exitBtn = new JButton();
+        warningMsg = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
-        loginPanel.setBackground(new java.awt.Color(122, 188, 255));
-        loginPanel.setToolTipText("");
-        loginPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        loginPanel.setBackground(new Color(122, 188, 255));
+        loginPanel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
-        welcomePanel.setBackground(new java.awt.Color(255, 255, 255));
+        welcomePanel.setBackground(new Color(255, 255, 255));
 
-        welcomeLabel.setBackground(new java.awt.Color(122, 188, 255));
-        welcomeLabel.setFont(new java.awt.Font("Calibri", 1, 24)); // NOI18N
-        welcomeLabel.setForeground(new java.awt.Color(122, 188, 255));
+        welcomeLabel.setBackground(new Color(122, 188, 255));
+        welcomeLabel.setFont(new Font("Calibri", 1, 24)); // NOI18N
+        welcomeLabel.setForeground(new Color(122, 188, 255));
         welcomeLabel.setText("Welcome to the Vet Portal");
 
-        usernameLabel.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        usernameLabel.setForeground(new java.awt.Color(122, 188, 255));
+        usernameLabel.setFont(new Font("Calibri", 1, 18)); // NOI18N
+        usernameLabel.setForeground(new Color(122, 188, 255));
         usernameLabel.setText("Username");
 
-        passwordLabel.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        passwordLabel.setForeground(new java.awt.Color(122, 188, 255));
+        passwordLabel.setFont(new Font("Calibri", 1, 18)); // NOI18N
+        passwordLabel.setForeground(new Color(122, 188, 255));
         passwordLabel.setText("Password");
 
-        usernameField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        usernameField.setForeground(new java.awt.Color(41, 41, 41));
+        usernameField.setFont(new Font("Calibri", 0, 18)); // NOI18N
+        usernameField.setForeground(new Color(41, 41, 41));
         usernameField.setToolTipText("");
 
-        loginBtn.setBackground(new java.awt.Color(255, 255, 255));
-        loginBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        loginBtn.setForeground(new java.awt.Color(122, 188, 255));
+        loginBtn.setBackground(new Color(255, 255, 255));
+        loginBtn.setFont(new Font("Calibri", 1, 18)); // NOI18N
+        loginBtn.setForeground(new Color(122, 188, 255));
         loginBtn.setText("Login");
 
-        passwordField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        passwordField.setForeground(new java.awt.Color(41, 41, 41));
+        passwordField.setFont(new Font("Calibri", 0, 18)); // NOI18N
+        passwordField.setForeground(new Color(41, 41, 41));
 
-        exitBtn.setBackground(new java.awt.Color(255, 255, 255));
-        exitBtn.setFont(new java.awt.Font("Calibri", 1, 18)); // NOI18N
-        exitBtn.setForeground(new java.awt.Color(122, 188, 255));
+        exitBtn.setBackground(new Color(255, 255, 255));
+        exitBtn.setFont(new Font("Calibri", 1, 18)); // NOI18N
+        exitBtn.setForeground(new Color(122, 188, 255));
         exitBtn.setText("Exit");
 
-        warningMsg.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        warningMsg.setForeground(new java.awt.Color(255, 0, 0));
+        warningMsg.setFont(new Font("Calibri", 0, 18)); // NOI18N
+        warningMsg.setForeground(new Color(255, 0, 0));
 
-        javax.swing.GroupLayout welcomePanelLayout = new javax.swing.GroupLayout(welcomePanel);
+        GroupLayout welcomePanelLayout = new GroupLayout(welcomePanel);
         welcomePanel.setLayout(welcomePanelLayout);
         welcomePanelLayout.setHorizontalGroup(
-                welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                welcomePanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(welcomePanelLayout.createSequentialGroup()
-                                .addGroup(welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(welcomePanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                         .addGroup(welcomePanelLayout.createSequentialGroup()
                                                 .addGap(180, 180, 180)
                                                 .addComponent(welcomeLabel))
                                         .addGroup(welcomePanelLayout.createSequentialGroup()
                                                 .addGap(135, 135, 135)
-                                                .addGroup(welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(usernameField, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                                                .addGroup(welcomePanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(usernameField, GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
                                                         .addComponent(passwordField)
                                                         .addComponent(passwordLabel)
                                                         .addComponent(usernameLabel)
                                                         .addGroup(welcomePanelLayout.createSequentialGroup()
                                                                 .addGap(18, 18, 18)
-                                                                .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addComponent(loginBtn, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(35, 35, 35)
-                                                                .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addComponent(warningMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                                                .addComponent(exitBtn, GroupLayout.PREFERRED_SIZE, 138, GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(warningMsg, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addContainerGap(136, Short.MAX_VALUE))
         );
         welcomePanelLayout.setVerticalGroup(
-                welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                welcomePanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(welcomePanelLayout.createSequentialGroup()
                                 .addGap(43, 43, 43)
                                 .addComponent(welcomeLabel)
                                 .addGap(28, 28, 28)
                                 .addComponent(usernameLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
                                 .addGap(36, 36, 36)
                                 .addComponent(passwordLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(warningMsg)
                                 .addGap(19, 19, 19)
-                                .addGroup(welcomePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(welcomePanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                                        .addComponent(loginBtn, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(exitBtn, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(151, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout loginPanelLayout = new javax.swing.GroupLayout(loginPanel);
+        GroupLayout loginPanelLayout = new GroupLayout(loginPanel);
         loginPanel.setLayout(loginPanelLayout);
         loginPanelLayout.setHorizontalGroup(
-                loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
+                loginPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(GroupLayout.Alignment.TRAILING, loginPanelLayout.createSequentialGroup()
                                 .addGap(0, 75, Short.MAX_VALUE)
-                                .addComponent(welcomePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(welcomePanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         );
         loginPanelLayout.setVerticalGroup(
-                loginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(welcomePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                loginPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(welcomePanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(loginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(loginPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(loginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(loginPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        pack(); // Set the size of the jframe according to the contents
         
         // Login Button Event Action
         loginBtn.addActionListener(event -> {
@@ -207,7 +214,7 @@ public class VetPortal extends JFrame {
         vetPortal.setVisible(true);
     } //end of main()
     
-    // Validation functions for New Client Form Fields
+    // Validation functions for New Client and Pet Form Fields
     private boolean isValidName(String name) {
         return namePattern.matcher(name).matches();
     }
@@ -217,6 +224,10 @@ public class VetPortal extends JFrame {
     private boolean isValidPhone(String phoneNumber) {
         return phonePattern.matcher(phoneNumber).matches();
     }
+    
+    private boolean isValidDate(String date) {
+        return datePattern.matcher(date).matches();
+    }    
         
     // Getter Functions
     public DashboardsGui getDashboard() {
@@ -275,6 +286,7 @@ public class VetPortal extends JFrame {
                 // Close the Login Page
                 vetPortal.setVisible(false);                
                 vetPortal.viewAllClients();
+                vetPortal.viewAllPets();
                 dashboard.setVisible(true);
             }
         // If user is locked out, display error
@@ -314,13 +326,13 @@ public class VetPortal extends JFrame {
             return false;
         }
 
-		//Attempt to open a connection with the database
+	//Attempt to open a connection with the database
         vetDatabase = new Database();
         if (!vetDatabase.open()) {
             System.out.println("Can't connect to the database!");
             return false;
         }
-		// If INSERT into database fails
+	// If INSERT into database fails
         if (!vetDatabase.insertClient(firstName, lastName, phoneNumber, email)) { 
             // Display the error to the user
             String errorMessage = vetDatabase.getErrorMessage();
@@ -358,7 +370,7 @@ public class VetPortal extends JFrame {
         vetDatabase.close();
     } //end of deleteClient()
 
-// Method to view all clients that currently exist in the database
+    // Method to view all clients that currently exist in the database
     public void viewAllClients() {
         // Attempt to open a connection with the database
         vetDatabase = new Database();
@@ -376,7 +388,7 @@ public class VetPortal extends JFrame {
         } else {
             // Loop through the clients and add them to the Clients Table              
             DefaultTableModel model = (DefaultTableModel) dashboard.getClientsTable().getModel();
-            DashboardsGui.MyTableModel newModel = (DashboardsGui.MyTableModel) dashboard.getTable().getModel();
+            DashboardsGui.MyClientTableModel newModel = (DashboardsGui.MyClientTableModel) dashboard.getClientTable().getModel();
             for (Clients client : allClients) {
                 Object[] row = {client.getClientFirstName(), client.getClientLastName(), client.getClientEmail(), client.getClientPhoneNumber()};
                 newModel.add(client);
@@ -432,5 +444,176 @@ public class VetPortal extends JFrame {
         vetDatabase.close();
         return false;
     } //end of editClient()
+
+    // Method to create a new pet, called from the AddPet.java file
+    public Boolean createPet(JLabel warnUser, String name, String species, String gender, String dob, int owner) throws ParseException {
+
+        // Verify no fields are empty
+        if ((name.isEmpty()) || (species.isEmpty()
+                || (gender.isEmpty()) || (dob.isEmpty()))) {
+            warnUser.setText("All fields are required!");
+            return false;
+        }
+        
+        // Verify the name is validly formatted
+        if (!(isValidName(name))) {
+            warnUser.setText("Name may not contain invalid characters!");
+            return false;
+        }
+        
+        if(!(isValidDate(dob))) {
+            warnUser.setText("DOB must be in yyyy-mm-dd format!");
+            return false;
+        }
+        
+        //Verify that the dob is a past date
+        if(!(validateDOB(dob))) {
+            warnUser.setText("Date of birth must be in the past!");
+            return false;
+        }
+
+        //Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return false;
+        }
+        // If INSERT into database fails
+        if (!vetDatabase.insertPet(name, species, gender, dob, owner)) {
+            // Display the error to the user
+            String errorMessage = vetDatabase.getErrorMessage();
+            warnUser.setText(errorMessage);
+            // If INSERT into database is successful
+        } else {
+            // Log the add pet action
+            AuditLog.logWriter("successfulPetAdd", name + ", " + species + ", " + gender + ", " + dob);
+            return true;
+        }
+        vetDatabase.close();
+        return false;
+    } //end of createPet()
+
+    // Method to delete an existing pet from the database
+    public void deletePet(String name, String species, String gender, String dob) {
+        //Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return;
+        }
+
+        // If no pet was passed
+        if (!vetDatabase.deletePet(name, species, gender, dob)) {
+            // Display an error
+            String errorMessage = vetDatabase.getErrorMessage();
+            JOptionPane.showMessageDialog(null, errorMessage, "Error: No pet selected", JOptionPane.ERROR_MESSAGE);
+        // Delete the pet
+        } else {
+            // Log the deletion            
+            AuditLog.logWriter("successfulPetDelete", name + ", " + species + ", " + gender + ", " + dob);
+        }
+        vetDatabase.close();
+    } //end of deleteClient()
+
+    //Method to view all pets that currently exist in the database
+    public void viewAllPets() {
+        // Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return;
+        }
+        // Add all the pets to an array
+        ArrayList<Pets> allPets = vetDatabase.selectAllPets();
+        // If the array is empty
+        if (allPets.isEmpty()) {
+            String errorMessage = vetDatabase.getErrorMessage();
+            JOptionPane.showMessageDialog(null, errorMessage, "Error: No pets exist", JOptionPane.ERROR_MESSAGE);
+        // If pets exist
+        } else {
+            // Loop through the pets and add them to the pets Table
+            DashboardsGui.MyPetTableModel newModel = (DashboardsGui.MyPetTableModel) dashboard.getPetTable().getModel();
+            for (Pets pet : allPets) {
+                newModel.add(pet);
+            }
+        }
+        vetDatabase.close();
+    } //end of viewAllPets()
+
+    // Method to edit information on existing pets
+    public Boolean editPet(JLabel warnUser, int petID, String updatedName, String updatedSpecies, String updatedGender, String updatedDateOfBirth) {
+        // Verify no fields are empty
+        if ((updatedName.isEmpty()) || (updatedSpecies.isEmpty()
+                || (updatedGender.isEmpty()) || (updatedDateOfBirth.isEmpty()))) {
+            warnUser.setText("All fields are required!");
+            return false;
+        }
+        // Verify the name is validly formatted
+        if (!(isValidName(updatedName))) {
+            warnUser.setText("Name may not contain invalid characters!");
+            return false;
+        }
+        
+        if(!(isValidDate(updatedDateOfBirth))) {
+            warnUser.setText("DOB must be in yyyy-mm-dd format!");
+            return false;
+        }
+
+        //Verify the date of birth is valid
+        try {
+            if (!(validateDOB(updatedDateOfBirth))) {
+                warnUser.setText("Date of birth must be in the past!");
+                return false;
+            }
+        } catch (ParseException e) {
+            e.getMessage();
+        }
+
+        //TODO: might need to add validation checks on species, gender, and dob - depending on implementation
+
+        // Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return false;
+        }
+
+        // If UPDATE in database fails
+        if (!vetDatabase.updatePet(petID, updatedName, updatedSpecies, updatedGender, updatedDateOfBirth)) {
+            // Show an error
+            String errorMessage = vetDatabase.getErrorMessage();
+            warnUser.setText(errorMessage);
+            // If UPDATE in database is successful
+        } else {
+            // Log successful pet edit
+            AuditLog.logWriter("successfulPetEdit", updatedName + ", " + updatedSpecies + ", " + updatedGender + ", " + updatedDateOfBirth);            
+            return true;
+        }
+        vetDatabase.close();
+        return false;
+    } //end of editPet()
+
+    //Validate date of birth
+    public static Boolean validateDOB(String petDOB) throws ParseException {
+        //format date to match field input
+        DateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        //get today's date
+        Date todayDate = new Date();
+        //correctly format today's date
+        Date cTodayDate = formatDate.parse(formatDate.format(todayDate));
+        //correctly format user input
+        Date cPetDOB = formatDate.parse(petDOB);
+
+        //compare the current date to input
+        //if today's date is after the pet's dob (pet's dob in past)
+        if (cTodayDate.compareTo(cPetDOB) >= 0) {
+            //return true (valid DOB)
+            return true;
+        }
+        //otherwise, return false (invalid dob)
+        else {
+            return false;
+        }
+    }
 
 } //end of VetPortal

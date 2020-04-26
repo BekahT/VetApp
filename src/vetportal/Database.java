@@ -82,6 +82,7 @@ public class Database {
         return errorMessage;
     }
 
+    //Method to get a client ID by phone number:
     public int getClientID(String phoneNumber) {
         String sql = "SELECT " + COLUMN_CLIENT_ID
             + " FROM " + TABLE_CLIENTS + " WHERE "
@@ -92,10 +93,68 @@ public class Database {
             ResultSet idResult = pstmt.executeQuery();
             return idResult.getInt("client_id");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             return -1;
         }
     } //end of getClientID()
+
+    //Method to get a client's last name by ID number:
+    public String getClientLastName(int id) {
+        String sql = "SELECT " + COLUMN_CLIENT_LAST_NAME
+                + " FROM " + TABLE_CLIENTS + " WHERE "
+                + COLUMN_CLIENT_ID + "=?";
+
+        try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet idResult = pstmt.executeQuery();
+            return idResult.getString("last_name");
+        } catch (SQLException e) {
+            return null;
+        }
+    } //end of getClientID()
+
+    public int getPetID(String name, String species, String gender, String dob) {
+        String sql = "SELECT " + COLUMN_PET_ID
+                + " FROM " + TABLE_PETS + " WHERE "
+                + COLUMN_PET_NAME + "=?" + " AND "
+                + COLUMN_PET_SPECIES + "=?" + " AND "
+                + COLUMN_PET_GENDER + "=?" + " AND "
+                + COLUMN_PET_DATE_OF_BIRTH + "=DATE(?)";
+
+        try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            pstmt.setString(2, species);
+            pstmt.setString(3, gender);
+            pstmt.setString(4, dob);
+            ResultSet idResult = pstmt.executeQuery();
+            return idResult.getInt("pet_id");
+        } catch (SQLException e) {
+            return -1;
+        }
+    }
+
+    public ArrayList<Pets> getPetsByOwnerID(int ownerID) {
+            ArrayList<Pets> allPetsOwned;
+            String sql = "SELECT * FROM " + TABLE_PETS + " WHERE "
+                    + COLUMN_PET_OWNER + "=?";
+
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, ownerID);
+                ResultSet petResults = pstmt.executeQuery();
+                allPetsOwned = new ArrayList<>();
+                while (petResults.next()) {
+                    Pets pet = new Pets(petResults.getInt(COLUMN_PET_ID), petResults.getString(COLUMN_PET_NAME),
+                                        petResults.getString(COLUMN_PET_SPECIES), petResults.getString(COLUMN_PET_GENDER),
+                                        petResults.getString(COLUMN_PET_DATE_OF_BIRTH), petResults.getString(COLUMN_PET_OWNER));
+                    allPetsOwned.add(pet);
+                }
+                pstmt.close();
+                return allPetsOwned;
+        } catch (SQLException e) {
+            setErrorMessage("Could not find any pets.");
+            ArrayList<Pets> emptyPets = new ArrayList<>();
+            return emptyPets;
+        }
+    }
 
     /*
     This method uses the Apache commons codec to hash a given 'password' String with sha256.
@@ -120,7 +179,6 @@ public class Database {
                 return false;
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
             return false;
         }
     } //end of authenticate()
@@ -146,7 +204,6 @@ public class Database {
                 setErrorMessage("The phone number you entered is already in the database!");
             } else {
                 setErrorMessage("Unable to create new client.");
-                System.out.println(e.getMessage());
             }
             return false;
         }
@@ -164,7 +221,6 @@ public class Database {
             return true;
         } catch (SQLException e) {
             setErrorMessage("Unable to delete client.");
-            System.out.println(e.getMessage());
             return false;
         }
     } //end of deleteClient()
@@ -210,9 +266,103 @@ public class Database {
             return true;
         } catch (SQLException e)  {
             setErrorMessage("Unable to update client.");
-            System.out.println(e.getMessage());
             return false;
         }
     } //end of updateClient()
+
+    // This method inserts a new pet into the pets table in the database
+    public boolean insertPet(String name, String species, String gender, String dob, int owner) {
+        String sql = "INSERT INTO " + TABLE_PETS
+                + " (" + COLUMN_PET_NAME
+                + ", " + COLUMN_PET_SPECIES
+                + ", " + COLUMN_PET_GENDER
+                + ", " + COLUMN_PET_DATE_OF_BIRTH
+                + ", " + COLUMN_PET_OWNER + ") VALUES(?,?,?,DATE(?),?)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            pstmt.setString(2, species);
+            pstmt.setString(3, gender);
+            pstmt.setString(4, dob);
+            pstmt.setInt(5, owner);
+            pstmt.executeUpdate();
+            pstmt.close();
+            return true;
+        } catch (SQLException e) {
+            setErrorMessage("Unable to create new pet.");
+            return false;
+        }
+    } //end of insertPet()
+
+    // This method deletes an existing pet from the pets table in the database
+    public boolean deletePet(String name, String species, String gender, String dob) {
+        String sql = "DELETE FROM " + TABLE_PETS
+                + " WHERE "
+                + COLUMN_PET_NAME + "=?" + " AND "
+                + COLUMN_PET_SPECIES + "=?" + " AND "
+                + COLUMN_PET_GENDER + "=?" + " AND "
+                + COLUMN_PET_DATE_OF_BIRTH + "=DATE(?)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            pstmt.setString(2, species);
+            pstmt.setString(3, gender);
+            pstmt.setString(4, dob);
+            pstmt.execute();
+            pstmt.close();
+            return true;
+        } catch (SQLException e) {
+            setErrorMessage("Unable to delete pet.");
+            return false;
+        }
+    } //end of deletePet()
+
+    // This method selects all the pets from the pets table in the database and returns them as a list
+    public ArrayList<Pets> selectAllPets() {
+        try {
+            statement = conn.createStatement();
+            ArrayList<Pets> allPets;
+            // Select all pets and join the client last name on client id / owner id to get the owner last name
+            try (ResultSet results = statement.executeQuery("SELECT " + TABLE_PETS + ".*, " + TABLE_CLIENTS + ".last_name FROM " 
+                    + TABLE_PETS + " INNER JOIN " + TABLE_CLIENTS + " ON " + TABLE_PETS + "." + COLUMN_PET_OWNER 
+                    + "=" + TABLE_CLIENTS + "." + COLUMN_CLIENT_ID)) {
+                allPets = new ArrayList<>();
+                while (results.next()) {
+                    Pets pet = new Pets(results.getInt(COLUMN_PET_ID), results.getString(COLUMN_PET_NAME),
+                            results.getString(COLUMN_PET_SPECIES), results.getString(COLUMN_PET_GENDER),
+                            results.getString(COLUMN_PET_DATE_OF_BIRTH), results.getString(COLUMN_CLIENT_LAST_NAME));
+                    allPets.add(pet);
+                }
+            }
+            statement.close();
+            return allPets;
+        } catch (SQLException e) {
+            setErrorMessage("Could not find any pets.");
+            return null;
+        }
+    } //end of selectAllPets()
+
+    // This method updates a pet with edited information in the pet table in the database
+    public boolean updatePet(int petID, String name, String species, String gender, String dob) {
+        String sql = "UPDATE " + TABLE_PETS
+                + " SET " + COLUMN_PET_NAME + "=?, "
+                + COLUMN_PET_SPECIES + "=?, "
+                + COLUMN_PET_GENDER + "=?, "
+                + COLUMN_PET_DATE_OF_BIRTH + "=? "
+                + "WHERE " + COLUMN_PET_ID + "=?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            pstmt.setString(2, species);
+            pstmt.setString(3, gender);
+            pstmt.setString(4, dob);
+            pstmt.setInt(5, petID);
+            pstmt.executeUpdate();
+            pstmt.close();
+            return true;
+        } catch (SQLException e)  {
+            setErrorMessage("Unable to update pet.");
+            return false;
+        }
+    } //end of updatePet()
 
 } //end of Database
