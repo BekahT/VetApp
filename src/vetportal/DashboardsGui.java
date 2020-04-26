@@ -54,37 +54,37 @@ public class DashboardsGui extends JFrame {
         dashboardTabs = new JTabbedPane();
         appointmentsTab = new JPanel();
         aDateSeach = new JLabel();
-        createAppointmentBtn = new JButton(new ImageIcon(((new ImageIcon("icons/calendar-plus.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+        createAppointmentBtn = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/calendar-plus.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
         aClientSearch = new JLabel();
         aClientField = new JTextField();
         aDateField = new JTextField();
-        aSearchBtn = new JButton(new ImageIcon(((new ImageIcon("icons/search.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+        aSearchBtn = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/search.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
         aPetSearch = new JLabel();
         appointmentTableScroll = new JScrollPane();
         appointmentsTable = new JTable();
         aPetField = new JTextField();
         petsTab = new JPanel();
-        createPetBtn = new JButton(new ImageIcon(((new ImageIcon("icons/paw.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+        createPetBtn = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/paw.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
         pNameSearch = new JLabel();
         pClientField = new JTextField();
         pNameField = new JTextField();
         petTableScroll = new JScrollPane();
         petsTable = new JTable();
         pClientSearch = new JLabel();
-        pSearchBtn = new JButton(new ImageIcon(((new ImageIcon("icons/search.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+        pSearchBtn = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/search.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
         clientsTab = new JPanel();
         clientTableScroll = new JScrollPane();
         clientsTable = new JTable();
-        createClientBtn = new JButton(new ImageIcon(((new ImageIcon("icons/user-plus.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+        createClientBtn = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/user-plus.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
         cNameSearch = new JLabel();
         cEmailSearch = new JLabel();
         cNumberSearch = new JLabel();
-        cSearchBtn = new JButton(new ImageIcon(((new ImageIcon("icons/search.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+        cSearchBtn = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/search.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
         cNameField = new JTextField();
         cEmailField = new JTextField();
         MaskFormatter phoneFormat = new MaskFormatter("(***) ***-****");
         cNumberField = new JFormattedTextField(phoneFormat);
-        logoutBtn = new JButton(new ImageIcon(((new ImageIcon("icons/sign-out.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+        logoutBtn = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/sign-out.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
 
         myClientTableModel = new MyClientTableModel();
         clientTable = new JTable(myClientTableModel);
@@ -636,13 +636,13 @@ public class DashboardsGui extends JFrame {
         public ClientActionPane() {
             setLayout(new GridBagLayout());
             // Add icons and tool tips to buttons
-            editButton = new JButton(new ImageIcon(((new ImageIcon("icons/edit.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            editButton = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/edit.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
             editButton.setToolTipText("Edit Client");
-            deleteButton = new JButton(new ImageIcon(((new ImageIcon("icons/trash.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            deleteButton = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/trash.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
             deleteButton.setToolTipText("Delete Client");
-            addPetButton = new JButton(new ImageIcon(((new ImageIcon("icons/paw.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            addPetButton = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/paw.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
             addPetButton.setToolTipText("Add Pet");
-            viewClientButton = new JButton(new ImageIcon(((new ImageIcon("icons/link-open.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            viewClientButton = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/link-open.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
             viewClientButton.setToolTipText("View Client Info");
 
             add(editButton);
@@ -894,9 +894,9 @@ public class DashboardsGui extends JFrame {
         public PetActionPane() {
             setLayout(new GridBagLayout());
             // Add icons and tool tips to buttons
-            editButton = new JButton(new ImageIcon(((new ImageIcon("icons/edit.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            editButton = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/edit.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
             editButton.setToolTipText("Edit Client");
-            deleteButton = new JButton(new ImageIcon(((new ImageIcon("icons/trash.png")).getImage()).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            deleteButton = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/trash.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
             deleteButton.setToolTipText("Delete Client");
 
             add(editButton);
