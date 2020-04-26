@@ -7,6 +7,8 @@
 
 package vetportal;
 
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -56,8 +58,12 @@ public class DashboardsGui extends JFrame {
         aDateSeach = new JLabel();
         createAppointmentBtn = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/calendar-plus.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
         aClientSearch = new JLabel();
-        aClientField = new JTextField();
-        aDateField = new JTextField();
+        aClientField = new JTextField();            
+        // Create date picker settings to define the date format
+        DatePickerSettings dateSettings = new DatePickerSettings();
+        dateSettings.setFormatForDatesCommonEra("yyyy-MM-dd");
+        dateSettings.setFormatForDatesBeforeCommonEra("uuuu-MM-dd");        
+        aDateField = new DatePicker(dateSettings);
         aSearchBtn = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/search.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
         aPetSearch = new JLabel();
         appointmentTableScroll = new JScrollPane();
@@ -578,7 +584,7 @@ public class DashboardsGui extends JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JTextField aClientField;
     private JLabel aClientSearch;
-    private JTextField aDateField;
+    private DatePicker aDateField;
     private JLabel aDateSeach;
     private JTextField aPetField;
     private JLabel aPetSearch;

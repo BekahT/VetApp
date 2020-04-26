@@ -6,6 +6,8 @@
  */
 package vetportal;
 
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import java.awt.*;
 import java.text.ParseException;
 import javax.swing.*;
@@ -54,8 +56,11 @@ public class AddPet extends JFrame {
         speciesDropDown = new JComboBox<>();
         genderDropDown = new JComboBox<>();
         dobLabel = new JLabel();
-        MaskFormatter petDOBFormat = new MaskFormatter("####-##-##");
-        dobField = new JFormattedTextField(petDOBFormat);
+        // Create date picker settings to define the date format
+        DatePickerSettings dateSettings = new DatePickerSettings();
+        dateSettings.setFormatForDatesCommonEra("yyyy-MM-dd");
+        dateSettings.setFormatForDatesBeforeCommonEra("uuuu-MM-dd"); 
+        dobField = new DatePicker(dateSettings);
         warningField = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -120,8 +125,6 @@ public class AddPet extends JFrame {
         dobLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         dobLabel.setText("Date of Birth");
 
-        MaskFormatter dobFormat = new MaskFormatter("####-##-##");
-        dobField = new JFormattedTextField(dobFormat);
         dobField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         warningField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -263,7 +266,7 @@ public class AddPet extends JFrame {
     private JLabel cancelInstructionLabel;
     private JTextField clientNameField;
     private JLabel clientNameLabel;
-    private JFormattedTextField dobField;
+    private DatePicker dobField;
     private JLabel dobLabel;
     private JComboBox<String> genderDropDown;
     private JLabel genderLabel;
