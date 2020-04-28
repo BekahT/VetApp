@@ -287,6 +287,7 @@ public class VetPortal extends JFrame {
                 vetPortal.setVisible(false);                
                 vetPortal.viewAllClients();
                 vetPortal.viewAllPets();
+                vetPortal.viewAllAppointments();
                 dashboard.setVisible(true);
             }
         // If user is locked out, display error
@@ -615,5 +616,31 @@ public class VetPortal extends JFrame {
             return false;
         }
     }
+
+    //Method to view all appointments that currently exist in the database
+    public void viewAllAppointments() {
+        // Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return;
+        }
+        // Add all the appointments to an array
+        ArrayList<Appointments> allAppointments = vetDatabase.selectAllAppointments();
+        // If the array is empty
+        if (allAppointments.isEmpty()) {
+            String errorMessage = vetDatabase.getErrorMessage();
+            JOptionPane.showMessageDialog(null, errorMessage, "Error: No appointments exist", JOptionPane.ERROR_MESSAGE);
+            // If appointments exist
+        } else {
+            // Loop through the appointments and add them to the appointments Table
+            DashboardsGui.MyAppointmentTableModel newModel = (DashboardsGui.MyAppointmentTableModel)dashboard.getAppointmentTable().getModel();
+            //DashboardsGui.MyPetTableModel newModel = (DashboardsGui.MyPetTableModel) dashboard.getPetTable().getModel();
+            for (Appointments appointment : allAppointments) {
+                newModel.add(appointment);
+            }
+        }
+        vetDatabase.close();
+    } //end of viewAllPets()
 
 } //end of VetPortal

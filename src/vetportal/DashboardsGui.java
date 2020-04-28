@@ -100,6 +100,10 @@ public class DashboardsGui extends JFrame {
         petTable = new JTable(myPetTableModel);
         petRenderer = new PetActionRenderer();
         petEditor = new PetActionEditor();
+        myAppointmentTableModel = new MyAppointmentTableModel();
+        appointmentTable = new JTable(myAppointmentTableModel);
+        appointmentRenderer = new AppointmentActionRenderer();
+        appointmentEditor = new AppointmentActionEditor();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -151,7 +155,8 @@ public class DashboardsGui extends JFrame {
             }
         });
         appointmentsTable.setGridColor(new Color(255, 255, 255));
-        appointmentTableScroll.setViewportView(appointmentsTable);
+        //appointmentTableScroll.setViewportView(appointmentsTable);
+        appointmentTableScroll.setViewportView(appointmentTable);
         if (appointmentsTable.getColumnModel().getColumnCount() > 0) {
             appointmentsTable.getColumnModel().getColumn(0).setResizable(false);
             appointmentsTable.getColumnModel().getColumn(1).setResizable(false);
@@ -315,6 +320,10 @@ public class DashboardsGui extends JFrame {
         petTable.getColumnModel().getColumn(5).setCellRenderer(petRenderer);
         petTable.getColumnModel().getColumn(5).setCellEditor(petEditor);
         petTable.setRowHeight(petRenderer.getTableCellRendererComponent(petTable, null, true, true, 0, 0).getPreferredSize().height);
+
+        appointmentTable.getColumnModel().getColumn(5).setCellRenderer(appointmentRenderer);
+        appointmentTable.getColumnModel().getColumn(5).setCellEditor(appointmentEditor);
+        appointmentTable.setRowHeight(appointmentRenderer.getTableCellRendererComponent(appointmentTable, null, true, true, 0, 0).getPreferredSize().height);
 
         clientTableScroll.setBackground(new Color(255, 255, 255));
 
@@ -540,12 +549,20 @@ public class DashboardsGui extends JFrame {
         return petTable;
     }
 
+    public JTable getAppointmentTable() {
+        return appointmentTable;
+    }
+
     public MyClientTableModel getMyClientTableModel() {
         return myClientTableModel;
     }
 
     public MyPetTableModel getMyPetTableModel() {
         return myPetTableModel;
+    }
+
+    public MyAppointmentTableModel getMyAppointmentTableModel() {
+        return myAppointmentTableModel;
     }
 
     // Create pet function
@@ -629,6 +646,12 @@ public class DashboardsGui extends JFrame {
     private JTable petTable;
     private PetActionRenderer petRenderer;
     private PetActionEditor petEditor;
+
+    //Objects for Appointment Table
+    private MyAppointmentTableModel myAppointmentTableModel;
+    private JTable appointmentTable;
+    private AppointmentActionRenderer appointmentRenderer;
+    private AppointmentActionEditor appointmentEditor;
     // End of variables declaration//GEN-END:variables
 
     // Action Pane for Clients Table
@@ -1125,6 +1148,208 @@ public class DashboardsGui extends JFrame {
         @Override
         public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
             return petActionPane;
+        }
+    } //end of AbstractCellEditor
+
+    //TODO: Change code below here for appointment Table
+    // ADDING MORE
+    // ADDING MORE
+
+    // Action Pane for Appointments Table
+    public class AppointmentActionPane extends JPanel {
+
+        private JButton editButton;
+        private JButton deleteButton;
+
+        public AppointmentActionPane() {
+            setLayout(new GridBagLayout());
+            // Add icons and tool tips to buttons
+            editButton = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/edit.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            editButton.setToolTipText("Edit Appointment");
+            deleteButton = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/trash.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            deleteButton.setToolTipText("Delete Appointment");
+
+            add(editButton);
+            add(deleteButton);
+
+            editButton.addActionListener(event -> edit());
+            deleteButton.addActionListener(event -> delete());
+        } //end of constructor
+
+        public void addActionListener(ActionListener listener) {
+            editButton.addActionListener(listener);
+            deleteButton.addActionListener(listener);
+        }
+
+        private void edit() {
+
+        }
+
+        private void delete() {
+
+        }
+
+    } //end of ActionPane
+
+    public class MyAppointmentTableModel extends AbstractTableModel {
+
+        private  List<Appointments> appointmentsData;
+
+        public MyAppointmentTableModel() {
+            appointmentsData = new ArrayList<>(25);
+        }
+
+        public List<Appointments> getAppointmentsData() {
+            return appointmentsData;
+        }
+
+        public void setAppointmentsData(List<Appointments> newData) {
+            this.appointmentsData = newData;
+        }
+
+        @Override
+        public String getColumnName(int column) {
+            String value = null;
+            switch (column) {
+                case 0:
+                    value = "Date";
+                    break;
+                case 1:
+                    value = "Time";
+                    break;
+                case 2:
+                    value = "Client";
+                    break;
+                case 3:
+                    value = "Pet";
+                    break;
+                case 4:
+                    value = "Reason for Visit";
+                    break;
+                case 5:
+                    value = "Actions";
+                    break;
+            }
+            return value;
+        }
+
+        @Override
+        public Class<?> getColumnClass(int columnIndex) {
+            Class value = Object.class;
+            switch (columnIndex) {
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    value = String.class;
+                    break;
+            }
+            return value;
+        }
+
+        @Override
+        public int getRowCount() {
+            return appointmentsData.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return 6;
+        }
+
+        @Override
+        public Object getValueAt(int rowIndex, int columnIndex) {
+            Appointments obj = appointmentsData.get(rowIndex);
+
+            String value = null;
+            switch (columnIndex) {
+                case 0:
+                    value = obj.getAptDate();
+                    break;
+                case 1:
+                    value = obj.getAptTime();
+                    break;
+                case 2:
+                    value = obj.getClient();
+                    break;
+                case 3:
+                    value = obj.getPet();
+                    break;
+                case 4:
+                    value = obj.getAptReason();
+            }
+            return value;
+        }
+
+        public void add(Appointments content) {
+            int startIndex = getRowCount();
+            appointmentsData.add(content);
+            fireTableRowsInserted(startIndex, getRowCount() - 1);
+        }
+
+        public void refetchAppointments() {
+            appointmentsData.clear();
+            fireTableDataChanged();
+            vetPortal.viewAllAppointments();
+        }
+
+        @Override
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return columnIndex == 5;
+        }
+    } //end of MyPetTableModel
+
+    public class AppointmentActionRenderer extends DefaultTableCellRenderer {
+
+        //private PetActionPane petActionPane;
+        private AppointmentActionPane appointmentActionPane;
+
+        public AppointmentActionRenderer() {
+            appointmentActionPane = new AppointmentActionPane();
+            //petActionPane = new PetActionPane();
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            return appointmentActionPane;
+        }
+    } //end of DefaultTableCellRenderer
+
+    public class AppointmentActionEditor extends AbstractCellEditor implements TableCellEditor {
+
+        //private PetActionPane petActionPane;
+        private AppointmentActionPane appointmentActionPane;
+
+        public AppointmentActionEditor() {
+            //petActionPane = new PetActionPane();
+            appointmentActionPane = new AppointmentActionPane();
+            appointmentActionPane.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            stopCellEditing();
+                        }
+                    });
+                }
+            });
+        }
+
+        @Override
+        public Object getCellEditorValue() {
+            return null;
+        }
+
+        @Override
+        public boolean isCellEditable(EventObject e) {
+            return true;
+        }
+
+        @Override
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            return appointmentActionPane;
         }
     } //end of AbstractCellEditor
 
