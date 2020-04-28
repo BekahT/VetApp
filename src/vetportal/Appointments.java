@@ -7,9 +7,6 @@
  */
 package vetportal;
 
-import java.sql.Time;
-import java.util.Date;
-
 public class Appointments {
 
     private String aptDate;
@@ -18,7 +15,6 @@ public class Appointments {
     private String pet;
     private String aptReason;
 
-    //TODO in Development Phase III: figure out what needs to be created / pulled from GUI and how
     public Appointments(String aptDate, String aptTime, String client, String pet, String aptReason) {
         this.aptDate = aptDate;
         this.aptTime = aptTime;

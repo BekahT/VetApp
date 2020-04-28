@@ -155,7 +155,6 @@ public class DashboardsGui extends JFrame {
             }
         });
         appointmentsTable.setGridColor(new Color(255, 255, 255));
-        //appointmentTableScroll.setViewportView(appointmentsTable);
         appointmentTableScroll.setViewportView(appointmentTable);
         if (appointmentsTable.getColumnModel().getColumnCount() > 0) {
             appointmentsTable.getColumnModel().getColumn(0).setResizable(false);
@@ -1299,16 +1298,14 @@ public class DashboardsGui extends JFrame {
         public boolean isCellEditable(int rowIndex, int columnIndex) {
             return columnIndex == 5;
         }
-    } //end of MyPetTableModel
+    } //end of MyAppointmentTableModel
 
     public class AppointmentActionRenderer extends DefaultTableCellRenderer {
 
-        //private PetActionPane petActionPane;
         private AppointmentActionPane appointmentActionPane;
 
         public AppointmentActionRenderer() {
-            appointmentActionPane = new AppointmentActionPane();
-            //petActionPane = new PetActionPane();
+            appointmentActionPane = new AppointmentActionPane();            
         }
 
         @Override
@@ -1319,11 +1316,9 @@ public class DashboardsGui extends JFrame {
 
     public class AppointmentActionEditor extends AbstractCellEditor implements TableCellEditor {
 
-        //private PetActionPane petActionPane;
         private AppointmentActionPane appointmentActionPane;
 
         public AppointmentActionEditor() {
-            //petActionPane = new PetActionPane();
             appointmentActionPane = new AppointmentActionPane();
             appointmentActionPane.addActionListener(new ActionListener() {
                 @Override

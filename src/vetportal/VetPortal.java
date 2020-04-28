@@ -631,16 +631,15 @@ public class VetPortal extends JFrame {
         if (allAppointments.isEmpty()) {
             String errorMessage = vetDatabase.getErrorMessage();
             JOptionPane.showMessageDialog(null, errorMessage, "Error: No appointments exist", JOptionPane.ERROR_MESSAGE);
-            // If appointments exist
+        // If appointments exist
         } else {
             // Loop through the appointments and add them to the appointments Table
             DashboardsGui.MyAppointmentTableModel newModel = (DashboardsGui.MyAppointmentTableModel)dashboard.getAppointmentTable().getModel();
-            //DashboardsGui.MyPetTableModel newModel = (DashboardsGui.MyPetTableModel) dashboard.getPetTable().getModel();
             for (Appointments appointment : allAppointments) {
                 newModel.add(appointment);
             }
         }
         vetDatabase.close();
-    } //end of viewAllPets()
+    } //end of viewAllAppointments()
 
 } //end of VetPortal
