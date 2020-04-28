@@ -513,8 +513,8 @@ public class DashboardsGui extends JFrame {
         addClientPage.setVisible(true);        
     }
 
-    private void openViewClient(ArrayList<Pets> clientOwnedPets, String currentFirstName, String currentLastName, String currentEmail, String currentPhoneNumber) {
-        viewClientPage = new ViewClient(clientOwnedPets ,currentFirstName, currentLastName, currentEmail, currentPhoneNumber);
+    private void openViewClient(ArrayList<Pets> clientOwnedPets, ArrayList<Appointments> clientScheduledAppointments, String currentFirstName, String currentLastName, String currentEmail, String currentPhoneNumber) {
+        viewClientPage = new ViewClient(clientOwnedPets , clientScheduledAppointments, currentFirstName, currentLastName, currentEmail, currentPhoneNumber);
         viewClientPage.setVisible(true);
     }
 
@@ -727,8 +727,9 @@ public class DashboardsGui extends JFrame {
             vetPortal.getVetDatabase().open();
             int ownerID = vetPortal.getVetDatabase().getClientID((String)selectedPhoneNumber);
             ArrayList<Pets> clientOwnedPets = vetPortal.getVetDatabase().getPetsByOwnerID(ownerID);
+            ArrayList<Appointments> clientScheduledAppointments = vetPortal.getVetDatabase().getAppointmentsByClientID(ownerID);
 
-            openViewClient(clientOwnedPets, (String)selectedFirstName, (String)selectedLastName, (String)selectedEmail, (String)selectedPhoneNumber);
+            openViewClient(clientOwnedPets, clientScheduledAppointments, (String)selectedFirstName, (String)selectedLastName, (String)selectedEmail, (String)selectedPhoneNumber);
         }
         
     } //end of ActionPane
