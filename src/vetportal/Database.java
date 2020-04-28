@@ -157,6 +157,44 @@ public class Database {
         }
     }
 
+    public ArrayList<Appointments> getAppointmentsByClientID(int clientID) {
+        ArrayList<Appointments> allScheduledAppointments;
+        String sql = "SELECT " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_DATE
+                + ", time(" + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_TIME
+                + "), " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_CLIENT
+                + ", " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_PET
+                + ", " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_REASON
+                + ", " + TABLE_CLIENTS + "." + COLUMN_CLIENT_FIRST_NAME
+                + ", " + TABLE_CLIENTS + "." + COLUMN_CLIENT_LAST_NAME
+                + ", " + TABLE_PETS + "." + COLUMN_PET_NAME
+                + ", " + TABLE_PETS + "." + COLUMN_PET_SPECIES
+                + " FROM " + TABLE_APPOINTMENTS + " INNER JOIN " + TABLE_CLIENTS + " ON " + TABLE_APPOINTMENTS
+                + "." + COLUMN_APPOINTMENT_CLIENT + "=" + TABLE_CLIENTS + "." + COLUMN_CLIENT_ID + " INNER JOIN "
+                + TABLE_PETS + " ON " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_PET + "=" + TABLE_PETS
+                + "." + COLUMN_PET_ID + " WHERE " + COLUMN_APPOINTMENT_CLIENT + "=?";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, clientID);
+            ResultSet appointmentResults = pstmt.executeQuery();
+            allScheduledAppointments = new ArrayList<>();
+            while (appointmentResults.next()) {
+                String appointmentClient = appointmentResults.getString(COLUMN_CLIENT_FIRST_NAME) + " " + appointmentResults.getString(COLUMN_CLIENT_LAST_NAME);
+                String appointmentPet = appointmentResults.getString(COLUMN_PET_NAME) + " (" + appointmentResults.getString(COLUMN_PET_SPECIES) + ")";
+                Appointments appointment = new Appointments(appointmentResults.getString(COLUMN_APPOINTMENT_DATE), appointmentResults.getString(COLUMN_APPOINTMENT_FORMATTED_TIME),
+                        appointmentClient, appointmentPet,
+                        appointmentResults.getString(COLUMN_APPOINTMENT_REASON));
+                allScheduledAppointments.add(appointment);
+            }
+            pstmt.close();
+            return allScheduledAppointments;
+        } catch (SQLException e) {
+            setErrorMessage("Could not find any appointments.");
+            ArrayList<Appointments> emptyAppointments = new ArrayList<>();
+            return emptyAppointments;
+        }
+    }
+
+
     /*
     This method uses the Apache commons codec to hash a given 'password' String with sha256.
     The hash is then compared to a password hash in the sqlite database

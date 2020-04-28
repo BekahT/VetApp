@@ -16,13 +16,15 @@ public class ViewClient extends JFrame {
 
     private String clientFirstName, clientLastName, clientEmail, clientPhoneNumber;
     private ArrayList<Pets> allOwnedPets;
+    private ArrayList<Appointments> allScheduledAppointments;
 
     /**
      * Creates new form ViewClient
      */
-    public ViewClient(ArrayList<Pets> allOwnedPets,String clientFirstName, String clientLastName, String clientEmail, String clientPhoneNumber) {
+    public ViewClient(ArrayList<Pets> allOwnedPets, ArrayList<Appointments> allScheduledAppointments, String clientFirstName, String clientLastName, String clientEmail, String clientPhoneNumber) {
         super("View Client Information");
         this.allOwnedPets = allOwnedPets;
+        this.allScheduledAppointments = allScheduledAppointments;
         this.clientFirstName = clientFirstName;
         this.clientLastName = clientLastName;
         this.clientEmail = clientEmail;
@@ -289,14 +291,25 @@ public class ViewClient extends JFrame {
 
         TableColumnModel columnModel = cPetTable.getColumnModel();
         columnModel.getColumn(1).setPreferredWidth(120);
-        DefaultTableModel model = (DefaultTableModel)cPetTable.getModel();
+        DefaultTableModel petModel = (DefaultTableModel)cPetTable.getModel();
         if (allOwnedPets.isEmpty()) {
             String[] emptyFields = {"", "", "", ""};
-            model.addRow(emptyFields);
+            petModel.addRow(emptyFields);
         } else {
             for (Pets pet : allOwnedPets) {
                 String[] petRow = {pet.getPetName(), pet.getPetDateOfBirth(), pet.getPetSpecies(), pet.getPetGender()};
-                model.addRow(petRow);
+                petModel.addRow(petRow);
+            }
+        }
+
+        DefaultTableModel appointmentModel = (DefaultTableModel)cAppointmentsTable.getModel();
+        if (allScheduledAppointments.isEmpty()) {
+            String[] emptyFields = {"", "", "", ""};
+            appointmentModel.addRow(emptyFields);
+        } else {
+            for (Appointments appointment : allScheduledAppointments) {
+                String[] appointmentRow = {appointment.getAptDate(), appointment.getAptTime(), appointment.getPet(), appointment.getAptReason()};
+                appointmentModel.addRow(appointmentRow);
             }
         }
 
