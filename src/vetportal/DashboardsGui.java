@@ -125,7 +125,7 @@ public class DashboardsGui extends JFrame {
         createAppointmentBtn.addActionListener(event -> moveToPetTab(true));
 
         aClientSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
-        aClientSearch.setText("Client's Name:");
+        aClientSearch.setText("Client's Last Name:");
 
         aClientField.setFont(new Font("Calibri", 0, 14)); // NOI18N
 

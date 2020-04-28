@@ -23,14 +23,14 @@ public class Search {
         // Search on Date, Owner Name, and Pet Name
         if (!"".equals(date) && !"".equals(petName) && !"".equals(petOwner)) {
             List<Appointments> matches = appointments.stream()
-                    .filter(a -> a.getAptDate().equals(date) && a.getPetName().equalsIgnoreCase(petName) && a.getClient().equalsIgnoreCase(petOwner))
+                    .filter(a -> a.getAptDate().equals(date) && a.getPetName().equalsIgnoreCase(petName) && a.getClientLastName().equalsIgnoreCase(petOwner))
                     .collect(Collectors.toList());
             return matches;
             
         // Search on Date and Owner Name
         } else if (!"".equals(date) && "".equals(petName) && !"".equals(petOwner)) {
             List<Appointments> matches = appointments.stream()
-                    .filter(a -> a.getAptDate().equals(date) && a.getClient().equalsIgnoreCase(petOwner))
+                    .filter(a -> a.getAptDate().equals(date) && a.getClientLastName().equalsIgnoreCase(petOwner))
                     .collect(Collectors.toList());
             return matches;
         
@@ -44,7 +44,7 @@ public class Search {
         // Search on Pet Name and Owner Name      
         } else if ("".equals(date) && !"".equals(petName) && !"".equals(petOwner)) {
             List<Appointments> matches = appointments.stream()
-                    .filter(a -> a.getPetName().equalsIgnoreCase(petName) && a.getClient().equalsIgnoreCase(petOwner))
+                    .filter(a -> a.getPetName().equalsIgnoreCase(petName) && a.getClientLastName().equalsIgnoreCase(petOwner))
                     .collect(Collectors.toList());
             return matches;
         
@@ -65,7 +65,7 @@ public class Search {
         // Search on Owner Name only        
         } else if ("".equals(date) && "".equals(petName) && !"".equals(petOwner)){
             List<Appointments> matches = appointments.stream()
-                    .filter(a -> a.getClient().equalsIgnoreCase(petOwner))
+                    .filter(a -> a.getClientLastName().equalsIgnoreCase(petOwner))
                     .collect(Collectors.toList());
             return matches; 
         }         
