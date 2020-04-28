@@ -36,6 +36,12 @@ public class Appointments {
         return client;
     }
     
+    // Split the client name and return only the last name
+    public String getClientLastName() {
+        String[] splitClientInfo = client.split("\\s");
+        return splitClientInfo[1];
+    }
+    
     // Returns the pet's name and species as Name (Species)
     public String getPet() {
         return pet;
