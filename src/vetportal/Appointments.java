@@ -31,12 +31,20 @@ public class Appointments {
         return aptTime;
     }
 
+    // Returns client's first and last names together
     public String getClient() {
         return client;
     }
-
+    
+    // Returns the pet's name and species as Name (Species)
     public String getPet() {
         return pet;
+    }
+    
+    // Split the pet name from the species and return only the name
+    public String getPetName() {
+        String[] splitPetInfo = pet.split("\\s");
+        return splitPetInfo[0];
     }
 
     public String getAptReason() {

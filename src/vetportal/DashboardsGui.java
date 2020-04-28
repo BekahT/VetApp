@@ -122,9 +122,10 @@ public class DashboardsGui extends JFrame {
 
         createAppointmentBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
         createAppointmentBtn.setText("Create New Appointment");
+        createAppointmentBtn.addActionListener(event -> moveToPetTab(true));
 
         aClientSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
-        aClientSearch.setText("Client's Last Name:");
+        aClientSearch.setText("Client's Name:");
 
         aClientField.setFont(new Font("Calibri", 0, 14)); // NOI18N
 
@@ -133,6 +134,7 @@ public class DashboardsGui extends JFrame {
         aSearchBtn.setBackground(new Color(255, 255, 255));
         aSearchBtn.setFont(new Font("Calibri", 1, 14)); // NOI18N
         aSearchBtn.setText("Search");
+        aSearchBtn.addActionListener(event -> myAppointmentTableModel.executeAppointmentSearch());
 
         aPetSearch.setFont(new Font("Calibri", 0, 14)); // NOI18N
         aPetSearch.setText("Pet's Name:");
@@ -143,7 +145,7 @@ public class DashboardsGui extends JFrame {
         appointmentsTable.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {},
                 new String [] {
-                        "Date", "Time", "Client's Last Name", "Pet", "Reason for Visit", "Actions"
+                        "Date", "Time", "Client", "Pet", "Reason for Visit", "Actions"
                 }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1099,7 +1101,7 @@ public class DashboardsGui extends JFrame {
                     JOptionPane.showMessageDialog(null, "The search returned no results.", "No Search Results", JOptionPane.WARNING_MESSAGE);
                 }                   
             }          
-        } // end of executeClientSearch()
+        } // end of executePetSearch()
     } //end of MyPetTableModel
 
     public class PetActionRenderer extends DefaultTableCellRenderer {
@@ -1298,6 +1300,35 @@ public class DashboardsGui extends JFrame {
         public boolean isCellEditable(int rowIndex, int columnIndex) {
             return columnIndex == 5;
         }
+        
+        // Handler for search pets button click event
+        private void executeAppointmentSearch() {
+            List<Appointments> appointments = myAppointmentTableModel.getAppointmentsData();
+            String searchDate = aDateField.getText();            
+            String searchClient = aClientField.getText();
+            String searchPet = aPetField.getText();
+            
+            refetchAppointments();
+            
+            // If all fields are empty, reset the table
+            if ("".equals(searchDate) && "".equals(searchPet) && "".equals(searchClient)) {
+                refetchAppointments();              
+            // If user supplied search terms
+            } else {                   
+                // Get the filtered list
+                List<Appointments> matches = Search.searchAppointments(appointments, searchDate, searchClient, searchPet);
+                // If there are matches, show them in the table
+                if (matches.size() > 0) {
+                    // Set the table to display only the matched rows
+                    myAppointmentTableModel.setAppointmentsData(matches);
+                    fireTableDataChanged();
+                // If no matches were found, notify the user and don't change the table
+                } else {
+                    JOptionPane.showMessageDialog(null, "The search returned no results.", "No Search Results", JOptionPane.WARNING_MESSAGE);
+                }                   
+            }          
+        } // end of executeAppointmentSearch()
+        
     } //end of MyAppointmentTableModel
 
     public class AppointmentActionRenderer extends DefaultTableCellRenderer {
