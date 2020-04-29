@@ -412,14 +412,14 @@ public class Database {
             //SELECT appointments.date, time(appointments.time), appointments.client, appointments.pet, appointments.reason, clients.first_name, clients.last_name, pets.name,
             // pets.species FROM appointments INNER JOIN clients ON appointments.client=clients.client_id INNER JOIN pets ON appointments.pet=pets.pet_id;
             try (ResultSet results = statement.executeQuery("SELECT " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_DATE
-                                                                            + ", time(" + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_TIME
-                                                                            + "), " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_CLIENT
-                                                                            + ", " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_PET
-                                                                            + ", " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_REASON
-                                                                            + ", " + TABLE_CLIENTS + "." + COLUMN_CLIENT_FIRST_NAME
-                                                                            + ", " + TABLE_CLIENTS + "." + COLUMN_CLIENT_LAST_NAME
-                                                                            + ", " + TABLE_PETS + "." + COLUMN_PET_NAME
-                                                                            + ", " + TABLE_PETS + "." + COLUMN_PET_SPECIES
+                                                                + ", time(" + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_TIME
+                                                                + "), " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_CLIENT
+                                                                + ", " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_PET
+                                                                + ", " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_REASON
+                                                                + ", " + TABLE_CLIENTS + "." + COLUMN_CLIENT_FIRST_NAME
+                                                                + ", " + TABLE_CLIENTS + "." + COLUMN_CLIENT_LAST_NAME
+                                                                + ", " + TABLE_PETS + "." + COLUMN_PET_NAME
+                                                                + ", " + TABLE_PETS + "." + COLUMN_PET_SPECIES
                     + " FROM " + TABLE_APPOINTMENTS + " INNER JOIN " + TABLE_CLIENTS + " ON " + TABLE_APPOINTMENTS
                     + "." + COLUMN_APPOINTMENT_CLIENT + "=" + TABLE_CLIENTS + "." + COLUMN_CLIENT_ID + " INNER JOIN "
                     + TABLE_PETS + " ON " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_PET + "=" + TABLE_PETS
@@ -443,5 +443,45 @@ public class Database {
             return null;
         }
     } //end of selectAllAppointments()
+    
+    // This method selects all the appointments from the appointments table that occur today or later and returns them as a list
+    public ArrayList<Appointments> selectUpcomingAppointments() {
+        try {
+            statement = conn.createStatement();
+            ArrayList<Appointments> upcomingAppointments;
+            //SELECT appointments.date, time(appointments.time), appointments.client, appointments.pet, appointments.reason, clients.first_name, clients.last_name, pets.name,
+            // pets.species FROM appointments INNER JOIN clients ON appointments.client=clients.client_id INNER JOIN pets ON appointments.pet=pets.pet_id WHERE appointments.date >= getdate();
+            try (ResultSet results = statement.executeQuery("SELECT " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_DATE
+                                                                + ", time(" + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_TIME
+                                                                + "), " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_CLIENT
+                                                                + ", " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_PET
+                                                                + ", " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_REASON
+                                                                + ", " + TABLE_CLIENTS + "." + COLUMN_CLIENT_FIRST_NAME
+                                                                + ", " + TABLE_CLIENTS + "." + COLUMN_CLIENT_LAST_NAME
+                                                                + ", " + TABLE_PETS + "." + COLUMN_PET_NAME
+                                                                + ", " + TABLE_PETS + "." + COLUMN_PET_SPECIES
+                    + " FROM " + TABLE_APPOINTMENTS + " INNER JOIN " + TABLE_CLIENTS + " ON " + TABLE_APPOINTMENTS
+                    + "." + COLUMN_APPOINTMENT_CLIENT + "=" + TABLE_CLIENTS + "." + COLUMN_CLIENT_ID + " INNER JOIN "
+                    + TABLE_PETS + " ON " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_PET + "=" + TABLE_PETS
+                    + "." + COLUMN_PET_ID + " WHERE " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_DATE + " >= DATE('now','localtime')")) {
+                upcomingAppointments = new ArrayList<>();
+                while (results.next()) {
+                    String appointmentClient = results.getString(COLUMN_CLIENT_FIRST_NAME) + " " + results.getString(COLUMN_CLIENT_LAST_NAME);
+                    String appointmentPet = results.getString(COLUMN_PET_NAME) + " (" + results.getString(COLUMN_PET_SPECIES) + ")";
+                    Appointments appointment = new Appointments(results.getString(COLUMN_APPOINTMENT_DATE), results.getString(COLUMN_APPOINTMENT_FORMATTED_TIME),
+                            appointmentClient, appointmentPet,
+                            results.getString(COLUMN_APPOINTMENT_REASON));
+                    upcomingAppointments.add(appointment);
+                }
+            }
+            statement.close();
+            return upcomingAppointments;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getErrorCode());
+            setErrorMessage("Could not find any appointments.");
+            return null;
+        }
+    } //end of selectUpcomingAppointments()
 
 } //end of Database
