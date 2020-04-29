@@ -43,6 +43,10 @@ public class VetPortal extends JFrame {
     private final String nameRegex = "[A-Za-z\\'\\-]+";
     private final Pattern namePattern = Pattern.compile(nameRegex);
     
+    // Allow numbers, letters, commas, periods, apostrophes, and spaces in regular text inputs
+    private final String textRegex = "[a-zA-Z0-9\\,\\'\\.\\s]+";
+    private final Pattern textPattern = Pattern.compile(textRegex);
+    
     // Validate phone number is exactly 10 digits
     private final String phoneRegex = "^\\(\\d{3}\\)\\s+\\d{3}\\-\\d{4}$";
     private final Pattern phonePattern = Pattern.compile(phoneRegex);
@@ -216,11 +220,6 @@ public class VetPortal extends JFrame {
     public static void main(String[] args) {
         vetPortal = new VetPortal();
         vetPortal.setVisible(true);
-
-        //TODO: Remove testing:
-        //vetPortal.createAppointment(new JLabel("test"), "2020-06-23", "12:68", 2, 2, "Ear checkup.");
-        //AddAppointment pane = new AddAppointment();
-        //pane.setVisible(true);
     } //end of main()
     
     // Validation functions for New Client and Pet Form Fields
@@ -233,6 +232,10 @@ public class VetPortal extends JFrame {
     private boolean isValidPhone(String phoneNumber) {
         return phonePattern.matcher(phoneNumber).matches();
     }
+    
+    private boolean isValidText(String text) {
+        return textPattern.matcher(text).matches();
+    }    
     
     private boolean isValidDate(String date) {
         return datePattern.matcher(date).matches();
@@ -645,7 +648,11 @@ public class VetPortal extends JFrame {
             return false;
         }
 
-        //TODO: Might need to add 'Reason' character validation?
+        // Verify the reason is validly formatted
+        if (!(isValidText(reason))) {
+            warnUser.setText("Reason may not contain invalid characters!");
+            return false;
+        }
         
         if(!(isValidDate(date))) {
             warnUser.setText("Dates must be in yyyy-mm-dd format!");
