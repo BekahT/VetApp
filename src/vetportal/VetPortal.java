@@ -257,7 +257,7 @@ public class VetPortal extends JFrame {
             return;
         }
 
-		// Attempt to open a connection with the database
+	// Attempt to open a connection with the database
         Database myDatabase = new Database();
         if (!myDatabase.open()) {
             System.out.println("Can't connect to the database!");
@@ -287,7 +287,7 @@ public class VetPortal extends JFrame {
                 vetPortal.setVisible(false);                
                 vetPortal.viewAllClients();
                 vetPortal.viewAllPets();
-                vetPortal.viewAllAppointments();
+                vetPortal.viewUpcomingAppointments();
                 dashboard.setVisible(true);
             }
         // If user is locked out, display error
@@ -630,7 +630,7 @@ public class VetPortal extends JFrame {
         // If the array is empty
         if (allAppointments.isEmpty()) {
             String errorMessage = vetDatabase.getErrorMessage();
-            JOptionPane.showMessageDialog(null, errorMessage, "Error: No appointments exist", JOptionPane.ERROR_MESSAGE);
+            System.out.println("No appointments exist: " + errorMessage);
         // If appointments exist
         } else {
             // Loop through the appointments and add them to the appointments Table
@@ -641,5 +641,30 @@ public class VetPortal extends JFrame {
         }
         vetDatabase.close();
     } //end of viewAllAppointments()
+    
+    //Method to view only appointments that are happening today or later
+    public void viewUpcomingAppointments() {
+        // Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return;
+        }
+        // Add all the appointments to an array
+        ArrayList<Appointments> upcomingAppointments = vetDatabase.selectUpcomingAppointments();
+        // If the array is empty
+        if (upcomingAppointments.isEmpty()) {
+            String errorMessage = vetDatabase.getErrorMessage();
+            System.out.println("No appointments exist: " + errorMessage);
+        // If appointments exist
+        } else {
+            // Loop through the appointments and add them to the appointments Table
+            DashboardsGui.MyAppointmentTableModel newModel = (DashboardsGui.MyAppointmentTableModel)dashboard.getAppointmentTable().getModel();
+            for (Appointments appointment : upcomingAppointments) {
+                newModel.add(appointment);
+            }
+        }
+        vetDatabase.close();
+    } //end of viewUpcomingAppointments()
 
 } //end of VetPortal

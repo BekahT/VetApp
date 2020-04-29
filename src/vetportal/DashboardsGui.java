@@ -1295,6 +1295,12 @@ public class DashboardsGui extends JFrame {
             fireTableDataChanged();
             vetPortal.viewAllAppointments();
         }
+        
+        public void refetchUpcomingAppointments() {
+            appointmentsData.clear();
+            fireTableDataChanged();
+            vetPortal.viewUpcomingAppointments();
+        }
 
         @Override
         public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1308,11 +1314,11 @@ public class DashboardsGui extends JFrame {
             String searchClient = aClientField.getText();
             String searchPet = aPetField.getText();
             
-            refetchAppointments();
+            refetchUpcomingAppointments();
             
             // If all fields are empty, reset the table
             if ("".equals(searchDate) && "".equals(searchPet) && "".equals(searchClient)) {
-                refetchAppointments();              
+                refetchUpcomingAppointments();              
             // If user supplied search terms
             } else {                   
                 // Get the filtered list
