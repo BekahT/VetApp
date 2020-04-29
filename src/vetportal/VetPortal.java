@@ -18,6 +18,10 @@ import javax.swing.table.DefaultTableModel;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -212,6 +216,9 @@ public class VetPortal extends JFrame {
     public static void main(String[] args) {
         vetPortal = new VetPortal();
         vetPortal.setVisible(true);
+
+        //TODO: Remove testing:
+        vetPortal.createAppointment(new JLabel("test"), "2020-06-23", "12:68", 2, 2, "Ear checkup.");
     } //end of main()
     
     // Validation functions for New Client and Pet Form Fields
@@ -227,7 +234,12 @@ public class VetPortal extends JFrame {
     
     private boolean isValidDate(String date) {
         return datePattern.matcher(date).matches();
-    }    
+    }
+
+    private LocalTime isValidTime(String time) {
+        DateTimeFormatter strictTimeFormatter = DateTimeFormatter.ofPattern("HH:mm").withResolverStyle(ResolverStyle.STRICT);
+        return LocalTime.parse(time, strictTimeFormatter);
+    }
         
     // Getter Functions
     public DashboardsGui getDashboard() {
@@ -616,6 +628,45 @@ public class VetPortal extends JFrame {
             return false;
         }
     }
+
+    // Method to create a new appointment, called from the AddAppointment.java file
+    public Boolean createAppointment(JLabel warnUser, String date, String time, int client, int pet, String reason) {
+        // Verify no fields are empty
+        if ((date.isEmpty()) || (time.isEmpty() || (reason.isEmpty()))) {
+            warnUser.setText("All fields are required!");
+            return false;
+        }
+
+        // Verify the appointment time
+        try {
+            isValidTime(time);
+        } catch (DateTimeParseException | NullPointerException e) {
+            warnUser.setText("Invalid time!");
+            return false;
+        }
+
+        //TODO: Might need to add 'Reason' character validation?
+
+        //Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return false;
+        }
+        // If INSERT into database fails
+        if (!vetDatabase.insertAppointment(date, time, client, pet, reason)) {
+            // Display the error to the user
+            String errorMessage = vetDatabase.getErrorMessage();
+            warnUser.setText(errorMessage);
+            // If INSERT into database is successful
+        } else {
+            // Log the add appointment action
+            AuditLog.logWriter("successfulAppointmentAdd", date + ", " + time);
+            return true;
+        }
+        vetDatabase.close();
+        return false;
+    } //end of createAppointment()
 
     //Method to view all appointments that currently exist in the database
     public void viewAllAppointments() {

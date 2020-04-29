@@ -404,6 +404,34 @@ public class Database {
         }
     } //end of updatePet()
 
+    // This method inserts a new appointment into the appointments table in the database
+    public boolean insertAppointment(String date, String time, int client, int pet, String reason) {
+        String sql = "INSERT INTO " + TABLE_APPOINTMENTS
+                + " (" + COLUMN_APPOINTMENT_DATE
+                + ", " + COLUMN_APPOINTMENT_TIME
+                + ", " + COLUMN_APPOINTMENT_CLIENT
+                + ", " + COLUMN_APPOINTMENT_PET
+                + ", " + COLUMN_APPOINTMENT_REASON + ") VALUES(date(?),datetime(?),?,?,?)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, date);
+            pstmt.setString(2, time);
+            pstmt.setInt(3, client);
+            pstmt.setInt(4, pet);
+            pstmt.setString(5, reason);
+            pstmt.executeUpdate();
+            pstmt.close();
+            return true;
+        } catch (SQLException e) {
+            if (SQLiteErrorCode.SQLITE_CONSTRAINT_UNIQUE.code == 2067) {
+                setErrorMessage("The appointment date and time is already scheduled!");
+            } else {
+                setErrorMessage("Unable to create new appointment.");
+            }
+            return false;
+        }
+    } //end of insertAppointment()
+
     // This method selects all the appointments from the appointments table in the database and returns them as a list
     public ArrayList<Appointments> selectAllAppointments() {
         try {
