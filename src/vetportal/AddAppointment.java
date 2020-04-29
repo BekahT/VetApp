@@ -109,7 +109,7 @@ public class AddAppointment extends JFrame {
 
         cancelInstructionLabel.setBackground(new java.awt.Color(255, 255, 255));
         cancelInstructionLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        cancelInstructionLabel.setText("or cancel to return to Appointments Dashboard");
+        cancelInstructionLabel.setText("or cancel to return to Pets Dashboard");
         cancelInstructionLabel.setMaximumSize(new java.awt.Dimension(74, 200));
         cancelInstructionLabel.setMinimumSize(new java.awt.Dimension(74, 200));
 
@@ -139,7 +139,7 @@ public class AddAppointment extends JFrame {
                     .addGroup(addAppointmentPanelLayout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addGroup(addAppointmentPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                            .addComponent(warningField, GroupLayout.PREFERRED_SIZE, 321, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(warningField, GroupLayout.PREFERRED_SIZE, 385, GroupLayout.PREFERRED_SIZE)
                             .addGroup(addAppointmentPanelLayout.createSequentialGroup()
                                 .addGroup(addAppointmentPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                     .addComponent(clientNameLabel)
