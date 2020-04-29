@@ -17,7 +17,7 @@ public class Database {
 
     private String errorMessage;
 
-    public static final String DB_NAME = "VetPortal.db";
+    public static final String DB_NAME = "C:\\Users\\Bekah\\Google Drive\\UMUC\\CMSC495\\VetApp\\application\\VetPortal.db";
     public static final String CONNECTION_STRING = "jdbc:sqlite:" + DB_NAME;
 
     public static final String TABLE_USERS = "users";
@@ -464,7 +464,7 @@ public class Database {
                     + "." + COLUMN_APPOINTMENT_CLIENT + "=" + TABLE_CLIENTS + "." + COLUMN_CLIENT_ID + " INNER JOIN "
                     + TABLE_PETS + " ON " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_PET + "=" + TABLE_PETS
                     + "." + COLUMN_PET_ID + " WHERE " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_DATE + " >= DATE('now','localtime') ORDER BY " +
-                    TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_DATE)) {
+                    TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_DATE + " ASC")) {
                 upcomingAppointments = new ArrayList<>();
                 while (results.next()) {
                     String appointmentClient = results.getString(COLUMN_CLIENT_FIRST_NAME) + " " + results.getString(COLUMN_CLIENT_LAST_NAME);
