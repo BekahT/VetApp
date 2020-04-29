@@ -31,6 +31,7 @@ public class DashboardsGui extends JFrame {
     AddPet addPetPage;
     EditPet editPetPage;
     ViewClient viewClientPage;
+    AddAppointment addAppointmentPage;
 
     /**
      * Creates new form DashboardsGui
@@ -575,6 +576,22 @@ public class DashboardsGui extends JFrame {
         addPetPage.setVisible(true);
     }
 
+    private void openCreateAppointment() {
+        Object petName = myPetTableModel.getValueAt(petTable.getSelectedRow(), 0);
+        Object petSpecies = myPetTableModel.getValueAt(petTable.getSelectedRow(), 1);
+        Object petGender = myPetTableModel.getValueAt(petTable.getSelectedRow(), 2);
+        Object petDateOfBirth = myPetTableModel.getValueAt(petTable.getSelectedRow(), 3);
+        //Object clientLastName = myPetTableModel.getValueAt(petTable.getSelectedRow(), 4);
+
+        vetPortal.getVetDatabase().open();
+        int petID = vetPortal.getVetDatabase().getPetID((String)petName, (String)petSpecies, (String)petGender, (String)petDateOfBirth);
+        int petOwner = vetPortal.getVetDatabase().getPetOwner((String)petName, (String)petSpecies, (String)petGender, (String)petDateOfBirth);
+        String clientFullName = vetPortal.getVetDatabase().getClientFullName(petOwner);
+
+        addAppointmentPage = new AddAppointment(vetPortal, (String)petName, clientFullName, petOwner, petID);
+        addAppointmentPage.setVisible(true);
+    }
+
     // Move to Client tab
     public void moveToClientTab(boolean showAddPetMessage) {
         // If the user clicked from the Add New Pet button, show the redirection message
@@ -921,6 +938,7 @@ public class DashboardsGui extends JFrame {
 
         private JButton editButton;
         private JButton deleteButton;
+        private JButton addAppointmentButton;
 
         public PetActionPane() {
             setLayout(new GridBagLayout());
@@ -929,12 +947,16 @@ public class DashboardsGui extends JFrame {
             editButton.setToolTipText("Edit Client");
             deleteButton = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/trash.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
             deleteButton.setToolTipText("Delete Client");
+            addAppointmentButton = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/link-open.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            addAppointmentButton.setToolTipText("Add Appointment");
 
             add(editButton);
             add(deleteButton);
+            add(addAppointmentButton);
 
             editButton.addActionListener(event -> edit());
             deleteButton.addActionListener(event -> delete());
+            addAppointmentButton.addActionListener(event -> addAppointment());
         } //end of constructor
 
         public void addActionListener(ActionListener listener) {
@@ -964,6 +986,10 @@ public class DashboardsGui extends JFrame {
             Object selectedPetDOB = myPetTableModel.getValueAt(petTable.getSelectedRow(), 3);
             // Send the data to the delete function
             deleteSelectedPet((String) selectedPetName, (String) selectedPetSpecies, (String) selectedPetGender, (String) selectedPetDOB);
+        }
+
+        private void addAppointment() {
+            openCreateAppointment();
         }
 
     } //end of ActionPane

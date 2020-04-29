@@ -5,12 +5,29 @@
  */
 package vetportal;
 
+import javax.swing.*;
+
 public class AddAppointment extends javax.swing.JFrame {
+
+    // Create a new VetPortal instance
+    VetPortal vetPortal;
+
+    //Variables to store appointment information:
+    String petName;
+    String clientFullName;
+    int petOwnerID;
+    int petID;
 
     /**
      * Creates new form AddClient
      */
-    public AddAppointment() {
+    public AddAppointment(VetPortal vetPortal, String petName, String clientFullName, int petOwnerID, int petID) {
+        super("Add New Appointment Form");
+        this.vetPortal = vetPortal;
+        this.petName = petName;
+        this.clientFullName = clientFullName;
+        this.petOwnerID = petOwnerID;
+        this.petID = petID;
         initComponents();
     }
 
@@ -169,10 +186,55 @@ public class AddAppointment extends javax.swing.JFrame {
             .addComponent(addAppointmentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        petNameField.setText(petName);
+        clientNameField.setText(clientFullName);
+
+        submitBtn.addActionListener(event -> createNewAppointment());
+        cancelBtn.addActionListener(event -> cancel());
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Create a new pet function
+    private void createNewAppointment() {
+        //TODO: get the date and time from the fields once they are separate
+        String date = dateField.getText();
+        //String time = timeField.getText();
+        String reason = reasonField.getText();
 
+        vetPortal.getVetDatabase().open();
+        //TODO: uncomment this once fields are separate
+        //Boolean createTF = vetPortal.createAppointment(warningField, date, time, petOwnerID, petID, reason);
+
+        // If creation was successful
+        //TODO: uncomment this once fields are separate
+        /*
+        if(createTF) {
+            // If success, reset the form
+            petNameField.setText(null);
+            clientNameField.setText(null);
+            dateField.setText(null);
+            //timeField.setText(null);
+            reasonField.setText(null);
+            // And close it
+            dispose();
+
+            // Refresh the Appointments Table in the Dashboard
+            DashboardsGui dashboard = vetPortal.getDashboard();
+            DashboardsGui.MyAppointmentTableModel model = (DashboardsGui.MyAppointmentTableModel)dashboard.getAppointmentTable().getModel();
+            model.refetchAppointments();
+            // Redirect the user to the appointments tab
+            dashboard.moveToApptTab();
+        }
+        */
+        // If creation was not successful, cWarningMsg will convey any errors to the user
+    }
+
+    // Cancel button function
+    private void cancel() {
+        //close the window
+        dispose();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addAppointmentLabel;

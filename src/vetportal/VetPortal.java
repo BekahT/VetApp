@@ -218,7 +218,9 @@ public class VetPortal extends JFrame {
         vetPortal.setVisible(true);
 
         //TODO: Remove testing:
-        vetPortal.createAppointment(new JLabel("test"), "2020-06-23", "12:68", 2, 2, "Ear checkup.");
+        //vetPortal.createAppointment(new JLabel("test"), "2020-06-23", "12:68", 2, 2, "Ear checkup.");
+        //AddAppointment pane = new AddAppointment();
+        //pane.setVisible(true);
     } //end of main()
     
     // Validation functions for New Client and Pet Form Fields

@@ -98,16 +98,17 @@ public class Database {
         }
     } //end of getClientID()
 
-    //Method to get a client's last name by ID number:
-    public String getClientLastName(int id) {
-        String sql = "SELECT " + COLUMN_CLIENT_LAST_NAME
+    //Method to get a client's full name by ID number:
+    public String getClientFullName(int id) {
+        String sql = "SELECT " + COLUMN_CLIENT_FIRST_NAME
+                + ", " + COLUMN_CLIENT_LAST_NAME
                 + " FROM " + TABLE_CLIENTS + " WHERE "
                 + COLUMN_CLIENT_ID + "=?";
 
         try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             ResultSet idResult = pstmt.executeQuery();
-            return idResult.getString("last_name");
+            return idResult.getString("first_name") + " " + idResult.getString("last_name");
         } catch (SQLException e) {
             return null;
         }
@@ -128,6 +129,26 @@ public class Database {
             pstmt.setString(4, dob);
             ResultSet idResult = pstmt.executeQuery();
             return idResult.getInt("pet_id");
+        } catch (SQLException e) {
+            return -1;
+        }
+    }
+
+    public int getPetOwner(String name, String species, String gender, String dob) {
+        String sql = "SELECT " + COLUMN_PET_OWNER
+                + " FROM " + TABLE_PETS + " WHERE "
+                + COLUMN_PET_NAME + "=?" + " AND "
+                + COLUMN_PET_SPECIES + "=?" + " AND "
+                + COLUMN_PET_GENDER + "=?" + " AND "
+                + COLUMN_PET_DATE_OF_BIRTH + "=DATE(?)";
+
+        try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            pstmt.setString(2, species);
+            pstmt.setString(3, gender);
+            pstmt.setString(4, dob);
+            ResultSet idResult = pstmt.executeQuery();
+            return idResult.getInt("owner");
         } catch (SQLException e) {
             return -1;
         }
