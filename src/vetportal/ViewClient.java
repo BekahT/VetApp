@@ -90,11 +90,6 @@ public class ViewClient extends JFrame {
 
         emailField.setEditable(false);
         emailField.setFont(new Font("Calibri", 0, 14)); // NOI18N
-        emailField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailFieldActionPerformed(evt);
-            }
-        });
 
         phoneNumberLabel.setFont(new Font("Calibri", 0, 14)); // NOI18N
         phoneNumberLabel.setText("Phone Number");
@@ -319,10 +314,6 @@ public class ViewClient extends JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_emailFieldActionPerformed
 
     // Close button function
     private void close() {

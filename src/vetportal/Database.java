@@ -269,7 +269,7 @@ public class Database {
         try {
             statement = conn.createStatement();
             ArrayList<Clients> allClients;
-            try (ResultSet results = statement.executeQuery("SELECT * FROM " + TABLE_CLIENTS)) {
+            try (ResultSet results = statement.executeQuery("SELECT * FROM " + TABLE_CLIENTS + " ORDER BY " + TABLE_CLIENTS + "." + COLUMN_CLIENT_LAST_NAME + " ASC")) {
                 allClients = new ArrayList<>();
                 while (results.next()) {
                     Clients client = new Clients(results.getInt(COLUMN_CLIENT_ID), results.getString(COLUMN_CLIENT_FIRST_NAME),
@@ -362,9 +362,9 @@ public class Database {
             statement = conn.createStatement();
             ArrayList<Pets> allPets;
             // Select all pets and join the client last name on client id / owner id to get the owner last name
-            try (ResultSet results = statement.executeQuery("SELECT " + TABLE_PETS + ".*, " + TABLE_CLIENTS + ".last_name FROM " 
-                    + TABLE_PETS + " INNER JOIN " + TABLE_CLIENTS + " ON " + TABLE_PETS + "." + COLUMN_PET_OWNER 
-                    + "=" + TABLE_CLIENTS + "." + COLUMN_CLIENT_ID)) {
+            try (ResultSet results = statement.executeQuery("SELECT " + TABLE_PETS + ".*, " + TABLE_CLIENTS + "." + COLUMN_CLIENT_LAST_NAME 
+                    + " FROM " + TABLE_PETS + " INNER JOIN " + TABLE_CLIENTS + " ON " + TABLE_PETS + "." + COLUMN_PET_OWNER 
+                    + "=" + TABLE_CLIENTS + "." + COLUMN_CLIENT_ID + " ORDER BY " + TABLE_PETS + "." + COLUMN_PET_NAME + " ASC")) {
                 allPets = new ArrayList<>();
                 while (results.next()) {
                     Pets pet = new Pets(results.getInt(COLUMN_PET_ID), results.getString(COLUMN_PET_NAME),
@@ -423,7 +423,7 @@ public class Database {
                     + " FROM " + TABLE_APPOINTMENTS + " INNER JOIN " + TABLE_CLIENTS + " ON " + TABLE_APPOINTMENTS
                     + "." + COLUMN_APPOINTMENT_CLIENT + "=" + TABLE_CLIENTS + "." + COLUMN_CLIENT_ID + " INNER JOIN "
                     + TABLE_PETS + " ON " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_PET + "=" + TABLE_PETS
-                    + "." + COLUMN_PET_ID)) {
+                    + "." + COLUMN_PET_ID + " ORDER BY " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_DATE + " ASC")) {
                 allAppointments = new ArrayList<>();
                 while (results.next()) {
                     String appointmentClient = results.getString(COLUMN_CLIENT_FIRST_NAME) + " " + results.getString(COLUMN_CLIENT_LAST_NAME);
