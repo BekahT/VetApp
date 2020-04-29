@@ -584,8 +584,6 @@ public class VetPortal extends JFrame {
             e.getMessage();
         }
 
-        //TODO: might need to add validation checks on species, gender, and dob - depending on implementation
-
         // Attempt to open a connection with the database
         vetDatabase = new Database();
         if (!vetDatabase.open()) {
@@ -648,6 +646,21 @@ public class VetPortal extends JFrame {
         }
 
         //TODO: Might need to add 'Reason' character validation?
+        
+        if(!(isValidDate(date))) {
+            warnUser.setText("Dates must be in yyyy-mm-dd format!");
+            return false;
+        }
+        
+        //Verify the appointment date is not in the past
+        try {
+            if (!(validateApptDate(date))) {
+                warnUser.setText("Appointments cannot be made in the past!");
+                return false;
+            }
+        } catch (ParseException e) {
+            e.getMessage();
+        }
 
         //Attempt to open a connection with the database
         vetDatabase = new Database();
@@ -669,6 +682,29 @@ public class VetPortal extends JFrame {
         vetDatabase.close();
         return false;
     } //end of createAppointment()
+    
+    //Validate Appointment Date (must be in the future)
+    public static Boolean validateApptDate(String date) throws ParseException {
+        //format date to match field input
+        DateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+        //get today's date
+        Date todayDate = new Date();
+        //correctly format today's date
+        Date cTodayDate = formatDate.parse(formatDate.format(todayDate));
+        // correctly format user input
+        Date cApptDate = formatDate.parse(date);
+
+        //compare the current date to input
+        //if appointment date is today or after
+        if (cTodayDate.compareTo(cApptDate) <= 0) {
+            //return true
+            return true;
+        }
+        //otherwise, return false
+        else {
+            return false;
+        }
+    }
 
     //Method to view all appointments that currently exist in the database
     public void viewAllAppointments() {

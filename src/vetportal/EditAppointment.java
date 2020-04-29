@@ -1,7 +1,7 @@
 /**
  * File: EditAppointment.java
  * Date: April 28, 2020
- * @Author: Nour Debiat
+ * @Author: Nour Debiat, Brian Rease, Rebekah Qu
  * Purpose: This window allows the user to edit existing appointments.
  */
 package vetportal;
