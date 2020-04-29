@@ -1,13 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * File: AddAppointment.java
+ * Date: April 28, 2020
+ * @Author: Nour Debiat
+ * Purpose: This window allows the user to add new appointments.
  */
 package vetportal;
 
+import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.github.lgooddatepicker.components.DateTimePicker;
+import com.github.lgooddatepicker.components.TimePickerSettings;
+import com.github.lgooddatepicker.components.TimePickerSettings.TimeIncrement;
 import javax.swing.*;
 
-public class AddAppointment extends javax.swing.JFrame {
+public class AddAppointment extends JFrame {
 
     // Create a new VetPortal instance
     VetPortal vetPortal;
@@ -40,22 +45,34 @@ public class AddAppointment extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        addAppointmentPanel = new javax.swing.JPanel();
-        cancelBtn = new javax.swing.JButton();
-        submitBtn = new javax.swing.JButton();
-        addAppointmentLabel = new javax.swing.JLabel();
-        petNameLabel = new javax.swing.JLabel();
-        clientNameLabel = new javax.swing.JLabel();
-        dateLabel = new javax.swing.JLabel();
-        petNameField = new javax.swing.JTextField();
-        clientNameField = new javax.swing.JTextField();
-        cancelInstructionLabel = new javax.swing.JLabel();
-        reasonLabel = new javax.swing.JLabel();
-        warningField = new javax.swing.JLabel();
-        dateField = new javax.swing.JTextField();
-        reasonField = new javax.swing.JTextField();
+        addAppointmentPanel = new JPanel();
+        cancelBtn = new JButton();
+        submitBtn = new JButton();
+        addAppointmentLabel = new JLabel();
+        petNameLabel = new JLabel();
+        clientNameLabel = new JLabel();
+        dateLabel = new JLabel();
+        petNameField = new JTextField();
+        clientNameField = new JTextField();
+        cancelInstructionLabel = new JLabel();
+        reasonLabel = new JLabel();
+        warningField = new JLabel();
+        
+        // Create a DateTimePicker
+        DatePickerSettings dateSettings = new DatePickerSettings();
+        dateSettings.setFormatForDatesCommonEra("yyyy-MM-dd");
+        dateSettings.setFormatForDatesBeforeCommonEra("uuuu-MM-dd"); 
+        dateSettings.setAllowEmptyDates(false);        
+        TimePickerSettings timeSettings = new TimePickerSettings();
+        timeSettings.setAllowEmptyTimes(false);
+        timeSettings.use24HourClockFormat();
+        timeSettings.generatePotentialMenuTimes(TimeIncrement.ThirtyMinutes, null, null);
+        
+        dateField = new DateTimePicker(dateSettings, timeSettings);
+        
+        reasonField = new JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         addAppointmentPanel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -99,39 +116,40 @@ public class AddAppointment extends javax.swing.JFrame {
         reasonLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         reasonLabel.setText("Reason");
 
-        warningField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        warningField.setForeground(new java.awt.Color(198, 0, 0));
+        warningField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        warningField.setForeground(new java.awt.Color(203, 0, 0));
+        warningField.setHorizontalAlignment(SwingConstants.CENTER);
 
         dateField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         reasonField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
-        javax.swing.GroupLayout addAppointmentPanelLayout = new javax.swing.GroupLayout(addAppointmentPanel);
+        GroupLayout addAppointmentPanelLayout = new GroupLayout(addAppointmentPanel);
         addAppointmentPanel.setLayout(addAppointmentPanelLayout);
         addAppointmentPanelLayout.setHorizontalGroup(
-            addAppointmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, addAppointmentPanelLayout.createSequentialGroup()
+            addAppointmentPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(GroupLayout.Alignment.TRAILING, addAppointmentPanelLayout.createSequentialGroup()
                 .addGap(0, 46, Short.MAX_VALUE)
-                .addGroup(addAppointmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addAppointmentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancelInstructionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(addAppointmentPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                    .addComponent(addAppointmentLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelInstructionLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41))
             .addGroup(addAppointmentPanelLayout.createSequentialGroup()
-                .addGroup(addAppointmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(addAppointmentPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(addAppointmentPanelLayout.createSequentialGroup()
                         .addGap(70, 70, 70)
-                        .addGroup(addAppointmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(warningField, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(addAppointmentPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(warningField, GroupLayout.PREFERRED_SIZE, 321, GroupLayout.PREFERRED_SIZE)
                             .addGroup(addAppointmentPanelLayout.createSequentialGroup()
-                                .addGroup(addAppointmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(addAppointmentPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                     .addComponent(clientNameLabel)
                                     .addComponent(petNameLabel)
                                     .addComponent(dateLabel)
                                     .addComponent(reasonLabel))
                                 .addGap(18, 18, 18)
-                                .addGroup(addAppointmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(clientNameField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
-                                    .addComponent(petNameField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(addAppointmentPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(clientNameField, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                                    .addComponent(petNameField, GroupLayout.Alignment.LEADING)
                                     .addComponent(dateField)
                                     .addComponent(reasonField)))))
                     .addGroup(addAppointmentPanelLayout.createSequentialGroup()
@@ -139,35 +157,35 @@ public class AddAppointment extends javax.swing.JFrame {
                         .addComponent(submitBtn)
                         .addGap(54, 54, 54)
                         .addComponent(cancelBtn)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         addAppointmentPanelLayout.setVerticalGroup(
-            addAppointmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            addAppointmentPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(addAppointmentPanelLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(addAppointmentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cancelInstructionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(addAppointmentLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cancelInstructionLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addGroup(addAppointmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addAppointmentPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(petNameLabel)
-                    .addComponent(petNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(petNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(addAppointmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addAppointmentPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(clientNameLabel)
-                    .addComponent(clientNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(clientNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
-                .addGroup(addAppointmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addAppointmentPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(dateLabel)
-                    .addComponent(dateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dateField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(addAppointmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addAppointmentPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(reasonLabel)
-                    .addComponent(reasonField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(reasonField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(warningField)
                 .addGap(29, 29, 29)
-                .addGroup(addAppointmentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(addAppointmentPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(submitBtn)
                     .addComponent(cancelBtn))
                 .addContainerGap(70, Short.MAX_VALUE))
@@ -175,15 +193,15 @@ public class AddAppointment extends javax.swing.JFrame {
 
         addAppointmentLabel.getAccessibleContext().setAccessibleName("");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addAppointmentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(addAppointmentPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(addAppointmentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addComponent(addAppointmentPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         petNameField.setText(petName);
@@ -197,24 +215,18 @@ public class AddAppointment extends javax.swing.JFrame {
 
     // Create a new pet function
     private void createNewAppointment() {
-        //TODO: get the date and time from the fields once they are separate
-        String date = dateField.getText();
-        //String time = timeField.getText();
+        String date = dateField.datePicker.getText();
+        String time = dateField.timePicker.getText();
         String reason = reasonField.getText();
 
         vetPortal.getVetDatabase().open();
-        //TODO: uncomment this once fields are separate
-        //Boolean createTF = vetPortal.createAppointment(warningField, date, time, petOwnerID, petID, reason);
+        Boolean createTF = vetPortal.createAppointment(warningField, date, time, petOwnerID, petID, reason);
 
         // If creation was successful
-        //TODO: uncomment this once fields are separate
-        /*
         if(createTF) {
             // If success, reset the form
             petNameField.setText(null);
             clientNameField.setText(null);
-            dateField.setText(null);
-            //timeField.setText(null);
             reasonField.setText(null);
             // And close it
             dispose();
@@ -222,11 +234,10 @@ public class AddAppointment extends javax.swing.JFrame {
             // Refresh the Appointments Table in the Dashboard
             DashboardsGui dashboard = vetPortal.getDashboard();
             DashboardsGui.MyAppointmentTableModel model = (DashboardsGui.MyAppointmentTableModel)dashboard.getAppointmentTable().getModel();
-            model.refetchAppointments();
+            model.refetchUpcomingAppointments();
             // Redirect the user to the appointments tab
             dashboard.moveToApptTab();
         }
-        */
         // If creation was not successful, cWarningMsg will convey any errors to the user
     }
 
@@ -237,19 +248,19 @@ public class AddAppointment extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel addAppointmentLabel;
-    private javax.swing.JPanel addAppointmentPanel;
-    private javax.swing.JButton cancelBtn;
-    private javax.swing.JLabel cancelInstructionLabel;
-    private javax.swing.JTextField clientNameField;
-    private javax.swing.JLabel clientNameLabel;
-    private javax.swing.JTextField dateField;
-    private javax.swing.JLabel dateLabel;
-    private javax.swing.JTextField petNameField;
-    private javax.swing.JLabel petNameLabel;
-    private javax.swing.JTextField reasonField;
-    private javax.swing.JLabel reasonLabel;
-    private javax.swing.JButton submitBtn;
-    private javax.swing.JLabel warningField;
+    private JLabel addAppointmentLabel;
+    private JPanel addAppointmentPanel;
+    private JButton cancelBtn;
+    private JLabel cancelInstructionLabel;
+    private JTextField clientNameField;
+    private JLabel clientNameLabel;
+    private DateTimePicker dateField;
+    private JLabel dateLabel;
+    private JTextField petNameField;
+    private JLabel petNameLabel;
+    private JTextField reasonField;
+    private JLabel reasonLabel;
+    private JButton submitBtn;
+    private JLabel warningField;
     // End of variables declaration//GEN-END:variables
 }

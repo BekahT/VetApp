@@ -947,7 +947,7 @@ public class DashboardsGui extends JFrame {
             editButton.setToolTipText("Edit Client");
             deleteButton = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/trash.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
             deleteButton.setToolTipText("Delete Client");
-            addAppointmentButton = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/link-open.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
+            addAppointmentButton = new JButton(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icons/calendar-plus.png")).getScaledInstance(16, 16, Image.SCALE_SMOOTH)));
             addAppointmentButton.setToolTipText("Add Appointment");
 
             add(editButton);
