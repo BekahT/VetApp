@@ -401,7 +401,7 @@ public class VetPortal extends JFrame {
 	// If the array is empty
         if (allClients.isEmpty()) {
             String errorMessage = vetDatabase.getErrorMessage();
-            JOptionPane.showMessageDialog(null, errorMessage, "Error: No clients exist", JOptionPane.ERROR_MESSAGE);
+            System.out.println("No clients exist: " + errorMessage);
 	// If clients exist
         } else {
             // Loop through the clients and add them to the Clients Table              
@@ -546,7 +546,7 @@ public class VetPortal extends JFrame {
         // If the array is empty
         if (allPets.isEmpty()) {
             String errorMessage = vetDatabase.getErrorMessage();
-            JOptionPane.showMessageDialog(null, errorMessage, "Error: No pets exist", JOptionPane.ERROR_MESSAGE);
+            System.out.println("No pets exist: " + errorMessage);
         // If pets exist
         } else {
             // Loop through the pets and add them to the pets Table
@@ -659,7 +659,7 @@ public class VetPortal extends JFrame {
             return false;
         }
         
-        //Verify the appointment date is not in the past
+        //Verify the appointment date and time are not in the past
         try {
             if (!(validateApptDate(date, time))) {
                 warnUser.setText("Appointments cannot be made in the past!");
@@ -690,7 +690,7 @@ public class VetPortal extends JFrame {
         return false;
     } //end of createAppointment()
     
-    //Validate Appointment Date (must be in the future)
+    // Validate Appointment Date and time (must be in the future)
     public static Boolean validateApptDate(String date, String time) throws ParseException {
         // Combine the date and time
         String dateTime;
