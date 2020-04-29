@@ -463,7 +463,8 @@ public class Database {
                     + " FROM " + TABLE_APPOINTMENTS + " INNER JOIN " + TABLE_CLIENTS + " ON " + TABLE_APPOINTMENTS
                     + "." + COLUMN_APPOINTMENT_CLIENT + "=" + TABLE_CLIENTS + "." + COLUMN_CLIENT_ID + " INNER JOIN "
                     + TABLE_PETS + " ON " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_PET + "=" + TABLE_PETS
-                    + "." + COLUMN_PET_ID + " WHERE " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_DATE + " >= DATE('now','localtime')")) {
+                    + "." + COLUMN_PET_ID + " WHERE " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_DATE + " >= DATE('now','localtime') ORDER BY " +
+                    TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_DATE)) {
                 upcomingAppointments = new ArrayList<>();
                 while (results.next()) {
                     String appointmentClient = results.getString(COLUMN_CLIENT_FIRST_NAME) + " " + results.getString(COLUMN_CLIENT_LAST_NAME);
