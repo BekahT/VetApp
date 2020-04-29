@@ -401,7 +401,7 @@ public class VetPortal extends JFrame {
 	// If the array is empty
         if (allClients.isEmpty()) {
             String errorMessage = vetDatabase.getErrorMessage();
-            JOptionPane.showMessageDialog(null, errorMessage, "Error: No clients exist", JOptionPane.ERROR_MESSAGE);
+            System.out.println("No clients exist: " + errorMessage);
 	// If clients exist
         } else {
             // Loop through the clients and add them to the Clients Table              
@@ -546,7 +546,7 @@ public class VetPortal extends JFrame {
         // If the array is empty
         if (allPets.isEmpty()) {
             String errorMessage = vetDatabase.getErrorMessage();
-            JOptionPane.showMessageDialog(null, errorMessage, "Error: No pets exist", JOptionPane.ERROR_MESSAGE);
+            System.out.println("No pets exist: " + errorMessage);
         // If pets exist
         } else {
             // Loop through the pets and add them to the pets Table
@@ -659,9 +659,9 @@ public class VetPortal extends JFrame {
             return false;
         }
         
-        //Verify the appointment date is not in the past
+        //Verify the appointment date and time are not in the past
         try {
-            if (!(validateApptDate(date))) {
+            if (!(validateApptDate(date, time))) {
                 warnUser.setText("Appointments cannot be made in the past!");
                 return false;
             }
@@ -690,24 +690,25 @@ public class VetPortal extends JFrame {
         return false;
     } //end of createAppointment()
     
-    //Validate Appointment Date (must be in the future)
-    public static Boolean validateApptDate(String date) throws ParseException {
-        //format date to match field input
-        DateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
-        //get today's date
+    // Validate Appointment Date and time (must be in the future)
+    public static Boolean validateApptDate(String date, String time) throws ParseException {
+        // Combine the date and time
+        String dateTime;
+        dateTime = date + " " + time;
+        //format date time to match field input
+        DateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        //get today's date and time
         Date todayDate = new Date();
-        //correctly format today's date
+        //correctly format today's date and time
         Date cTodayDate = formatDate.parse(formatDate.format(todayDate));
         // correctly format user input
-        Date cApptDate = formatDate.parse(date);
+        Date cApptDate = formatDate.parse(dateTime);
 
-        //compare the current date to input
-        //if appointment date is today or after
+        //compare the current date and time to input
+        //if appointment date is now or after
         if (cTodayDate.compareTo(cApptDate) <= 0) {
-            //return true
             return true;
         }
-        //otherwise, return false
         else {
             return false;
         }

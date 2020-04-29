@@ -445,7 +445,7 @@ public class Database {
             return true;
         } catch (SQLException e) {
             if (SQLiteErrorCode.SQLITE_CONSTRAINT_UNIQUE.code == 2067) {
-                setErrorMessage("The appointment date and time is already scheduled!");
+                setErrorMessage("Appointment date/time is already taken!");
             } else {
                 setErrorMessage("Unable to create new appointment.");
             }
