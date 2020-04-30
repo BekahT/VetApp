@@ -786,4 +786,50 @@ public class VetPortal extends JFrame {
         vetDatabase.close();
     } //end of viewUpcomingAppointments()
 
+    // Method to edit information on existing appointments
+    public Boolean editAppointment(JLabel warnUser, String currentDate, String currentTime, String updatedDate, String updatedTime, String updatedReason) {
+        // Verify no fields are empty
+        if (updatedReason.isEmpty()) {
+            warnUser.setText("All fields are required!");
+            return false;
+        }
+
+        // Verify the reason is validly formatted
+        if (!(isValidText(updatedReason))) {
+            warnUser.setText("Reason may not contain invalid characters!");
+            return false;
+        }
+
+        //Verify the appointment date and time are not in the past
+        try {
+            if (!(validateApptDate(updatedDate, updatedTime))) {
+                warnUser.setText("Appointments cannot be made in the past!");
+                return false;
+            }
+        } catch (ParseException e) {
+            e.getMessage();
+        }
+
+        // Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return false;
+        }
+
+        // If UPDATE in database fails
+        if (!vetDatabase.updateAppointment(currentDate, currentTime, updatedDate, updatedTime, updatedReason)) {
+            // Show an error
+            String errorMessage = vetDatabase.getErrorMessage();
+            warnUser.setText(errorMessage);
+            // If UPDATE in database is successful
+        } else {
+            // Log successful pet edit
+            AuditLog.logWriter("successfulAppointmentEdit", updatedDate + ", " + updatedTime);
+            return true;
+        }
+        vetDatabase.close();
+        return false;
+    } //end of editAppointment()
+
 } //end of VetPortal

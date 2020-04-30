@@ -555,4 +555,30 @@ public class Database {
         }
     } //end of selectUpcomingAppointments()
 
+    // This method updates an appointment with edited information in the appointment table in the database
+    public boolean updateAppointment(String currentDate, String currentTime, String updatedDate, String updatedTime, String updatedReason) {
+        String currentTimeDate = currentDate + " " + currentTime;
+        String updatedTimeDate = updatedDate + " " + updatedTime;
+
+        String sql = "UPDATE " + TABLE_APPOINTMENTS
+                + " SET " + COLUMN_APPOINTMENT_DATE + "=date(?), "
+                + COLUMN_APPOINTMENT_TIME + "=datetime(?), "
+                + COLUMN_APPOINTMENT_REASON + "=? "
+                + "WHERE " + COLUMN_APPOINTMENT_DATE + "=date(?) "
+                + "AND " + COLUMN_APPOINTMENT_TIME + "=datetime(?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, updatedDate);
+            pstmt.setString(2, updatedTimeDate);
+            pstmt.setString(3, updatedReason);
+            pstmt.setString(4, currentDate);
+            pstmt.setString(5, currentTimeDate);
+            pstmt.executeUpdate();
+            pstmt.close();
+            return true;
+        } catch (SQLException e)  {
+            setErrorMessage("Unable to update appointment.");
+            return false;
+        }
+    } //end of updateAppointment()
+
 } //end of Database
