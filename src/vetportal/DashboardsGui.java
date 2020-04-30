@@ -1231,7 +1231,7 @@ public class DashboardsGui extends JFrame {
         }
 
         private void edit() {
-            // Get the information for the selected pet
+            // Get the information for the selected appointment
             Object selectedDate = myAppointmentTableModel.getValueAt(appointmentTable.getSelectedRow(), 0);
             Object selectedTime = myAppointmentTableModel.getValueAt(appointmentTable.getSelectedRow(), 1);
             Object selectedClient = myAppointmentTableModel.getValueAt(appointmentTable.getSelectedRow(), 2);
@@ -1345,12 +1345,6 @@ public class DashboardsGui extends JFrame {
             int startIndex = getRowCount();
             appointmentsData.add(content);
             fireTableRowsInserted(startIndex, getRowCount() - 1);
-        }
-
-        public void refetchAppointments() {
-            appointmentsData.clear();
-            fireTableDataChanged();
-            vetPortal.viewAllAppointments();
         }
         
         public void refetchUpcomingAppointments() {

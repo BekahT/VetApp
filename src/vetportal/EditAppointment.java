@@ -20,9 +20,7 @@ public class EditAppointment extends JFrame {
 
     String currentDate, currentTime, currentClient, currentPet, currentReason;
 
-    /**
-     * Creates new form AddClient
-     */
+
     public EditAppointment(VetPortal vetPortal, String currentDate, String currentTime, String currentClient, String currentPet, String currentReason) {
         super("Edit Appointment Form");
         this.vetPortal = vetPortal;

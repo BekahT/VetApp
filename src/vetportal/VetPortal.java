@@ -735,31 +735,6 @@ public class VetPortal extends JFrame {
         }
         vetDatabase.close();
     } //end of deleteAppointment()
-
-    //Method to view all appointments that currently exist in the database
-    public void viewAllAppointments() {
-        // Attempt to open a connection with the database
-        vetDatabase = new Database();
-        if (!vetDatabase.open()) {
-            System.out.println("Can't connect to the database!");
-            return;
-        }
-        // Add all the appointments to an array
-        ArrayList<Appointments> allAppointments = vetDatabase.selectAllAppointments();
-        // If the array is empty
-        if (allAppointments.isEmpty()) {
-            String errorMessage = vetDatabase.getErrorMessage();
-            System.out.println("No appointments exist: " + errorMessage);
-        // If appointments exist
-        } else {
-            // Loop through the appointments and add them to the appointments Table
-            DashboardsGui.MyAppointmentTableModel newModel = (DashboardsGui.MyAppointmentTableModel)dashboard.getAppointmentTable().getModel();
-            for (Appointments appointment : allAppointments) {
-                newModel.add(appointment);
-            }
-        }
-        vetDatabase.close();
-    } //end of viewAllAppointments()
     
     //Method to view only appointments that are happening today or later
     public void viewUpcomingAppointments() {
