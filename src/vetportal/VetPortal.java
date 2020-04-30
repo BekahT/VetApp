@@ -723,12 +723,12 @@ public class VetPortal extends JFrame {
             return;
         }
 
-        // If no pet was passed
+        // If no appointment was passed
         if (!vetDatabase.deleteAppointment(date, time)) {
             // Display an error
             String errorMessage = vetDatabase.getErrorMessage();
             JOptionPane.showMessageDialog(null, errorMessage, "Error: No appointment selected", JOptionPane.ERROR_MESSAGE);
-            // Delete the pet
+            // Delete the appointment
         } else {
             // Log the deletion
             AuditLog.logWriter("successfulAppointmentDelete", date + ", " + time);
