@@ -714,6 +714,28 @@ public class VetPortal extends JFrame {
         }
     }
 
+    // Method to delete an existing appointment from the database
+    public void deleteAppointment(String date, String time) {
+        //Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return;
+        }
+
+        // If no appointment was passed
+        if (!vetDatabase.deleteAppointment(date, time)) {
+            // Display an error
+            String errorMessage = vetDatabase.getErrorMessage();
+            JOptionPane.showMessageDialog(null, errorMessage, "Error: No appointment selected", JOptionPane.ERROR_MESSAGE);
+            // Delete the appointment
+        } else {
+            // Log the deletion
+            AuditLog.logWriter("successfulAppointmentDelete", date + ", " + time);
+        }
+        vetDatabase.close();
+    } //end of deleteAppointment()
+
     //Method to view all appointments that currently exist in the database
     public void viewAllAppointments() {
         // Attempt to open a connection with the database
