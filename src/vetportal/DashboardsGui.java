@@ -1227,7 +1227,7 @@ public class DashboardsGui extends JFrame {
         }
 
         private void delete() {
-            // Get the date for the selected pet
+            // Get the date for the selected appointment
             Object selectedDate = myAppointmentTableModel.getValueAt(appointmentTable.getSelectedRow(), 0);
             Object selectedTime = myAppointmentTableModel.getValueAt(appointmentTable.getSelectedRow(), 1);
             // Send the data to the delete function
