@@ -454,6 +454,26 @@ public class Database {
         }
     } //end of insertAppointment()
 
+    // This method deletes an existing appointment from the appointments table in the database
+    public boolean deleteAppointment(String date, String time) {
+        String datetime = date + " " + time;
+        String sql = "DELETE FROM " + TABLE_APPOINTMENTS
+                + " WHERE "
+                + COLUMN_APPOINTMENT_DATE + "=date(?)" + " AND "
+                + COLUMN_APPOINTMENT_TIME + "=datetime(?)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, date);
+            pstmt.setString(2, datetime);
+            pstmt.execute();
+            pstmt.close();
+            return true;
+        } catch (SQLException e) {
+            setErrorMessage("Unable to delete appointment.");
+            return false;
+        }
+    } //end of deleteAppointment()
+
     // This method selects all the appointments from the appointments table in the database and returns them as a list
     public ArrayList<Appointments> selectAllAppointments() {
         try {

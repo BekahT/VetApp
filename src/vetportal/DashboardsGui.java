@@ -500,6 +500,19 @@ public class DashboardsGui extends JFrame {
         // If No (1) was selected do nothing
     } // end of deleteSelectedPet()
 
+    // Handler for deleting an appointment
+    private void deleteSelectedAppointment(String date, String time){
+        // Ask the user to confirm the appointment deletion
+        int delete = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the appointment at " + date + " " + time + "?", "Confirm Appointment Deletion", JOptionPane.YES_NO_OPTION);
+        // If Yes (0) was selected
+        if (delete == 0) {
+            // Delete the client
+            vetPortal.deleteAppointment(date, time);
+            myAppointmentTableModel.refetchUpcomingAppointments();
+        }
+        // If No (1) was selected do nothing
+    } // end of deleteSelectedPet()
+
     // Handler for logout button click event
     private void logout() {
         // Open Login Page
@@ -1214,7 +1227,11 @@ public class DashboardsGui extends JFrame {
         }
 
         private void delete() {
-
+            // Get the date for the selected pet
+            Object selectedDate = myAppointmentTableModel.getValueAt(appointmentTable.getSelectedRow(), 0);
+            Object selectedTime = myAppointmentTableModel.getValueAt(appointmentTable.getSelectedRow(), 1);
+            // Send the data to the delete function
+            deleteSelectedAppointment((String)selectedDate, (String)selectedTime);
         }
 
     } //end of ActionPane
