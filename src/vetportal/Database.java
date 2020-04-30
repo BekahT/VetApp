@@ -427,6 +427,7 @@ public class Database {
 
     // This method inserts a new appointment into the appointments table in the database
     public boolean insertAppointment(String date, String time, int client, int pet, String reason) {
+        String datetime = date + " " + time;
         String sql = "INSERT INTO " + TABLE_APPOINTMENTS
                 + " (" + COLUMN_APPOINTMENT_DATE
                 + ", " + COLUMN_APPOINTMENT_TIME
@@ -436,7 +437,7 @@ public class Database {
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, date);
-            pstmt.setString(2, time);
+            pstmt.setString(2, datetime);
             pstmt.setInt(3, client);
             pstmt.setInt(4, pet);
             pstmt.setString(5, reason);
