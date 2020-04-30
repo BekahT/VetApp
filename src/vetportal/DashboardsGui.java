@@ -32,6 +32,7 @@ public class DashboardsGui extends JFrame {
     EditPet editPetPage;
     ViewClient viewClientPage;
     AddAppointment addAppointmentPage;
+    EditAppointment editAppointmentPage;
 
     /**
      * Creates new form DashboardsGui
@@ -546,6 +547,13 @@ public class DashboardsGui extends JFrame {
         // Open the Edit Pet Page and pass the selected pets's information
         editPetPage = new EditPet(vetPortal, currentName, currentSpecies, currentGender, currentDateOfBirth);
         editPetPage.setVisible(true);
+    }
+
+    // Handler for edit selected appointment click event
+    private void editSelectedAppointment(String currentDate, String currentTime, String currentClient, String currentPet, String currentReason) {
+        // Open the Edit Appointment Page and pass the selected appointment's information
+        editAppointmentPage = new EditAppointment(vetPortal, currentDate, currentTime, currentClient, currentPet, currentReason);
+        editAppointmentPage.setVisible(true);
     }
     
     public JTable getClientsTable() {
@@ -1223,7 +1231,13 @@ public class DashboardsGui extends JFrame {
         }
 
         private void edit() {
-
+            // Get the information for the selected appointment
+            Object selectedDate = myAppointmentTableModel.getValueAt(appointmentTable.getSelectedRow(), 0);
+            Object selectedTime = myAppointmentTableModel.getValueAt(appointmentTable.getSelectedRow(), 1);
+            Object selectedClient = myAppointmentTableModel.getValueAt(appointmentTable.getSelectedRow(), 2);
+            Object selectedPet = myAppointmentTableModel.getValueAt(appointmentTable.getSelectedRow(), 3);
+            Object selectedReason = myAppointmentTableModel.getValueAt(appointmentTable.getSelectedRow(), 4);
+            editSelectedAppointment((String)selectedDate, (String)selectedTime, (String)selectedClient, (String)selectedPet, (String)selectedReason);
         }
 
         private void delete() {
@@ -1331,12 +1345,6 @@ public class DashboardsGui extends JFrame {
             int startIndex = getRowCount();
             appointmentsData.add(content);
             fireTableRowsInserted(startIndex, getRowCount() - 1);
-        }
-
-        public void refetchAppointments() {
-            appointmentsData.clear();
-            fireTableDataChanged();
-            vetPortal.viewAllAppointments();
         }
         
         public void refetchUpcomingAppointments() {

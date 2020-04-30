@@ -9,14 +9,26 @@ package vetportal;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.DateTimePicker;
 import com.github.lgooddatepicker.components.TimePickerSettings;
+
 import javax.swing.*;
+import java.util.Scanner;
 
 public class EditAppointment extends JFrame {
 
-    /**
-     * Creates new form AddClient
-     */
-    public EditAppointment() {
+    // Create a new VetPortal instance
+    VetPortal vetPortal;
+
+    String currentDate, currentTime, currentClient, currentPet, currentReason;
+
+
+    public EditAppointment(VetPortal vetPortal, String currentDate, String currentTime, String currentClient, String currentPet, String currentReason) {
+        super("Edit Appointment Form");
+        this.vetPortal = vetPortal;
+        this.currentDate = currentDate;
+        this.currentTime = currentTime;
+        this.currentClient = currentClient;
+        this.currentPet = currentPet;
+        this.currentReason = currentReason;
         initComponents();
     }
 
@@ -185,8 +197,50 @@ public class EditAppointment extends JFrame {
             .addComponent(editAppointmentPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        Scanner scanner = new Scanner(currentPet);
+        String petName = scanner.next();
+        scanner.close();
+
+        clientNameField.setText(currentClient);
+        petNameField.setText(petName);
+        reasonField.setText(currentReason);
+
+        Scanner timeScanner = new Scanner(currentTime);
+        timeScanner.useDelimiter(":");
+        String formattedTime = timeScanner.next() + ":" + timeScanner.next();
+        timeScanner.close();
+
+        dateField.datePicker.setText(currentDate);
+        dateField.timePicker.setText(formattedTime);
+
+        submitBtn.addActionListener(event -> editSelectedAppointment());
+        cancelBtn.addActionListener(event -> cancel());
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void editSelectedAppointment() {
+        vetPortal.getVetDatabase().open();
+        Boolean editTF = vetPortal.editAppointment(warningField, currentDate, currentTime, dateField.datePicker.getText(), dateField.timePicker.getText(), reasonField.getText());
+
+        // If edit was successful
+        if(editTF) {
+            // If success close the form
+            dispose();
+        }
+        // If edit was not successful, cWarningMsg will convey any errors to the user
+
+        // Refresh the Appointments Table in the Dashboard
+        DashboardsGui dashboard = vetPortal.getDashboard();
+        DashboardsGui.MyAppointmentTableModel model = (DashboardsGui.MyAppointmentTableModel)dashboard.getAppointmentTable().getModel();
+        model.refetchUpcomingAppointments();
+    }
+
+    // Cancel button function
+    private void cancel() {
+        //close the window
+        dispose();
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
