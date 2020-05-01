@@ -11,7 +11,6 @@ import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import java.awt.Color;
 import javax.swing.*;
-import javax.swing.text.MaskFormatter;
 import java.text.ParseException;
 
 public class EditPet extends JFrame {
@@ -23,6 +22,12 @@ public class EditPet extends JFrame {
 
     /**
      * Creates new form AddPet
+     * @param vetPortal The instance of the Vet Portal
+     * @param currentName The current name of the pet
+     * @param currentSpecies The current species of the pet
+     * @param currentGender The current gender of the pet
+     * @param currentDateOfBirth The current date of birth of the pet
+     * @throws java.text.ParseException
      */
     public EditPet(VetPortal vetPortal, String currentName, String currentSpecies, String currentGender, String currentDateOfBirth) throws ParseException {
         super("Edit Pet Form");

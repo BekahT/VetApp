@@ -197,18 +197,20 @@ public class EditAppointment extends JFrame {
             .addComponent(editAppointmentPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        Scanner scanner = new Scanner(currentPet);
-        String petName = scanner.next();
-        scanner.close();
+        String petName;
+        try (Scanner scanner = new Scanner(currentPet)) {
+            petName = scanner.next();
+        }
 
         clientNameField.setText(currentClient);
         petNameField.setText(petName);
         reasonField.setText(currentReason);
 
-        Scanner timeScanner = new Scanner(currentTime);
-        timeScanner.useDelimiter(":");
-        String formattedTime = timeScanner.next() + ":" + timeScanner.next();
-        timeScanner.close();
+        String formattedTime;
+        try (Scanner timeScanner = new Scanner(currentTime)) {
+            timeScanner.useDelimiter(":");
+            formattedTime = timeScanner.next() + ":" + timeScanner.next();
+        }
 
         dateField.datePicker.setText(currentDate);
         dateField.timePicker.setText(formattedTime);
