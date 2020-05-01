@@ -535,8 +535,12 @@ public class Database {
             pstmt.executeUpdate();
             pstmt.close();
             return true;
-        } catch (SQLException e)  {
-            setErrorMessage("Unable to update appointment.");
+        } catch (SQLException e) {
+            if (SQLiteErrorCode.SQLITE_CONSTRAINT_UNIQUE.code == 2067) {
+                setErrorMessage("Appointment date/time is already taken!");
+            } else {
+                setErrorMessage("Unable to update appointment.");
+            }
             return false;
         }
     } //end of updateAppointment()
