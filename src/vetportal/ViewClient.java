@@ -1,7 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * File: ViewClient.java
+ * Date: May 1, 2020
+ * @Author: Nour Debiat
+ * Purpose: This window allows the user to view a Client's information, pets, and appointments.
  */
 
 package vetportal;
@@ -73,29 +74,29 @@ public class ViewClient extends JFrame {
 
         clientPanel.setBackground(new Color(255, 255, 255));
 
-        firstNameLabel.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        firstNameLabel.setFont(new Font("Calibri", 0, 16)); // NOI18N
         firstNameLabel.setText("First Name");
 
         firstNameField.setEditable(false);
-        firstNameField.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        firstNameField.setFont(new Font("Calibri", 0, 16)); // NOI18N
 
-        lastNameLabel.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        lastNameLabel.setFont(new Font("Calibri", 0, 16)); // NOI18N
         lastNameLabel.setText("Last Name");
 
         lastNameField.setEditable(false);
-        lastNameField.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        lastNameField.setFont(new Font("Calibri", 0, 16)); // NOI18N
 
-        emailLabel.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        emailLabel.setFont(new Font("Calibri", 0, 16)); // NOI18N
         emailLabel.setText("Email Address");
 
         emailField.setEditable(false);
-        emailField.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        emailField.setFont(new Font("Calibri", 0, 16)); // NOI18N
 
-        phoneNumberLabel.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        phoneNumberLabel.setFont(new Font("Calibri", 0, 16)); // NOI18N
         phoneNumberLabel.setText("Phone Number");
 
         phoneNumberField.setEditable(false);
-        phoneNumberField.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        phoneNumberField.setFont(new Font("Calibri", 0, 16)); // NOI18N
 
         cCloseBtn.setBackground(new Color(255, 255, 255));
         cCloseBtn.setFont(new Font("Calibri", 0, 18)); // NOI18N
@@ -106,7 +107,7 @@ public class ViewClient extends JFrame {
         clientPanelLayout.setHorizontalGroup(
             clientPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(clientPanelLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(135, 135, 135)
                 .addGroup(clientPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                     .addGroup(clientPanelLayout.createSequentialGroup()
                         .addComponent(phoneNumberLabel)
@@ -133,7 +134,7 @@ public class ViewClient extends JFrame {
         clientPanelLayout.setVerticalGroup(
             clientPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(clientPanelLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(60, 60, 60)
                 .addGroup(clientPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(firstNameLabel)
                     .addComponent(firstNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -265,7 +266,7 @@ public class ViewClient extends JFrame {
         viewClientPanelLayout.setHorizontalGroup(
             viewClientPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(viewClientPanelLayout.createSequentialGroup()
-                .addComponent(clientInfoTabs, GroupLayout.PREFERRED_SIZE, 509, GroupLayout.PREFERRED_SIZE)
+                .addComponent(clientInfoTabs, GroupLayout.PREFERRED_SIZE, 750, GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         viewClientPanelLayout.setVerticalGroup(
