@@ -21,6 +21,12 @@ public class ViewClient extends JFrame {
 
     /**
      * Creates new form ViewClient
+     * @param allOwnedPets The list of pets the client owns
+     * @param allScheduledAppointments The list of appointments the client has
+     * @param clientFirstName The client's first name
+     * @param clientLastName The client's last name
+     * @param clientEmail The client's email address
+     * @param clientPhoneNumber The client's phone number
      */
     public ViewClient(ArrayList<Pets> allOwnedPets, ArrayList<Appointments> allScheduledAppointments, String clientFirstName, String clientLastName, String clientEmail, String clientPhoneNumber) {
         super("View Client Information");

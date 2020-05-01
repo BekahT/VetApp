@@ -621,15 +621,8 @@ public class VetPortal extends JFrame {
         Date cPetDOB = formatDate.parse(petDOB);
 
         //compare the current date to input
-        //if today's date is after the pet's dob (pet's dob in past)
-        if (cTodayDate.compareTo(cPetDOB) >= 0) {
-            //return true (valid DOB)
-            return true;
-        }
-        //otherwise, return false (invalid dob)
-        else {
-            return false;
-        }
+        //Return true if today's date is after the pet's dob (pet's dob in past)
+        return cTodayDate.compareTo(cPetDOB) >= 0;
     }
 
     // Method to create a new appointment, called from the AddAppointment.java file
@@ -704,14 +697,9 @@ public class VetPortal extends JFrame {
         // correctly format user input
         Date cApptDate = formatDate.parse(dateTime);
 
-        //compare the current date and time to input
-        //if appointment date is now or after
-        if (cTodayDate.compareTo(cApptDate) <= 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        //compare the current date and time to input 
+        // return true if the appt date is today or later
+        return cTodayDate.compareTo(cApptDate) <= 0;
     }
 
     // Method to delete an existing appointment from the database

@@ -24,7 +24,7 @@ public class Clients {
         this.clientEmail = clientEmail;
     } //end of constructor
 
-	// Getter methods
+    // Getter methods
     public int getClientID() {
         return clientID;
     }
@@ -37,7 +37,7 @@ public class Clients {
         return clientFirstName;
     }
 
-	// Setter methods
+    // Setter methods
     public void setClientFirstName(String clientFirstName) {
         this.clientFirstName = clientFirstName;
     }
