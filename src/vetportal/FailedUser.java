@@ -1,5 +1,5 @@
 /**
- * File: AccountLockout.java
+ * File: FailedUser.java
  * Date: April 16, 2020
  * @Author: Rebekah Qu 
  * Main POC: Rebekah Qu 

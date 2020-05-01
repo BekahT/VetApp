@@ -7,18 +7,13 @@
  */
 package vetportal;
 
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 public class Pets {
 
     private int petID;
     private String petName;
     private String petSpecies;
     private String petGender;
-    private String petDateOfBirth; //TODO: figure out implementation and possibly change to java.sql.Date vs java.util.Date?
+    private String petDateOfBirth;
     private String petOwner;
 
     public Pets(int petID, String petName, String petSpecies, String petGender, String petDateOfBirth, String petOwner) {

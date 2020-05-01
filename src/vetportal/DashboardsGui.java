@@ -1200,10 +1200,6 @@ public class DashboardsGui extends JFrame {
         }
     } //end of AbstractCellEditor
 
-    //TODO: Change code below here for appointment Table
-    // ADDING MORE
-    // ADDING MORE
-
     // Action Pane for Appointments Table
     public class AppointmentActionPane extends JPanel {
 

@@ -18,7 +18,11 @@ public class EditClient extends JFrame {
 
     /**
     * Creates new form EditClient
-    * @param vetPortal
+    * @param vetPortal The instance of the Vet Portal
+    * @param currentFirstName The current first name of the client
+    * @param currentLastName The current last name of the client
+    * @param currentEmail The current email of the client
+    * @param currentPhoneNumber The current phone number of the client
     * @throws ParseException
     */
     public EditClient(VetPortal vetPortal, String currentFirstName, String currentLastName, String currentEmail, String currentPhoneNumber) throws ParseException {
