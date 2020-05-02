@@ -43,6 +43,7 @@ public class Database {
     public static final String TABLE_APPOINTMENTS = "appointments";
     public static final String COLUMN_APPOINTMENT_DATE = "date";
     public static final String COLUMN_APPOINTMENT_TIME = "time";
+    public static final String COLUMN_APPOINTMENT_FORMATTED_TIME = "time(appointments.time)";
     public static final String COLUMN_APPOINTMENT_CLIENT = "client";
     public static final String COLUMN_APPOINTMENT_PET = "pet";
     public static final String COLUMN_APPOINTMENT_REASON = "reason";
@@ -97,16 +98,17 @@ public class Database {
         }
     } //end of getClientID()
 
-    //Method to get a client's last name by ID number:
-    public String getClientLastName(int id) {
-        String sql = "SELECT " + COLUMN_CLIENT_LAST_NAME
+    //Method to get a client's full name by ID number:
+    public String getClientFullName(int id) {
+        String sql = "SELECT " + COLUMN_CLIENT_FIRST_NAME
+                + ", " + COLUMN_CLIENT_LAST_NAME
                 + " FROM " + TABLE_CLIENTS + " WHERE "
                 + COLUMN_CLIENT_ID + "=?";
 
         try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             ResultSet idResult = pstmt.executeQuery();
-            return idResult.getString("last_name");
+            return idResult.getString("first_name") + " " + idResult.getString("last_name");
         } catch (SQLException e) {
             return null;
         }
@@ -127,6 +129,26 @@ public class Database {
             pstmt.setString(4, dob);
             ResultSet idResult = pstmt.executeQuery();
             return idResult.getInt("pet_id");
+        } catch (SQLException e) {
+            return -1;
+        }
+    }
+
+    public int getPetOwner(String name, String species, String gender, String dob) {
+        String sql = "SELECT " + COLUMN_PET_OWNER
+                + " FROM " + TABLE_PETS + " WHERE "
+                + COLUMN_PET_NAME + "=?" + " AND "
+                + COLUMN_PET_SPECIES + "=?" + " AND "
+                + COLUMN_PET_GENDER + "=?" + " AND "
+                + COLUMN_PET_DATE_OF_BIRTH + "=DATE(?)";
+
+        try(PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            pstmt.setString(2, species);
+            pstmt.setString(3, gender);
+            pstmt.setString(4, dob);
+            ResultSet idResult = pstmt.executeQuery();
+            return idResult.getInt("owner");
         } catch (SQLException e) {
             return -1;
         }
@@ -155,6 +177,44 @@ public class Database {
             return emptyPets;
         }
     }
+
+    public ArrayList<Appointments> getAppointmentsByClientID(int clientID) {
+        ArrayList<Appointments> allScheduledAppointments;
+        String sql = "SELECT " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_DATE
+                + ", time(" + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_TIME
+                + "), " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_CLIENT
+                + ", " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_PET
+                + ", " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_REASON
+                + ", " + TABLE_CLIENTS + "." + COLUMN_CLIENT_FIRST_NAME
+                + ", " + TABLE_CLIENTS + "." + COLUMN_CLIENT_LAST_NAME
+                + ", " + TABLE_PETS + "." + COLUMN_PET_NAME
+                + ", " + TABLE_PETS + "." + COLUMN_PET_SPECIES
+                + " FROM " + TABLE_APPOINTMENTS + " INNER JOIN " + TABLE_CLIENTS + " ON " + TABLE_APPOINTMENTS
+                + "." + COLUMN_APPOINTMENT_CLIENT + "=" + TABLE_CLIENTS + "." + COLUMN_CLIENT_ID + " INNER JOIN "
+                + TABLE_PETS + " ON " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_PET + "=" + TABLE_PETS
+                + "." + COLUMN_PET_ID + " WHERE " + COLUMN_APPOINTMENT_CLIENT + "=?";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, clientID);
+            ResultSet appointmentResults = pstmt.executeQuery();
+            allScheduledAppointments = new ArrayList<>();
+            while (appointmentResults.next()) {
+                String appointmentClient = appointmentResults.getString(COLUMN_CLIENT_FIRST_NAME) + " " + appointmentResults.getString(COLUMN_CLIENT_LAST_NAME);
+                String appointmentPet = appointmentResults.getString(COLUMN_PET_NAME) + " (" + appointmentResults.getString(COLUMN_PET_SPECIES) + ")";
+                Appointments appointment = new Appointments(appointmentResults.getString(COLUMN_APPOINTMENT_DATE), appointmentResults.getString(COLUMN_APPOINTMENT_FORMATTED_TIME),
+                        appointmentClient, appointmentPet,
+                        appointmentResults.getString(COLUMN_APPOINTMENT_REASON));
+                allScheduledAppointments.add(appointment);
+            }
+            pstmt.close();
+            return allScheduledAppointments;
+        } catch (SQLException e) {
+            setErrorMessage("Could not find any appointments.");
+            ArrayList<Appointments> emptyAppointments = new ArrayList<>();
+            return emptyAppointments;
+        }
+    }
+
 
     /*
     This method uses the Apache commons codec to hash a given 'password' String with sha256.
@@ -230,7 +290,7 @@ public class Database {
         try {
             statement = conn.createStatement();
             ArrayList<Clients> allClients;
-            try (ResultSet results = statement.executeQuery("SELECT * FROM " + TABLE_CLIENTS)) {
+            try (ResultSet results = statement.executeQuery("SELECT * FROM " + TABLE_CLIENTS + " ORDER BY " + TABLE_CLIENTS + "." + COLUMN_CLIENT_LAST_NAME + " ASC")) {
                 allClients = new ArrayList<>();
                 while (results.next()) {
                     Clients client = new Clients(results.getInt(COLUMN_CLIENT_ID), results.getString(COLUMN_CLIENT_FIRST_NAME),
@@ -323,9 +383,9 @@ public class Database {
             statement = conn.createStatement();
             ArrayList<Pets> allPets;
             // Select all pets and join the client last name on client id / owner id to get the owner last name
-            try (ResultSet results = statement.executeQuery("SELECT " + TABLE_PETS + ".*, " + TABLE_CLIENTS + ".last_name FROM " 
-                    + TABLE_PETS + " INNER JOIN " + TABLE_CLIENTS + " ON " + TABLE_PETS + "." + COLUMN_PET_OWNER 
-                    + "=" + TABLE_CLIENTS + "." + COLUMN_CLIENT_ID)) {
+            try (ResultSet results = statement.executeQuery("SELECT " + TABLE_PETS + ".*, " + TABLE_CLIENTS + "." + COLUMN_CLIENT_LAST_NAME 
+                    + " FROM " + TABLE_PETS + " INNER JOIN " + TABLE_CLIENTS + " ON " + TABLE_PETS + "." + COLUMN_PET_OWNER 
+                    + "=" + TABLE_CLIENTS + "." + COLUMN_CLIENT_ID + " ORDER BY " + TABLE_PETS + "." + COLUMN_PET_NAME + " ASC")) {
                 allPets = new ArrayList<>();
                 while (results.next()) {
                     Pets pet = new Pets(results.getInt(COLUMN_PET_ID), results.getString(COLUMN_PET_NAME),
@@ -364,5 +424,125 @@ public class Database {
             return false;
         }
     } //end of updatePet()
+
+    // This method inserts a new appointment into the appointments table in the database
+    public boolean insertAppointment(String date, String time, int client, int pet, String reason) {
+        String datetime = date + " " + time;
+        String sql = "INSERT INTO " + TABLE_APPOINTMENTS
+                + " (" + COLUMN_APPOINTMENT_DATE
+                + ", " + COLUMN_APPOINTMENT_TIME
+                + ", " + COLUMN_APPOINTMENT_CLIENT
+                + ", " + COLUMN_APPOINTMENT_PET
+                + ", " + COLUMN_APPOINTMENT_REASON + ") VALUES(date(?),datetime(?),?,?,?)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, date);
+            pstmt.setString(2, datetime);
+            pstmt.setInt(3, client);
+            pstmt.setInt(4, pet);
+            pstmt.setString(5, reason);
+            pstmt.executeUpdate();
+            pstmt.close();
+            return true;
+        } catch (SQLException e) {
+            if (SQLiteErrorCode.SQLITE_CONSTRAINT_UNIQUE.code == 2067) {
+                setErrorMessage("Appointment date/time is already taken!");
+            } else {
+                setErrorMessage("Unable to create new appointment.");
+            }
+            return false;
+        }
+    } //end of insertAppointment()
+
+    // This method deletes an existing appointment from the appointments table in the database
+    public boolean deleteAppointment(String date, String time) {
+        String datetime = date + " " + time;
+        String sql = "DELETE FROM " + TABLE_APPOINTMENTS
+                + " WHERE "
+                + COLUMN_APPOINTMENT_DATE + "=date(?)" + " AND "
+                + COLUMN_APPOINTMENT_TIME + "=datetime(?)";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, date);
+            pstmt.setString(2, datetime);
+            pstmt.execute();
+            pstmt.close();
+            return true;
+        } catch (SQLException e) {
+            setErrorMessage("Unable to delete appointment.");
+            return false;
+        }
+    } //end of deleteAppointment()
+
+    // This method selects all the appointments from the appointments table that occur today or later and returns them as a list
+    public ArrayList<Appointments> selectUpcomingAppointments() {
+        try {
+            statement = conn.createStatement();
+            ArrayList<Appointments> upcomingAppointments;
+            //SELECT appointments.date, time(appointments.time), appointments.client, appointments.pet, appointments.reason, clients.first_name, clients.last_name, pets.name,
+            // pets.species FROM appointments INNER JOIN clients ON appointments.client=clients.client_id INNER JOIN pets ON appointments.pet=pets.pet_id WHERE appointments.date >= getdate();
+            try (ResultSet results = statement.executeQuery("SELECT " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_DATE
+                                                                + ", time(" + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_TIME
+                                                                + "), " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_CLIENT
+                                                                + ", " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_PET
+                                                                + ", " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_REASON
+                                                                + ", " + TABLE_CLIENTS + "." + COLUMN_CLIENT_FIRST_NAME
+                                                                + ", " + TABLE_CLIENTS + "." + COLUMN_CLIENT_LAST_NAME
+                                                                + ", " + TABLE_PETS + "." + COLUMN_PET_NAME
+                                                                + ", " + TABLE_PETS + "." + COLUMN_PET_SPECIES
+                    + " FROM " + TABLE_APPOINTMENTS + " INNER JOIN " + TABLE_CLIENTS + " ON " + TABLE_APPOINTMENTS
+                    + "." + COLUMN_APPOINTMENT_CLIENT + "=" + TABLE_CLIENTS + "." + COLUMN_CLIENT_ID + " INNER JOIN "
+                    + TABLE_PETS + " ON " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_PET + "=" + TABLE_PETS
+                    + "." + COLUMN_PET_ID + " WHERE " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_DATE + " >= DATE('now','localtime') ORDER BY " +
+                    TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_DATE + " ASC, " + TABLE_APPOINTMENTS + "." + COLUMN_APPOINTMENT_TIME + " ASC")) {
+                upcomingAppointments = new ArrayList<>();
+                while (results.next()) {
+                    String appointmentClient = results.getString(COLUMN_CLIENT_FIRST_NAME) + " " + results.getString(COLUMN_CLIENT_LAST_NAME);
+                    String appointmentPet = results.getString(COLUMN_PET_NAME) + " (" + results.getString(COLUMN_PET_SPECIES) + ")";
+                    Appointments appointment = new Appointments(results.getString(COLUMN_APPOINTMENT_DATE), results.getString(COLUMN_APPOINTMENT_FORMATTED_TIME),
+                            appointmentClient, appointmentPet,
+                            results.getString(COLUMN_APPOINTMENT_REASON));
+                    upcomingAppointments.add(appointment);
+                }
+            }
+            statement.close();
+            return upcomingAppointments;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getErrorCode());
+            setErrorMessage("Could not find any appointments.");
+            return null;
+        }
+    } //end of selectUpcomingAppointments()
+
+    // This method updates an appointment with edited information in the appointment table in the database
+    public boolean updateAppointment(String currentDate, String currentTime, String updatedDate, String updatedTime, String updatedReason) {
+        String currentTimeDate = currentDate + " " + currentTime;
+        String updatedTimeDate = updatedDate + " " + updatedTime;
+
+        String sql = "UPDATE " + TABLE_APPOINTMENTS
+                + " SET " + COLUMN_APPOINTMENT_DATE + "=date(?), "
+                + COLUMN_APPOINTMENT_TIME + "=datetime(?), "
+                + COLUMN_APPOINTMENT_REASON + "=? "
+                + "WHERE " + COLUMN_APPOINTMENT_DATE + "=date(?) "
+                + "AND " + COLUMN_APPOINTMENT_TIME + "=datetime(?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, updatedDate);
+            pstmt.setString(2, updatedTimeDate);
+            pstmt.setString(3, updatedReason);
+            pstmt.setString(4, currentDate);
+            pstmt.setString(5, currentTimeDate);
+            pstmt.executeUpdate();
+            pstmt.close();
+            return true;
+        } catch (SQLException e) {
+            if (SQLiteErrorCode.SQLITE_CONSTRAINT_UNIQUE.code == 2067) {
+                setErrorMessage("Appointment date/time is already taken!");
+            } else {
+                setErrorMessage("Unable to update appointment.");
+            }
+            return false;
+        }
+    } //end of updateAppointment()
 
 } //end of Database

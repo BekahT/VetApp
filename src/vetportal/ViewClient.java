@@ -1,7 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * File: ViewClient.java
+ * Date: May 1, 2020
+ * @Author: Nour Debiat
+ * Purpose: This window allows the user to view a Client's information, pets, and appointments.
  */
 
 package vetportal;
@@ -16,13 +17,21 @@ public class ViewClient extends JFrame {
 
     private String clientFirstName, clientLastName, clientEmail, clientPhoneNumber;
     private ArrayList<Pets> allOwnedPets;
+    private ArrayList<Appointments> allScheduledAppointments;
 
     /**
      * Creates new form ViewClient
+     * @param allOwnedPets The list of pets the client owns
+     * @param allScheduledAppointments The list of appointments the client has
+     * @param clientFirstName The client's first name
+     * @param clientLastName The client's last name
+     * @param clientEmail The client's email address
+     * @param clientPhoneNumber The client's phone number
      */
-    public ViewClient(ArrayList<Pets> allOwnedPets,String clientFirstName, String clientLastName, String clientEmail, String clientPhoneNumber) {
+    public ViewClient(ArrayList<Pets> allOwnedPets, ArrayList<Appointments> allScheduledAppointments, String clientFirstName, String clientLastName, String clientEmail, String clientPhoneNumber) {
         super("View Client Information");
         this.allOwnedPets = allOwnedPets;
+        this.allScheduledAppointments = allScheduledAppointments;
         this.clientFirstName = clientFirstName;
         this.clientLastName = clientLastName;
         this.clientEmail = clientEmail;
@@ -71,34 +80,29 @@ public class ViewClient extends JFrame {
 
         clientPanel.setBackground(new Color(255, 255, 255));
 
-        firstNameLabel.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        firstNameLabel.setFont(new Font("Calibri", 0, 16)); // NOI18N
         firstNameLabel.setText("First Name");
 
         firstNameField.setEditable(false);
-        firstNameField.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        firstNameField.setFont(new Font("Calibri", 0, 16)); // NOI18N
 
-        lastNameLabel.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        lastNameLabel.setFont(new Font("Calibri", 0, 16)); // NOI18N
         lastNameLabel.setText("Last Name");
 
         lastNameField.setEditable(false);
-        lastNameField.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        lastNameField.setFont(new Font("Calibri", 0, 16)); // NOI18N
 
-        emailLabel.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        emailLabel.setFont(new Font("Calibri", 0, 16)); // NOI18N
         emailLabel.setText("Email Address");
 
         emailField.setEditable(false);
-        emailField.setFont(new Font("Calibri", 0, 14)); // NOI18N
-        emailField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailFieldActionPerformed(evt);
-            }
-        });
+        emailField.setFont(new Font("Calibri", 0, 16)); // NOI18N
 
-        phoneNumberLabel.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        phoneNumberLabel.setFont(new Font("Calibri", 0, 16)); // NOI18N
         phoneNumberLabel.setText("Phone Number");
 
         phoneNumberField.setEditable(false);
-        phoneNumberField.setFont(new Font("Calibri", 0, 14)); // NOI18N
+        phoneNumberField.setFont(new Font("Calibri", 0, 16)); // NOI18N
 
         cCloseBtn.setBackground(new Color(255, 255, 255));
         cCloseBtn.setFont(new Font("Calibri", 0, 18)); // NOI18N
@@ -109,7 +113,7 @@ public class ViewClient extends JFrame {
         clientPanelLayout.setHorizontalGroup(
             clientPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(clientPanelLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(135, 135, 135)
                 .addGroup(clientPanelLayout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                     .addGroup(clientPanelLayout.createSequentialGroup()
                         .addComponent(phoneNumberLabel)
@@ -136,7 +140,7 @@ public class ViewClient extends JFrame {
         clientPanelLayout.setVerticalGroup(
             clientPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(clientPanelLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(60, 60, 60)
                 .addGroup(clientPanelLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                     .addComponent(firstNameLabel)
                     .addComponent(firstNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -268,7 +272,7 @@ public class ViewClient extends JFrame {
         viewClientPanelLayout.setHorizontalGroup(
             viewClientPanelLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(viewClientPanelLayout.createSequentialGroup()
-                .addComponent(clientInfoTabs, GroupLayout.PREFERRED_SIZE, 509, GroupLayout.PREFERRED_SIZE)
+                .addComponent(clientInfoTabs, GroupLayout.PREFERRED_SIZE, 750, GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         viewClientPanelLayout.setVerticalGroup(
@@ -289,14 +293,25 @@ public class ViewClient extends JFrame {
 
         TableColumnModel columnModel = cPetTable.getColumnModel();
         columnModel.getColumn(1).setPreferredWidth(120);
-        DefaultTableModel model = (DefaultTableModel)cPetTable.getModel();
+        DefaultTableModel petModel = (DefaultTableModel)cPetTable.getModel();
         if (allOwnedPets.isEmpty()) {
             String[] emptyFields = {"", "", "", ""};
-            model.addRow(emptyFields);
+            petModel.addRow(emptyFields);
         } else {
             for (Pets pet : allOwnedPets) {
                 String[] petRow = {pet.getPetName(), pet.getPetDateOfBirth(), pet.getPetSpecies(), pet.getPetGender()};
-                model.addRow(petRow);
+                petModel.addRow(petRow);
+            }
+        }
+
+        DefaultTableModel appointmentModel = (DefaultTableModel)cAppointmentsTable.getModel();
+        if (allScheduledAppointments.isEmpty()) {
+            String[] emptyFields = {"", "", "", ""};
+            appointmentModel.addRow(emptyFields);
+        } else {
+            for (Appointments appointment : allScheduledAppointments) {
+                String[] appointmentRow = {appointment.getAptDate(), appointment.getAptTime(), appointment.getPet(), appointment.getAptReason()};
+                appointmentModel.addRow(appointmentRow);
             }
         }
 
@@ -306,10 +321,6 @@ public class ViewClient extends JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void emailFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_emailFieldActionPerformed
 
     // Close button function
     private void close() {

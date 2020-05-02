@@ -6,10 +6,11 @@
  */
 package vetportal;
 
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import java.awt.*;
 import java.text.ParseException;
 import javax.swing.*;
-import javax.swing.text.MaskFormatter;
 
 public class AddPet extends JFrame {
 
@@ -22,6 +23,10 @@ public class AddPet extends JFrame {
 
     /**
      * Creates new form AddPet
+     * @param vetPortal The instance of the Vet Portal
+     * @param clientFirstName The first name of the client who owns the pet
+     * @param clientLastName The last name of the client who owns the pet
+     * @throws java.text.ParseException
      */
     public AddPet(VetPortal vetPortal, String clientFirstName, String clientLastName) throws ParseException {
         super("Add New Pet Form");
@@ -54,8 +59,11 @@ public class AddPet extends JFrame {
         speciesDropDown = new JComboBox<>();
         genderDropDown = new JComboBox<>();
         dobLabel = new JLabel();
-        MaskFormatter petDOBFormat = new MaskFormatter("####-##-##");
-        dobField = new JFormattedTextField(petDOBFormat);
+        // Create date picker settings to define the date format
+        DatePickerSettings dateSettings = new DatePickerSettings();
+        dateSettings.setFormatForDatesCommonEra("yyyy-MM-dd");
+        dateSettings.setFormatForDatesBeforeCommonEra("uuuu-MM-dd"); 
+        dobField = new DatePicker(dateSettings);
         warningField = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -120,8 +128,6 @@ public class AddPet extends JFrame {
         dobLabel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         dobLabel.setText("Date of Birth");
 
-        MaskFormatter dobFormat = new MaskFormatter("####-##-##");
-        dobField = new JFormattedTextField(dobFormat);
         dobField.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         warningField.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -263,7 +269,7 @@ public class AddPet extends JFrame {
     private JLabel cancelInstructionLabel;
     private JTextField clientNameField;
     private JLabel clientNameLabel;
-    private JFormattedTextField dobField;
+    private DatePicker dobField;
     private JLabel dobLabel;
     private JComboBox<String> genderDropDown;
     private JLabel genderLabel;

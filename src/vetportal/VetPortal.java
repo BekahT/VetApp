@@ -18,6 +18,10 @@ import javax.swing.table.DefaultTableModel;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -38,6 +42,10 @@ public class VetPortal extends JFrame {
     // Allow only letters, apostrophes and hyphens in names
     private final String nameRegex = "[A-Za-z\\'\\-]+";
     private final Pattern namePattern = Pattern.compile(nameRegex);
+    
+    // Allow numbers, letters, commas, periods, apostrophes, and spaces in regular text inputs
+    private final String textRegex = "[a-zA-Z0-9\\,\\'\\.\\s]+";
+    private final Pattern textPattern = Pattern.compile(textRegex);
     
     // Validate phone number is exactly 10 digits
     private final String phoneRegex = "^\\(\\d{3}\\)\\s+\\d{3}\\-\\d{4}$";
@@ -225,9 +233,18 @@ public class VetPortal extends JFrame {
         return phonePattern.matcher(phoneNumber).matches();
     }
     
+    private boolean isValidText(String text) {
+        return textPattern.matcher(text).matches();
+    }    
+    
     private boolean isValidDate(String date) {
         return datePattern.matcher(date).matches();
-    }    
+    }
+
+    private LocalTime isValidTime(String time) {
+        DateTimeFormatter strictTimeFormatter = DateTimeFormatter.ofPattern("HH:mm").withResolverStyle(ResolverStyle.STRICT);
+        return LocalTime.parse(time, strictTimeFormatter);
+    }
         
     // Getter Functions
     public DashboardsGui getDashboard() {
@@ -257,7 +274,7 @@ public class VetPortal extends JFrame {
             return;
         }
 
-		// Attempt to open a connection with the database
+	// Attempt to open a connection with the database
         Database myDatabase = new Database();
         if (!myDatabase.open()) {
             System.out.println("Can't connect to the database!");
@@ -287,6 +304,7 @@ public class VetPortal extends JFrame {
                 vetPortal.setVisible(false);                
                 vetPortal.viewAllClients();
                 vetPortal.viewAllPets();
+                vetPortal.viewUpcomingAppointments();
                 dashboard.setVisible(true);
             }
         // If user is locked out, display error
@@ -383,7 +401,7 @@ public class VetPortal extends JFrame {
 	// If the array is empty
         if (allClients.isEmpty()) {
             String errorMessage = vetDatabase.getErrorMessage();
-            JOptionPane.showMessageDialog(null, errorMessage, "Error: No clients exist", JOptionPane.ERROR_MESSAGE);
+            System.out.println("No clients exist: " + errorMessage);
 	// If clients exist
         } else {
             // Loop through the clients and add them to the Clients Table              
@@ -528,7 +546,7 @@ public class VetPortal extends JFrame {
         // If the array is empty
         if (allPets.isEmpty()) {
             String errorMessage = vetDatabase.getErrorMessage();
-            JOptionPane.showMessageDialog(null, errorMessage, "Error: No pets exist", JOptionPane.ERROR_MESSAGE);
+            System.out.println("No pets exist: " + errorMessage);
         // If pets exist
         } else {
             // Loop through the pets and add them to the pets Table
@@ -569,8 +587,6 @@ public class VetPortal extends JFrame {
             e.getMessage();
         }
 
-        //TODO: might need to add validation checks on species, gender, and dob - depending on implementation
-
         // Attempt to open a connection with the database
         vetDatabase = new Database();
         if (!vetDatabase.open()) {
@@ -605,15 +621,178 @@ public class VetPortal extends JFrame {
         Date cPetDOB = formatDate.parse(petDOB);
 
         //compare the current date to input
-        //if today's date is after the pet's dob (pet's dob in past)
-        if (cTodayDate.compareTo(cPetDOB) >= 0) {
-            //return true (valid DOB)
-            return true;
-        }
-        //otherwise, return false (invalid dob)
-        else {
+        //Return true if today's date is after the pet's dob (pet's dob in past)
+        return cTodayDate.compareTo(cPetDOB) >= 0;
+    }
+
+    // Method to create a new appointment, called from the AddAppointment.java file
+    public Boolean createAppointment(JLabel warnUser, String date, String time, int client, int pet, String reason) {
+        // Verify no fields are empty
+        if ((date.isEmpty()) || (time.isEmpty() || (reason.isEmpty()))) {
+            warnUser.setText("All fields are required!");
             return false;
         }
+
+        // Verify the appointment time
+        try {
+            isValidTime(time);
+        } catch (DateTimeParseException | NullPointerException e) {
+            warnUser.setText("Invalid time!");
+            return false;
+        }
+
+        // Verify the reason is validly formatted
+        if (!(isValidText(reason))) {
+            warnUser.setText("Reason may not contain invalid characters!");
+            return false;
+        }
+        
+        if(!(isValidDate(date))) {
+            warnUser.setText("Dates must be in yyyy-mm-dd format!");
+            return false;
+        }
+        
+        //Verify the appointment date and time are not in the past
+        try {
+            if (!(validateApptDate(date, time))) {
+                warnUser.setText("Appointments cannot be made in the past!");
+                return false;
+            }
+        } catch (ParseException e) {
+            e.getMessage();
+        }
+
+        //Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return false;
+        }
+        // If INSERT into database fails
+        if (!vetDatabase.insertAppointment(date, time, client, pet, reason)) {
+            // Display the error to the user
+            String errorMessage = vetDatabase.getErrorMessage();
+            warnUser.setText(errorMessage);
+            // If INSERT into database is successful
+        } else {
+            // Log the add appointment action
+            AuditLog.logWriter("successfulAppointmentAdd", date + ", " + time);
+            return true;
+        }
+        vetDatabase.close();
+        return false;
+    } //end of createAppointment()
+    
+    // Validate Appointment Date and time (must be in the future)
+    public static Boolean validateApptDate(String date, String time) throws ParseException {
+        // Combine the date and time
+        String dateTime;
+        dateTime = date + " " + time;
+        //format date time to match field input
+        DateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        //get today's date and time
+        Date todayDate = new Date();
+        //correctly format today's date and time
+        Date cTodayDate = formatDate.parse(formatDate.format(todayDate));
+        // correctly format user input
+        Date cApptDate = formatDate.parse(dateTime);
+
+        //compare the current date and time to input 
+        // return true if the appt date is today or later
+        return cTodayDate.compareTo(cApptDate) <= 0;
     }
+
+    // Method to delete an existing appointment from the database
+    public void deleteAppointment(String date, String time) {
+        //Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return;
+        }
+
+        // If no appointment was passed
+        if (!vetDatabase.deleteAppointment(date, time)) {
+            // Display an error
+            String errorMessage = vetDatabase.getErrorMessage();
+            JOptionPane.showMessageDialog(null, errorMessage, "Error: No appointment selected", JOptionPane.ERROR_MESSAGE);
+            // Delete the appointment
+        } else {
+            // Log the deletion
+            AuditLog.logWriter("successfulAppointmentDelete", date + ", " + time);
+        }
+        vetDatabase.close();
+    } //end of deleteAppointment()
+    
+    //Method to view only appointments that are happening today or later
+    public void viewUpcomingAppointments() {
+        // Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return;
+        }
+        // Add all the appointments to an array
+        ArrayList<Appointments> upcomingAppointments = vetDatabase.selectUpcomingAppointments();
+        // If the array is empty
+        if (upcomingAppointments.isEmpty()) {
+            String errorMessage = vetDatabase.getErrorMessage();
+            System.out.println("No appointments exist: " + errorMessage);
+        // If appointments exist
+        } else {
+            // Loop through the appointments and add them to the appointments Table
+            DashboardsGui.MyAppointmentTableModel newModel = (DashboardsGui.MyAppointmentTableModel)dashboard.getAppointmentTable().getModel();
+            for (Appointments appointment : upcomingAppointments) {
+                newModel.add(appointment);
+            }
+        }
+        vetDatabase.close();
+    } //end of viewUpcomingAppointments()
+
+    // Method to edit information on existing appointments
+    public Boolean editAppointment(JLabel warnUser, String currentDate, String currentTime, String updatedDate, String updatedTime, String updatedReason) {
+        // Verify no fields are empty
+        if (updatedReason.isEmpty()) {
+            warnUser.setText("All fields are required!");
+            return false;
+        }
+
+        // Verify the reason is validly formatted
+        if (!(isValidText(updatedReason))) {
+            warnUser.setText("Reason may not contain invalid characters!");
+            return false;
+        }
+
+        //Verify the appointment date and time are not in the past
+        try {
+            if (!(validateApptDate(updatedDate, updatedTime))) {
+                warnUser.setText("Appointments cannot be made in the past!");
+                return false;
+            }
+        } catch (ParseException e) {
+            e.getMessage();
+        }
+
+        // Attempt to open a connection with the database
+        vetDatabase = new Database();
+        if (!vetDatabase.open()) {
+            System.out.println("Can't connect to the database!");
+            return false;
+        }
+
+        // If UPDATE in database fails
+        if (!vetDatabase.updateAppointment(currentDate, currentTime, updatedDate, updatedTime, updatedReason)) {
+            // Show an error
+            String errorMessage = vetDatabase.getErrorMessage();
+            warnUser.setText(errorMessage);
+            // If UPDATE in database is successful
+        } else {
+            // Log successful pet edit
+            AuditLog.logWriter("successfulAppointmentEdit", updatedDate + ", " + updatedTime);
+            return true;
+        }
+        vetDatabase.close();
+        return false;
+    } //end of editAppointment()
 
 } //end of VetPortal

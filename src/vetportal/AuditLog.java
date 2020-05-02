@@ -17,7 +17,7 @@ public class AuditLog {
      public static void logWriter(String event, String info) {
         // Try-with-resources write to a file with append being true, so the log retains old events
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("auditLog.txt", true))) {
-			// Depending on the event, write a different log to the log file
+            // Depending on the event, write a different log to the log file
             switch(event){
                 case ("successfulLogin"): 
                     writer.write(Instant.now() + " - Type: Login - Location: VetPortal Login " 
@@ -54,6 +54,18 @@ public class AuditLog {
                 case ("successfulPetDelete"):
                     writer.write(Instant.now() + " - Type: Delete Pet - Location: VetPortal Pets Dashboard " 
                         + "- Outcome: Successful Pet Delete - " + info + "\n");
+                    break;
+                case ("successfulAppointmentAdd"):
+                    writer.write(Instant.now() + " - Type: Add Appointment - Location: VetPortal New Appointment " 
+                        + "- Outcome: Successful New Appointment Creation - " + info + "\n");
+                    break;
+                case ("successfulAppointmentEdit"):
+                    writer.write(Instant.now() + " - Type: Edit Appointment - Location: VetPortal Edit Appointment " 
+                        + "- Outcome: Successful Appointment Edit - " + info + "\n");
+                    break;
+                case ("successfulAppointmentDelete"):
+                    writer.write(Instant.now() + " - Type: Delete Appointment - Location: VetPortal Appointments Dashboard " 
+                        + "- Outcome: Successful Appointment Delete - " + info + "\n");
                     break;
             }            
         // Catch errors
